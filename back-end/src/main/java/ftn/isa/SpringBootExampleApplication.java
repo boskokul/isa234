@@ -1,5 +1,6 @@
 package ftn.isa;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -15,6 +16,11 @@ public class SpringBootExampleApplication {
 	public Validator validator() {
 		ValidatorFactory validatorFactory = Validation.byDefaultProvider().configure().buildValidatorFactory();
 		return validatorFactory.getValidator();
+	}
+
+	@Bean
+	public ModelMapper getModelMapper() {
+		return new ModelMapper();
 	}
 	public static void main(String[] args) {
 
