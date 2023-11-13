@@ -13,6 +13,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CompaniesComponent } from './components/companies/companies.component';
+import { CompanyProfileComponent } from './components/company-profile/company-profile.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { CompaniesComponent } from './components/companies/companies.component';
     NavbarComponent,
     RegisterComponent,
     CompaniesComponent,
+    CompanyProfileComponent,
   ],
   imports: [
     BrowserModule,

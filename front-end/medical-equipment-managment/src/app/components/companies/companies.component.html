@@ -1,1 +1,17 @@
 <h1>Companies</h1>
+<div id="rating">
+  <hr />
+  <div id="details">
+    <div>
+      <table>
+        <thead></thead>
+        <tbody>
+          <tr *ngFor="let c of companies">
+            <td>{{ c.name }}</td>
+            <td><button (click)="ViewProfile(c.id)">Go to profile</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
