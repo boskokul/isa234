@@ -12,6 +12,7 @@ import ftn.isa.repository.CompanyRepository;
 public class CompanyService {
 	@Autowired
 	CompanyRepository companyRepository;
+	
 	public List<Company> findAll(){
 		return companyRepository.findAll();
 	}
