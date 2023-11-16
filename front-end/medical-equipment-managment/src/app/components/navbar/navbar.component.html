@@ -1,7 +1,10 @@
 <mat-toolbar color="primary">
-    <span class="spacer">Equipment Management</span>
-     <a mat-button [routerLink]="['/companies']">Companies</a>
-     <a mat-button>Equipment</a>
-     <a mat-button [routerLink]="['/register']">Register</a>
-     <a mat-button>Log in</a>
+    <span class="custom-favicon">
+         <span class="text-inside">Equipment Management</span>
+    </span>
+    <div class="spacer"> </div>
+     <a mat-button [routerLink]="['/companies']" class="mat-button" >Companies</a>
+     <a mat-button class="mat-button">Equipment</a>
+     <a mat-button [routerLink]="['/register']" class="mat-button">Register</a>
+     <a mat-button class="mat-button-soft">Log in</a>
 </mat-toolbar>
