@@ -12,6 +12,7 @@ import ftn.isa.repository.CompanyRepository;
 public class CompanyService {
 	@Autowired
 	CompanyRepository companyRepository;
+	
 	public List<Company> findAll(){
 		return companyRepository.findAll();
 	}
@@ -27,5 +28,8 @@ public class CompanyService {
 	public Company Update(Company c) {
 		companyRepository.deleteById(c.getId());
 		return companyRepository.save(c);
+	}
+	public Company findOneWithEquipment(Integer companyId) {
+		return companyRepository.findOneWithEquipment(companyId);
 	}
 }

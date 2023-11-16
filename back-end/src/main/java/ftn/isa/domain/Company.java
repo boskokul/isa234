@@ -1,10 +1,17 @@
 package ftn.isa.domain;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.JoinColumn;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -22,10 +29,27 @@ public class Company {
     @Column(name = "adress", nullable = false)
     private String adress;
     
+    @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH})
+	@JoinTable(name = "company_equipment", joinColumns = @JoinColumn(name = "company_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "equipment_id", referencedColumnName = "id"))
+	private Set<Equipment> equipment = new HashSet<Equipment>();
+    
     public Company() {
 		// TODO Auto-generated constructor stub
     	super();
 	}
+    
+
+	public Company(Integer id, String name, String description, double averageGrade, String adress,
+			Set<Equipment> equipment) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.description = description;
+		this.averageGrade = averageGrade;
+		this.adress = adress;
+		this.equipment = equipment;
+	}
+
 
 	public Company(Integer id, String name, String description, double averageGrade, String adress) {
 		super();
@@ -35,7 +59,13 @@ public class Company {
 		this.averageGrade = averageGrade;
 		this.adress = adress;
 	}
+	public Set<Equipment> getEquipment() {
+		return equipment;
+	}
 
+	public void setEquipment(Set<Equipment> equipment) {
+		this.equipment = equipment;
+	}
 	public Integer getId() {
 		return id;
 	}
