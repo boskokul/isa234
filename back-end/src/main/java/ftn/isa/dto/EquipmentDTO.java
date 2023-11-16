@@ -1,5 +1,8 @@
 package ftn.isa.dto;
 
+import java.util.Set;
+
+import ftn.isa.domain.Company;
 import ftn.isa.domain.Equipment;
 
 public class EquipmentDTO {
@@ -7,7 +10,9 @@ public class EquipmentDTO {
     private String name;
     private String description;
     
-    public EquipmentDTO(Equipment e) {
+    
+
+	public EquipmentDTO(Equipment e) {
 		this.id = e.getId();
 		this.name = e.getName();
 		this.description = e.getDescription();

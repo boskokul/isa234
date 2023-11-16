@@ -29,4 +29,7 @@ public class CompanyService {
 		companyRepository.deleteById(c.getId());
 		return companyRepository.save(c);
 	}
+	public Company findOneWithEquipment(Integer companyId) {
+		return companyRepository.findOneWithEquipment(companyId);
+	}
 }

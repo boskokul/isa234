@@ -24,4 +24,8 @@ public class EquipmentService {
 	public Equipment Save(Equipment e) {
 		return equipmentRepository.save(e);
 	}
+	
+	public Equipment findOneWithCompanies(Integer equipmentId) {
+		return equipmentRepository.findOneWithCompanies(equipmentId);
+	}
 }
