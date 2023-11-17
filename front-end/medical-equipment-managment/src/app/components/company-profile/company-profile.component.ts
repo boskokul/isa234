@@ -23,7 +23,7 @@ export class CompanyProfileComponent implements OnInit {
       next: (result: Company) => {
         this.name = result.name;
         this.description = result.description;
-        this.adress = result.adress;
+        this.adress = result.address;
         this.averageGrade = result.averageGrade;
       },
     });

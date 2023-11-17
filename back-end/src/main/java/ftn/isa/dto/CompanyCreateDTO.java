@@ -6,19 +6,30 @@ import ftn.isa.domain.Company;
 
 public class CompanyCreateDTO {
 	private String name;
+	private Integer id;
 	private String description;
 	private double averageGrade;
 	private String adress;
-	public CompanyCreateDTO(String name, String description, double averageGrade, String adress) {
+	public CompanyCreateDTO(Integer id, String name, String description, double averageGrade, String adress) {
 		super();
+		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.averageGrade = averageGrade;
 		this.adress = adress;
 	}
 	public CompanyCreateDTO(Company c) {
-		this(c.getName(), c.getDescription(), c.getAverageGrade(), c.getAdress());
+		this(c.getId(), c.getName(), c.getDescription(), c.getAverageGrade(), c.getAdress());
 	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	public String getName() {
 		return name;
 	}

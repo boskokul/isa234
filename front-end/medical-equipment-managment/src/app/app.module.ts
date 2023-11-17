@@ -15,6 +15,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CompaniesComponent } from './components/companies/companies.component';
 import { CompanyProfileComponent } from './components/company-profile/company-profile.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { RegisterCompanyComponent } from './components/register-company/register-company.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
     CompaniesComponent,
     CompanyProfileComponent,
     UserProfileComponent,
+    RegisterCompanyComponent,
   ],
   imports: [
     BrowserModule,

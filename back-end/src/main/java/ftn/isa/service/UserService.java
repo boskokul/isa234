@@ -1,6 +1,7 @@
 package ftn.isa.service;
 
 
+import ftn.isa.domain.Company;
 import ftn.isa.domain.User;
 import ftn.isa.dto.UserUpdateDTO;
 import ftn.isa.repository.UserRepository;
@@ -19,5 +20,6 @@ public class UserService {
     public User save(User user) {
         return userRepository.save(user);
     }
+
     public User findOne(int id){ return userRepository.findById(id).orElseGet(null); }
 }

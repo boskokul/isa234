@@ -24,7 +24,8 @@
         <mat-label>Country</mat-label>
         <input matInput formControlName="country">
     </mat-form-field>
-    <mat-form-field style="margin-left: 20px;">
+    <br>
+    <mat-form-field>
         <mat-label>City</mat-label>
         <input matInput formControlName="city">
     </mat-form-field>
@@ -50,6 +51,6 @@
         </button>
     </mat-form-field>
     <br>
-    <button mat-flat-button color="primary" (click)="RegisterUser()">Register</button>
+    <button mat-flat-button  (click)="RegisterUser()" class="register-button">Register</button>
 </form>
 </div>

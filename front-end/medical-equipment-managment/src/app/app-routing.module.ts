@@ -4,6 +4,8 @@ import { RegisterComponent } from './components/register/register.component';
 import { CompaniesComponent } from './components/companies/companies.component';
 import { CompanyProfileComponent } from './components/company-profile/company-profile.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { RegisterCompanyComponent } from './components/register-company/register-company.component';
+
 
 const routes: Routes = [
   { path: '', redirectTo: 'register', pathMatch: 'full' },
@@ -11,6 +13,7 @@ const routes: Routes = [
   { path: 'companies/:id', component: CompanyProfileComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'userProfile', component: UserProfileComponent },
+  { path: 'company/create', component: RegisterCompanyComponent }
 ];
 
 @NgModule({
