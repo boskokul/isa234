@@ -1,5 +1,7 @@
 package ftn.isa.domain;
 
+
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -28,6 +30,9 @@ public class Company {
     private double averageGrade;
     @Column(name = "adress", nullable = false)
     private String adress;
+
+	@OneToMany(mappedBy = "company", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<User> admins = new HashSet<User>();
     
     @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH})
 	@JoinTable(name = "company_equipment", joinColumns = @JoinColumn(name = "company_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "equipment_id", referencedColumnName = "id"))
@@ -100,6 +105,14 @@ public class Company {
 
 	public String getAdress() {
 		return adress;
+	}
+
+	public Set<User> getAdmins() {
+		return admins;
+	}
+
+	public void setAdmins(Set<User> admins) {
+		this.admins = admins;
 	}
 
 	public void setAdress(String adress) {
