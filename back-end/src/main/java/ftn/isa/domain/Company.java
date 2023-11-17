@@ -1,11 +1,8 @@
 package ftn.isa.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name="companies", schema = "isa")
@@ -21,6 +18,9 @@ public class Company {
     private double averageGrade;
     @Column(name = "adress", nullable = false)
     private String adress;
+
+	@OneToMany(mappedBy = "company", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<User> admins = new HashSet<User>();
     
     public Company() {
 		// TODO Auto-generated constructor stub
@@ -70,6 +70,14 @@ public class Company {
 
 	public String getAdress() {
 		return adress;
+	}
+
+	public Set<User> getAdmins() {
+		return admins;
+	}
+
+	public void setAdmins(Set<User> admins) {
+		this.admins = admins;
 	}
 
 	public void setAdress(String adress) {

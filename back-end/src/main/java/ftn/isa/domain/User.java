@@ -27,8 +27,15 @@ public class User {
     private String companyInformation;
     @Column(name = "password", nullable = false)
     private String password;
+
+
     @Column(name = "role", nullable = false)
     private Role role;
+
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "companyId", nullable = true)
+    private Company company;
 
     public User() {
         super();
@@ -120,6 +127,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 
     public User(Integer id, String firstName, String lastName, String email, String city, String country, String proffesion, String companyInformation,
