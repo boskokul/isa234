@@ -3,6 +3,7 @@ package ftn.isa.service;
 
 import ftn.isa.domain.Company;
 import ftn.isa.domain.User;
+import ftn.isa.dto.UserUpdateDTO;
 import ftn.isa.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,5 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public User findOne(Integer id) {
-        return userRepository.findById(id).orElseGet(null);
-    }
+    public User findOne(int id){ return userRepository.findById(id).orElseGet(null); }
 }

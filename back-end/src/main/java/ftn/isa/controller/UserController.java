@@ -3,8 +3,10 @@ package ftn.isa.controller;
 import ftn.isa.domain.Role;
 import ftn.isa.domain.Student;
 import ftn.isa.domain.User;
+import ftn.isa.dto.StudentDTO;
 import ftn.isa.dto.UserCreateDTO;
 import ftn.isa.dto.UserResponseDTO;
+import ftn.isa.dto.UserUpdateDTO;
 import ftn.isa.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -45,5 +47,34 @@ public class UserController {
         user = userService.save(user);
         UserResponseDTO userResponseDTO = new UserResponseDTO(user);
         return new ResponseEntity<>(userResponseDTO, HttpStatus.OK);
+    }
+
+    @PutMapping(consumes = "application/json")
+    public ResponseEntity<UserResponseDTO> update(@RequestBody UserUpdateDTO userUpdateDTO){
+        User user = userService.findOne(userUpdateDTO.getId());
+
+        if (user == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        user.setFirstName(userUpdateDTO.getFirstName());
+        user.setLastName(userUpdateDTO.getLastName());
+        user.setCity(userUpdateDTO.getCity());
+        user.setCountry(userUpdateDTO.getCountry());
+        user.setPhoneNumber(userUpdateDTO.getPhoneNumber());
+        user.setProfession(userUpdateDTO.getProfession());
+        user.setCompanyInformation(userUpdateDTO.getCompanyInformation());
+
+        user = userService.save(user);
+        return new ResponseEntity<>(new UserResponseDTO(user), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<UserResponseDTO> getById(@PathVariable Integer id){
+        User user = userService.findOne(id);
+        if(user == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(new UserResponseDTO(user), HttpStatus.OK);
     }
 }
