@@ -10,17 +10,20 @@ import { Company } from 'src/app/model/company';
 @Component({
   selector: 'app-equipment',
   templateUrl: './equipment.component.html',
-  styleUrls: ['./equipment.component.css']
+  styleUrls: ['./equipment.component.css'],
 })
-export class EquipmentComponent implements OnDestroy{
+export class EquipmentComponent implements OnDestroy {
   items: Equipment[] = [];
   backupItems: Equipment[] = [];
   nameFilter: string = '';
   typeFilter: string = 'All';
   private subscriptions: Subscription[] = [];
 
-
-  constructor(private equipmentService: EquipmentService,  private router: Router, public dialog:MatDialog) {
+  constructor(
+    private equipmentService: EquipmentService,
+    private router: Router,
+    public dialog: MatDialog
+  ) {
     this.loadItems();
   }
 
@@ -33,41 +36,36 @@ export class EquipmentComponent implements OnDestroy{
       (error) => {
         console.error('Error loading equipment:', error);
       }
-    ); 
-
+    );
   }
 
   applyFilters() {
     this.items = this.backupItems;
-    const filteredItems = this.items.filter(item => {
-      const nameMatch = item.name.toLowerCase().includes(this.nameFilter.toLowerCase());
-      const typeMatch = this.typeFilter === 'All' || item.type === this.typeFilter;
+    const filteredItems = this.items.filter((item) => {
+      const nameMatch = item.name
+        .toLowerCase()
+        .includes(this.nameFilter.toLowerCase());
+      const typeMatch =
+        this.typeFilter === 'All' || item.type === this.typeFilter;
       return nameMatch && typeMatch;
     });
     // Update the items to display the filtered results
     this.items = filteredItems;
   }
 
-
-  showCompanies(itemId: number){
+  showCompanies(itemId: number) {
     this.equipmentService.getEquipmentCompanies(itemId).subscribe({
       next: (result: Company[]) => {
         this.dialog.open(CompanyListPopupComponent, {
           data: result,
-           width: '300px',
-           height:'300px',
-           panelClass: 'custom-dialog',
-         });
-         console.log(result);
+          width: '300px',
+          height: '300px',
+          panelClass: 'custom-dialog',
+        });
+        console.log(result);
       },
     });
-
-
   }
-
-
-
-    
 
   ngOnDestroy() {
     // Unsubscribe from all subscriptions to avoid memory leaks when the component is destroyed
