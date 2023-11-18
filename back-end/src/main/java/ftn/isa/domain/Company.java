@@ -28,8 +28,10 @@ public class Company {
     private String description;
     @Column(name = "averageGrade", nullable = false)
     private double averageGrade;
-    @Column(name = "adress", nullable = false)
-    private String adress;
+	@Column(name = "country", nullable = false)
+	private String country;
+	@Column(name = "city", nullable = false)
+	private String city;
 
 	@OneToMany(mappedBy = "company", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<User> admins = new HashSet<User>();
@@ -47,35 +49,38 @@ public class Company {
 	}
     
 
-	public Company(Integer id, String name, String description, double averageGrade, String adress,
+	public Company(Integer id, String name, String description, double averageGrade, String country, String city,
 			Set<Equipment> equipment) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.averageGrade = averageGrade;
-		this.adress = adress;
+		this.country = country;
+		this.city = city;
 		this.equipment = equipment;
 	}
 
 
-	public Company(Integer id, String name, String description, double averageGrade, String adress) {
+	public Company(Integer id, String name, String description, double averageGrade, String country, String city) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.averageGrade = averageGrade;
-		this.adress = adress;
+		this.country = country;
+		this.city = city;
 	}
 
 
-	public Company(String name, String description, double averageGrade, String adress) {
+	public Company(String name, String description, double averageGrade, String country, String city) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.averageGrade = averageGrade;
-		this.adress = adress;
+		this.country = country;
+		this.city = city;
 	}
 	public Set<Equipment> getEquipment() {
 		return equipment;
@@ -116,10 +121,6 @@ public class Company {
 		this.averageGrade = averageGrade;
 	}
 
-	public String getAdress() {
-		return adress;
-	}
-
 	public Set<User> getAdmins() {
 		return admins;
 	}
@@ -128,8 +129,12 @@ public class Company {
 		this.admins = admins;
 	}
 
-	public void setAdress(String adress) {
-		this.adress = adress;
-	}
+	public String getCountry() { return country; }
+
+	public void setCountry(String country) { this.country = country; }
+
+	public String getCity() {return city; }
+
+	public void setCity(String city) { this.city = city; }
 
 }

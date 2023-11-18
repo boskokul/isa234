@@ -1,13 +1,34 @@
 <h1>Companies</h1>
 <div class="rating">
+  
+  <div class="search">
+    <input [(ngModel)]="nameSearch"/>
+    <label>Company name</label>
+    
+    <input [(ngModel)]="countrySearch"/>
+    <label>Company country</label>
+    
+    <input [(ngModel)]="citySearch"/>
+    <label>Company city</label>
+
+    <button mat-button (click)="SearchCompanies()">Search</button>
+    <button mat-button (click)="ResetSearch()">Reset</button>
+  </div>
+
   <hr />
   <div id="details">
     <div>
       <table>
-        <thead></thead>
+        <thead>
+          <td>Company name</td>
+          <td>Country</td>
+          <td>City</td>
+        </thead>
         <tbody>
           <tr *ngFor="let c of companies">
             <td>{{ c.name }}</td>
+            <td>{{c.country}}</td>
+            <td>{{c.city}}</td>
             <td><button (click)="ViewProfile(c.id)" class="matija-button">Go to profile</button></td>
           </tr>
         </tbody>

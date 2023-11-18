@@ -9,17 +9,19 @@ public class CompanyCreateDTO {
 	private Integer id;
 	private String description;
 	private double averageGrade;
-	private String adress;
-	public CompanyCreateDTO(Integer id, String name, String description, double averageGrade, String adress) {
+	private String country;
+	private String city;
+	public CompanyCreateDTO(Integer id, String name, String description, double averageGrade, String country, String city) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.averageGrade = averageGrade;
-		this.adress = adress;
+		this.country = country;
+		this.city = city;
 	}
 	public CompanyCreateDTO(Company c) {
-		this(c.getId(), c.getName(), c.getDescription(), c.getAverageGrade(), c.getAdress());
+		this(c.getId(), c.getName(), c.getDescription(), c.getAverageGrade(), c.getCountry(), c.getCity());
 	}
 
 	public Integer getId() {
@@ -48,11 +50,8 @@ public class CompanyCreateDTO {
 	public void setAverageGrade(double averageGrade) {
 		this.averageGrade = averageGrade;
 	}
-	public String getAdress() {
-		return adress;
-	}
-	public void setAdress(String adress) {
-		this.adress = adress;
-	}
-	
+	public String getCountry() { return country; }
+	public void setCountry(String country) { this.country = country; }
+	public String getCity() { return city; }
+	public void setCity(String city) { this.city = city; }
 }
