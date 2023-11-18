@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.Set;
 
+import ftn.isa.domain.*;
 import ftn.isa.dto.CompanyCreateDTO;
+import ftn.isa.service.EquipmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,14 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
-import ftn.isa.domain.Company;
-import ftn.isa.domain.Equipment;
 import ftn.isa.dto.CompanyResponseDTO;
 import ftn.isa.dto.EquipmentDTO;
 import ftn.isa.service.CompanyService;
-import ftn.isa.domain.Role;
-import ftn.isa.domain.Student;
-import ftn.isa.domain.User;
 import ftn.isa.dto.UserCreateDTO;
 import ftn.isa.dto.UserResponseDTO;
 import ftn.isa.service.UserService;
@@ -33,12 +30,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import static ftn.isa.domain.EquipmentType.*;
+
 @CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*")
 @RestController
 @RequestMapping(value = "api/companies")
 public class CompanyController {
 	@Autowired
 	private CompanyService companyService;
+    @Autowired
+    private EquipmentService equipmentService;
+    @Autowired
+    private UserService userService;
 	@GetMapping(value = "/all")
     public ResponseEntity<List<CompanyResponseDTO>> getCompanies() {
         List<Company> companies = companyService.findAll();
@@ -65,8 +68,13 @@ public class CompanyController {
         return new ResponseEntity<>(userResponseDTOs, HttpStatus.OK);
     }
 
-	@PostMapping(value = "/{id}")
-	@GetMapping
+	@GetMapping(value = "/last/created/id")
+    public ResponseEntity<Integer> getLastCreatedId() {
+        Integer id = companyService.getLastCompanyId();
+        return new ResponseEntity<>(id, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/{id}")
     public ResponseEntity<CompanyResponseDTO> getCompanieById(@PathVariable Integer id) {
         Company company = companyService.getById(id);
         CompanyResponseDTO companyResponseDTO = new CompanyResponseDTO(company);
@@ -122,5 +130,5 @@ public class CompanyController {
         }
         return new ResponseEntity<>(responseDTOS, HttpStatus.OK);
     }
-  
+
 }

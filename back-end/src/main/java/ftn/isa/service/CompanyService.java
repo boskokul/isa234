@@ -32,6 +32,16 @@ public class CompanyService {
 		companyRepository.deleteById(c.getId());
 		return companyRepository.save(c);
 	}
+
+	public Integer getLastCompanyId() {
+		List<Company> companies = companyRepository.findAll();
+		if (!companies.isEmpty()) {
+			Company lastCompany = companies.get(companies.size() - 1);
+			return lastCompany.getId();
+		}
+		return null;
+	}
+
 	public Company findOneWithEquipment(Integer companyId) {
 		return companyRepository.findOneWithEquipment(companyId);
 	}

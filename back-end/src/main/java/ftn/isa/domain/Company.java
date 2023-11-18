@@ -35,6 +35,9 @@ public class Company {
 
 	@OneToMany(mappedBy = "company", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<User> admins = new HashSet<User>();
+	
+	@OneToMany(mappedBy = "company", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<CompanyAdmin> companyAdmins = new HashSet<CompanyAdmin>();
     
     @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH})
 	@JoinTable(name = "company_equipment", joinColumns = @JoinColumn(name = "company_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "equipment_id", referencedColumnName = "id"))
@@ -67,6 +70,16 @@ public class Company {
 		this.averageGrade = averageGrade;
 		this.country = country;
 		this.city = city;
+	}
+
+
+	public Company(String name, String description, double averageGrade, String adress) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.description = description;
+		this.averageGrade = averageGrade;
+		this.adress = adress;
 	}
 	public Set<Equipment> getEquipment() {
 		return equipment;
