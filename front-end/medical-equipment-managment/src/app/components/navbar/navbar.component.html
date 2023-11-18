@@ -1,13 +1,26 @@
 <mat-toolbar color="primary">
-    <span class="custom-favicon">
-         <span class="text-inside">Equipment Management</span>
-    </span>
-    <div class="spacer"> </div>
-     <a mat-button [routerLink]="['/companies']" class="mat-button" >Companies</a>
-     <a mat-button [routerLink]="['/company/create']" class="mat-button" >Create Company</a>
-     <a mat-button [routerLink]="['/equipment/list']" class="mat-button">Equipment</a>
-     <a mat-button [routerLink]="['/register']" class="mat-button">Register</a>
-     <a mat-button [routerLink]="['/userProfile']" class="mat-button">Your profile</a>
-     <a mat-button class="mat-button-soft">Log in</a>
-  
+  <span class="custom-favicon">
+    <span class="text-inside">Equipment Management</span>
+  </span>
+  <div class="spacer"></div>
+  <a mat-button [routerLink]="['/companies']" class="mat-button">Companies</a>
+  <a mat-button [routerLink]="['/company/create']" class="mat-button"
+    >Create Company</a
+  >
+  <a mat-button [routerLink]="['/equipment/list']" class="mat-button"
+    >Equipment</a
+  >
+  <div class="dropdown">
+    <button mat-button class="mat-button">Profile</button>
+    <div class="dropdown-content">
+      <a mat-button [routerLink]="['/userProfile']" class="mat-button"
+        >User profile</a
+      >
+      <a mat-button [routerLink]="['/companyAdminProfile']" class="mat-button"
+        >Company admin profile</a
+      >
+    </div>
+  </div>
+  <a mat-button [routerLink]="['/register']" class="mat-button">Register</a>
+  <a mat-button class="mat-button-soft">Log in</a>
 </mat-toolbar>

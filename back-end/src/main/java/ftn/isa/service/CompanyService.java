@@ -1,10 +1,12 @@
 package ftn.isa.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import antlr.debug.Event;
 import ftn.isa.domain.Company;
 import ftn.isa.repository.CompanyRepository;
 

@@ -1,10 +1,30 @@
 <div class="company-profile">
   <h1>Company profile</h1>
+  <br />
   <p>Name: {{ name }}</p>
   <p>Country: {{ country }}</p>
   <p>City: {{ city }}</p>
   <p>Description: {{ description }}</p>
   <p>AverageGrade: {{ averageGrade }}</p>
-  <p>***</p>
+  <br />
+  <br />
+  <h1>Equipment available in this company:</h1>
+  <div class="basic-container" fxLayout="row wrap" fxLayoutAlign="start">
+    <mat-card *ngFor="let item of items" class="purple-card">
+      <div fxLayout="column" fxLayoutGap="8px">
+        <div>
+          <p>Name: {{ item.name }}</p>
+        </div>
+        <div>
+          <p>Description: {{ item.description }}</p>
+        </div>
+        <div>
+          <p>Type: {{ item.type }}</p>
+        </div>
+        <div>
+          <p>************</p>
+        </div>
+      </div>
+    </mat-card>
+  </div>
 </div>
-

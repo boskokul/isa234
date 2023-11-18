@@ -2,10 +2,13 @@ package ftn.isa.controller;
 
 import ftn.isa.domain.Company;
 import ftn.isa.domain.CompanyAdmin;
+import ftn.isa.domain.RegisteredUser;
 import ftn.isa.domain.Role;
 import ftn.isa.dto.AdminCreateDTO;
 import ftn.isa.dto.CompanyAdminResponseDTO;
 import ftn.isa.dto.CompanyResponseDTO;
+import ftn.isa.dto.UserResponseDTO;
+import ftn.isa.dto.UserUpdateDTO;
 import ftn.isa.service.CompanyAdminService;
 import ftn.isa.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +26,15 @@ public class AdminController {
     @Autowired
     private CompanyService companyService;
 
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<CompanyAdminResponseDTO> getById(@PathVariable Integer id){
+    	CompanyAdmin user = companyAadminService.findOne(id);
+        if(user == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(new CompanyAdminResponseDTO(user), HttpStatus.OK);
+    }
+    
     @GetMapping(value = "/admin/company/{id}")
     public ResponseEntity<CompanyResponseDTO> getAdminCompany(@PathVariable Integer id){
         CompanyAdmin admin = companyAadminService.findOne(id);
@@ -58,5 +70,23 @@ public class AdminController {
         user = companyAadminService.save(user);
         CompanyAdminResponseDTO userResponseDTO = new CompanyAdminResponseDTO(user);
         return new ResponseEntity<>(userResponseDTO, HttpStatus.OK);
+    }
+    
+    @PutMapping(consumes = "application/json")
+    public ResponseEntity<CompanyAdminResponseDTO> update(@RequestBody CompanyAdminResponseDTO userUpdateDTO){
+        CompanyAdmin user = companyAadminService.findOne(userUpdateDTO.getId());
+
+        if (user == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        user.setFirstName(userUpdateDTO.getFirstName());
+        user.setLastName(userUpdateDTO.getLastName());
+        user.setCity(userUpdateDTO.getCity());
+        user.setCountry(userUpdateDTO.getCountry());
+        user.setPhoneNumber(userUpdateDTO.getPhoneNumber());
+
+        user = companyAadminService.save(user);
+        return new ResponseEntity<>(new CompanyAdminResponseDTO(user), HttpStatus.OK);
     }
 }

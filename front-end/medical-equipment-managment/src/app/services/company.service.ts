@@ -18,14 +18,33 @@ export class CompanyService {
   }
 
   registerCompany(company: Company): Observable<any> {
-    return this.http.post<any>(environment.apiHost + "companies", company);
+    return this.http.post<any>(environment.apiHost + 'companies', company);
   }
 
   getLastCompanyId(): Observable<any> {
-    return this.http.get<any>(environment.apiHost + 'companies/last/created/id' );
+    return this.http.get<any>(
+      environment.apiHost + 'companies/last/created/id'
+    );
   }
 
-  searchCompanies(name: string, country: string, city: string): Observable<Company[]> {
-    return this.http.get<Company[]>(environment.apiHost + 'companies/search?' + 'name=' + name + '&country=' + country + '&city=' + city);
+  updateCompany(company: Company): Observable<Company> {
+    return this.http.put<Company>(environment.apiHost + 'companies', company);
+  }
+
+  searchCompanies(
+    name: string,
+    country: string,
+    city: string
+  ): Observable<Company[]> {
+    return this.http.get<Company[]>(
+      environment.apiHost +
+        'companies/search?' +
+        'name=' +
+        name +
+        '&country=' +
+        country +
+        '&city=' +
+        city
+    );
   }
 }

@@ -10,6 +10,7 @@ public class CompanyAdminResponseDTO {
     private String city;
     private String country;
     private String phoneNumber;
+   
     
     public CompanyAdminResponseDTO() {}
     
