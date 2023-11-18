@@ -10,6 +10,9 @@ import { CompanyService } from 'src/app/services/company.service';
 })
 export class CompaniesComponent implements OnInit {
   companies: Company[];
+  nameSearch: string;
+  countrySearch: string;
+  citySearch: string;
 
   constructor(private companyService: CompanyService, private router: Router) {}
 
@@ -28,5 +31,20 @@ export class CompaniesComponent implements OnInit {
         this.companies = result;
       },
     });
+  }
+
+  SearchCompanies() {
+    this.companyService.searchCompanies(this.nameSearch, this.countrySearch, this.citySearch).subscribe({
+      next: (result: Company[]) => {
+        this.companies = result;
+      }
+    })
+  }
+
+  ResetSearch() {
+    this.LoadCompanies();
+    this.nameSearch = '';
+    this.countrySearch = '';
+    this.citySearch = '';
   }
 }

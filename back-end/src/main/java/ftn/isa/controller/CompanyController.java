@@ -82,12 +82,11 @@ public class CompanyController {
         return new ResponseEntity<>(companyResponseDTO, HttpStatus.OK);
     }
 
-    //Trebam na frontu da probam da testiram ovu metodu i da promenim
     @PostMapping(consumes = "application/json")
     public ResponseEntity<CompanyResponseDTO> save(@RequestBody CompanyCreateDTO companyDTO){
         Company company = new Company();
         company.setCountry(companyDTO.getCountry());
-        company.setCity(company.getCity());
+        company.setCity(companyDTO.getCity());
         company.setName(companyDTO.getName());
         company.setDescription(companyDTO.getDescription());
         company.setAverageGrade(companyDTO.getAverageGrade());
