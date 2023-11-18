@@ -23,9 +23,15 @@ import { MatSelectModule } from '@angular/material/select';
 import { CompanyListPopupComponent } from './components/company-list-popup/company-list-popup.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDialogModule } from '@angular/material/dialog';
+import { CompanyAdminProfileComponent } from './components/company-admin-profile/company-admin-profile.component';
+import { CompanyAdminEditComponent } from './components/company-admin-edit/company-admin-edit.component';
+import { CompanyEditComponent } from './components/company-edit/company-edit.component';
+import { OtherCompanyAdminsComponent } from './components/other-company-admins/other-company-admins.component';
+import { CompanyAdminPasswordChangeComponent } from './components/company-admin-password-change/company-admin-password-change.component';
 import { MatTableModule } from '@angular/material/table'; 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatSortModule } from '@angular/material/sort';
+
 
 @NgModule({
   declarations: [
@@ -38,6 +44,11 @@ import { MatSortModule } from '@angular/material/sort';
     RegisterCompanyComponent,
     EquipmentComponent,
     CompanyListPopupComponent,
+    CompanyAdminProfileComponent,
+    CompanyAdminEditComponent,
+    CompanyEditComponent,
+    OtherCompanyAdminsComponent,
+    CompanyAdminPasswordChangeComponent,
 
   ],
   imports: [

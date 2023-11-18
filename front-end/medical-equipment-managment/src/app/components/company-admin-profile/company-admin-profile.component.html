@@ -1,0 +1,70 @@
+<div class="profile">
+  <div class="basic-container">
+    <div>
+      <h1>Company admin profile</h1>
+      <br />
+      <p>Name: {{ admin.firstName }} {{ admin.lastName }}</p>
+      <p>Country: {{ admin.country }}</p>
+      <p>City: {{ admin.city }}</p>
+      <p>Email: {{ admin.email }}</p>
+      <p>Phone number: {{ admin.phoneNumber }}</p>
+      <br />
+      <div>
+        <button mat-raised-button (click)="editPersonalInfo()">
+          Edit personal info
+        </button>
+        <button
+          style="margin-left: 5%"
+          mat-raised-button
+          (click)="editPassword()"
+        >
+          Change password
+        </button>
+      </div>
+      <br />
+    </div>
+    <div>
+      <h1>Company</h1>
+      <br />
+      <p>Name: {{ company.name }}</p>
+      <p>Country: {{ company.country }}</p>
+      <p>City: {{ company.city }}</p>
+      <p>Description: {{ company.description }}</p>
+      <p>AverageGrade: {{ company.averageGrade }}</p>
+      <br />
+      <div>
+        <button mat-raised-button (click)="editCompanyInfo()">
+          Edit company info
+        </button>
+        <button
+          style="margin-left: 5%"
+          mat-raised-button
+          (click)="otherAdmins()"
+        >
+          Other admins
+        </button>
+      </div>
+      <br />
+    </div>
+  </div>
+
+  <h1>Equipment available in this company:</h1>
+  <div class="basic-container" fxLayout="row wrap" fxLayoutAlign="start">
+    <mat-card *ngFor="let item of items" class="purple-card">
+      <div fxLayout="column" fxLayoutGap="8px">
+        <div>
+          <p>Name: {{ item.name }}</p>
+        </div>
+        <div>
+          <p>Description: {{ item.description }}</p>
+        </div>
+        <div>
+          <p>Type: {{ item.type }}</p>
+        </div>
+        <div>
+          <p>************</p>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</div>

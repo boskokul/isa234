@@ -1,4 +1,5 @@
-export interface AdminCreate {
+export interface CompanyAdmin {
+  id: number;
   firstName: string;
   lastName: string;
   password: string;
@@ -6,7 +7,5 @@ export interface AdminCreate {
   city: string;
   country: string;
   phoneNumber: string;
-  profession: string;
-  companyInformation: string;
   companyId: number;
 }
