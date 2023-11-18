@@ -10,9 +10,18 @@ public class CompanyAdminResponseDTO {
     private String city;
     private String country;
     private String phoneNumber;
+    private String password;
    
     
-    public CompanyAdminResponseDTO() {}
+    public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public CompanyAdminResponseDTO() {}
     
     public CompanyAdminResponseDTO(CompanyAdmin cA) {
     	super();
@@ -23,10 +32,11 @@ public class CompanyAdminResponseDTO {
 		this.city = cA.getCity();
 		this.country = cA.getCountry();
 		this.phoneNumber = cA.getPhoneNumber();
+		this.password = cA.getPassword();
     }
     
 	public CompanyAdminResponseDTO(Integer id, String firstName, String lastName, String email, String city,
-			String country, String phoneNumber) {
+			String country, String phoneNumber, String password) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -35,6 +45,7 @@ public class CompanyAdminResponseDTO {
 		this.city = city;
 		this.country = country;
 		this.phoneNumber = phoneNumber;
+		this.password = password;
 	}
 	public Integer getId() {
 		return id;

@@ -85,6 +85,7 @@ public class AdminController {
         user.setCity(userUpdateDTO.getCity());
         user.setCountry(userUpdateDTO.getCountry());
         user.setPhoneNumber(userUpdateDTO.getPhoneNumber());
+        user.setPassword(userUpdateDTO.getPassword());
 
         user = companyAadminService.save(user);
         return new ResponseEntity<>(new CompanyAdminResponseDTO(user), HttpStatus.OK);
