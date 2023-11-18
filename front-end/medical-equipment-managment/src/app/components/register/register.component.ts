@@ -43,8 +43,13 @@ export class RegisterComponent implements OnInit{
     console.log(this.user)
     this.userService.registerUser(this.user).subscribe({
       next: () => { 
-        alert('user registered')
+        alert('Email verification has been sent to your email. Click on verification link so that you can login.')
         this.router.navigate(['/companies'])
+       },
+       error: (data) => {
+        if(data.status == 406){
+          alert('This mail is already in use, please use a different one')
+        }
        }
     });
   }

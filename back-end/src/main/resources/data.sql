@@ -5,6 +5,9 @@ INSERT INTO isa.equipments(
 INSERT INTO isa.equipments(
 	id, description, name, type)
 	VALUES (-2, 'opisoprema2', 'oprema2', 0);
+INSERT INTO isa.equipments(
+    id, description, name, type)
+    VALUES (-3, 'opisoprema3', 'oprema3', 0);
 --kompanije
 INSERT INTO isa.companies(id, country, city, average_grade, description, name) VALUES (-1, 'Stevana', 'Hatale 1', 3, 'opis1', 'kompanija 1');
 INSERT INTO isa.companies(id, country, city, average_grade, description, name) VALUES (-2, 'Ulica',  '1', 5, 'opis2', 'kompanija 2');
@@ -37,7 +40,7 @@ INSERT INTO isa.companys_admins(
 INSERT INTO isa.companys_admins(
 	id, company_id)
 	VALUES (-2, -1);
-INSERT INTO isa.registered_users(company_info, profession, id) VALUES ('info1', 'profesija1', -3);
-INSERT INTO isa.registered_users(company_info, profession, id) VALUES ('info2', 'profesija2', -4);
+INSERT INTO isa.registered_users(penal_points, category, company_info, profession, id) VALUES (0, 0, 'info1', 'profesija1', -3);
+INSERT INTO isa.registered_users(penal_points, category, company_info, profession, id) VALUES (0, 0, 'info2', 'profesija2', -4);
 	
 	

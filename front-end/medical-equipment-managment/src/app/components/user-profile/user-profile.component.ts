@@ -21,7 +21,7 @@ export class UserProfileComponent {
 
   loadUser(){
     //TODO change id
-    this.service.getLoggedUser(1).subscribe({
+    this.service.getLoggedUser(-4).subscribe({
       next: (result: User) => {
         this.userBackup = result;
         this.user = Object.assign({}, this.userBackup);

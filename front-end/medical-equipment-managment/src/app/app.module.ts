@@ -31,6 +31,7 @@ import { CompanyAdminPasswordChangeComponent } from './components/company-admin-
 import { MatTableModule } from '@angular/material/table'; 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatSortModule } from '@angular/material/sort';
+import { VerificationComponent } from './components/verification/verification.component';
 
 
 @NgModule({
@@ -44,6 +45,7 @@ import { MatSortModule } from '@angular/material/sort';
     RegisterCompanyComponent,
     EquipmentComponent,
     CompanyListPopupComponent,
+    VerificationComponent,
     CompanyAdminProfileComponent,
     CompanyAdminEditComponent,
     CompanyEditComponent,
