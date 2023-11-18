@@ -15,6 +15,8 @@ public class Equipment {
     private String name;
     @Column(name = "description", nullable = false)
     private String description;
+    @Column(name = "type", nullable = false)
+	private EquipmentType type;
 
 
 	@OneToMany(mappedBy = "equipment", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
