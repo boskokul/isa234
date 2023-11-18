@@ -26,6 +26,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table'; 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatSortModule } from '@angular/material/sort';
+import { VerificationComponent } from './components/verification/verification.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { MatSortModule } from '@angular/material/sort';
     RegisterCompanyComponent,
     EquipmentComponent,
     CompanyListPopupComponent,
+    VerificationComponent,
 
   ],
   imports: [
