@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Company } from 'src/app/model/company';
 import { CompanyService } from 'src/app/services/company.service';
@@ -9,15 +11,28 @@ import { CompanyService } from 'src/app/services/company.service';
   styleUrls: ['./companies.component.css'],
 })
 export class CompaniesComponent implements OnInit {
-  companies: Company[];
+  dataSource: any;
   nameSearch: string;
   countrySearch: string;
   citySearch: string;
 
-  constructor(private companyService: CompanyService, private router: Router) {}
+  displayedColumns: string[] = ['name', 'country', 'city', 'button'];
+
+  @ViewChild(MatSort) sort: MatSort;
+
+  constructor(private companyService: CompanyService, private router: Router) {
+    this.dataSource = new MatTableDataSource<Company>();
+    this.nameSearch = '';
+    this.countrySearch = '';
+    this.citySearch = '';
+  }
 
   ngOnInit(): void {
     this.LoadCompanies();
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
   }
 
   ViewProfile(id: number) {
@@ -28,7 +43,7 @@ export class CompaniesComponent implements OnInit {
   LoadCompanies() {
     this.companyService.getCompanies().subscribe({
       next: (result: Company[]) => {
-        this.companies = result;
+        this.dataSource.data = result;
       },
     });
   }
@@ -36,7 +51,7 @@ export class CompaniesComponent implements OnInit {
   SearchCompanies() {
     this.companyService.searchCompanies(this.nameSearch, this.countrySearch, this.citySearch).subscribe({
       next: (result: Company[]) => {
-        this.companies = result;
+        this.dataSource.data = result;
       }
     })
   }
@@ -46,5 +61,8 @@ export class CompaniesComponent implements OnInit {
     this.nameSearch = '';
     this.countrySearch = '';
     this.citySearch = '';
+  }
+
+  FilterCompanies(key: string) {
   }
 }

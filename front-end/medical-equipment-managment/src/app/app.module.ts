@@ -23,6 +23,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { CompanyListPopupComponent } from './components/company-list-popup/company-list-popup.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatTableModule } from '@angular/material/table'; 
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   declarations: [
@@ -53,8 +56,10 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatOptionModule,
     MatFormFieldModule,
     MatSelectModule,
-    MatDialogModule
-
+    MatDialogModule,
+    MatTableModule,
+    FontAwesomeModule,
+    MatSortModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
