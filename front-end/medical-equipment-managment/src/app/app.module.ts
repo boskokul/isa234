@@ -14,6 +14,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CompaniesComponent } from './components/companies/companies.component';
 import { CompanyProfileComponent } from './components/company-profile/company-profile.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { RegisterCompanyComponent } from './components/register-company/register-company.component';
 import { EquipmentComponent } from './components/equipment/equipment.component';
 import { MatCardModule } from '@angular/material/card';
@@ -30,6 +31,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     RegisterComponent,
     CompaniesComponent,
     CompanyProfileComponent,
+    UserProfileComponent,
     RegisterCompanyComponent,
     EquipmentComponent,
     CompanyListPopupComponent,

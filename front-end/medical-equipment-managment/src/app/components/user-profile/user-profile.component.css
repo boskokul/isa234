@@ -1,0 +1,28 @@
+.info {
+    display: flex;
+    flex-direction: column;
+    height: 70%;
+    width: 35%;
+    justify-content: space-between;
+    margin: 1rem;
+    padding: 1rem;
+}
+
+.form-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.form-field {
+    display: flex;
+}
+
+.info input {
+    margin-right: 5px;
+}
+
+input[readonly]
+{
+    background-color:lightgray;
+}
