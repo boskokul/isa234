@@ -64,6 +64,16 @@ public class Company {
 		this.averageGrade = averageGrade;
 		this.adress = adress;
 	}
+
+
+	public Company(String name, String description, double averageGrade, String adress) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.description = description;
+		this.averageGrade = averageGrade;
+		this.adress = adress;
+	}
 	public Set<Equipment> getEquipment() {
 		return equipment;
 	}

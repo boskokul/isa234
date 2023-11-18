@@ -1,0 +1,42 @@
+<div>
+  <div fxLayout="row" fxLayoutAlign="start center">
+    <mat-form-field class="search-field">
+      <input matInput placeholder="Search by Name" type="text" [(ngModel)]="nameFilter">
+    </mat-form-field>
+
+    <mat-form-field class="search-field">
+      <mat-select placeholder="Search by Role" [(ngModel)]="typeFilter">
+        <mat-option value="All">All</mat-option>
+        <mat-option value="DiagnosticEquipment">Diagnostic</mat-option>
+        <mat-option value="TherapeuticEqupiment">Therapeutic</mat-option>
+        <mat-option value="PatientMobilityAids">Patient Mobility</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button mat-raised-button class="search-button" (click)="applyFilters()">Search</button>
+  </div>
+
+  <div class="basic-container" fxLayout="row wrap" fxLayoutAlign="start">
+    <mat-card *ngFor="let item of items" class="purple-card">
+      <div fxLayout="column" fxLayoutGap="8px">
+        <div>
+          <p>Name: {{ item.name }}</p>
+        </div>
+        <div>
+          <p>Description: {{ item.description }}</p>
+        </div>
+        <div>
+          <p>Type: {{ item.type }}</p>
+        </div>
+        <div>
+          <p> ***************************** </p>
+        </div>
+        <div>
+          <button mat-raised-button (click)="showCompanies(item.id)" class="mat-button-large">Show companies</button>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</div>
+
+

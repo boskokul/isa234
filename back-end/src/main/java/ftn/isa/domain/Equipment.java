@@ -25,6 +25,9 @@ public class Equipment {
     private String name;
     @Column(name = "description", nullable = false)
     private String description;
+
+	@Column(name = "type", nullable = false)
+	private EquipmentType type;
     
     @ManyToMany( cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH})
 	@JoinTable(name = "company_equipment", joinColumns = @JoinColumn(name = "equipment_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "company_id", referencedColumnName = "id"))
@@ -34,19 +37,28 @@ public class Equipment {
     	super();
     }
     
-	public Equipment(Integer id, String name, String description) {
+	public Equipment(Integer id, String name, String description, EquipmentType type) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.description = description;
+		this.type = type;
+	}
+
+	public Equipment(String name, String description, EquipmentType type) {
+		super();
+		this.name = name;
+		this.description = description;
+		this.type = type;
 	}
 	
-	public Equipment(Integer id, String name, String description, Set<Company> companies) {
+	public Equipment(Integer id, String name, String description, Set<Company> companies, EquipmentType type) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.companies = companies;
+		this.type = type;
 	}
 
 	public Set<Company> getCompanies() {
@@ -75,7 +87,12 @@ public class Equipment {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-    
-    
 
+	public EquipmentType getType() {
+		return type;
+	}
+
+	public void setType(EquipmentType type) {
+		this.type = type;
+	}
 }
