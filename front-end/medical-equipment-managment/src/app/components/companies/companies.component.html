@@ -1,6 +1,7 @@
 <h1>Companies</h1>
 <div class="rating">
   
+  <!--Search-->
   <div class="search">
     <input [(ngModel)]="nameSearch"/>
     <label>Company name</label>
@@ -10,29 +11,36 @@
     
     <input [(ngModel)]="citySearch"/>
     <label>Company city</label>
-
+  
     <button mat-button (click)="SearchCompanies()">Search</button>
     <button mat-button (click)="ResetSearch()">Reset</button>
   </div>
 
-  <hr />
-  <div id="details">
-    <div>
-      <table>
-        <thead>
-          <td>Company name</td>
-          <td>Country</td>
-          <td>City</td>
-        </thead>
-        <tbody>
-          <tr *ngFor="let c of companies">
-            <td>{{ c.name }}</td>
-            <td>{{c.country}}</td>
-            <td>{{c.city}}</td>
-            <td><button (click)="ViewProfile(c.id)" class="matija-button">Go to profile</button></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
+
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+    <!-- Country Column -->
+    <ng-container matColumnDef="country">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Country </th>
+      <td mat-cell *matCellDef="let element"> {{element.country}} </td>
+    </ng-container>
+    <!-- City Column -->
+    <ng-container matColumnDef="city">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> City </th>
+      <td mat-cell *matCellDef="let element"> {{element.city}} </td>
+    </ng-container>
+    <!-- Button Column -->
+    <ng-container matColumnDef="button">
+      <th mat-header-cell *matHeaderCellDef> </th>
+      <td mat-cell *matCellDef="let element">
+        <button (click)="ViewProfile(element.id)" class="matija-button">Go to profile</button>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
 </div>

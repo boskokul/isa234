@@ -28,6 +28,10 @@ import { CompanyAdminEditComponent } from './components/company-admin-edit/compa
 import { CompanyEditComponent } from './components/company-edit/company-edit.component';
 import { OtherCompanyAdminsComponent } from './components/other-company-admins/other-company-admins.component';
 import { CompanyAdminPasswordChangeComponent } from './components/company-admin-password-change/company-admin-password-change.component';
+import { MatTableModule } from '@angular/material/table'; 
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { MatSortModule } from '@angular/material/sort';
+
 
 @NgModule({
   declarations: [
@@ -63,8 +67,10 @@ import { CompanyAdminPasswordChangeComponent } from './components/company-admin-
     MatOptionModule,
     MatFormFieldModule,
     MatSelectModule,
-    MatDialogModule
-
+    MatDialogModule,
+    MatTableModule,
+    FontAwesomeModule,
+    MatSortModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
