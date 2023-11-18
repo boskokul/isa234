@@ -7,14 +7,13 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
 import { RegisterCompanyComponent } from './components/register-company/register-company.component';
 import { EquipmentComponent } from './components/equipment/equipment.component';
 
-
 const routes: Routes = [
   { path: '', redirectTo: 'register', pathMatch: 'full' },
   { path: 'companies', component: CompaniesComponent },
   { path: 'companies/:id', component: CompanyProfileComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'company/create', component: RegisterCompanyComponent },
-  { path: 'equipment/list', component: EquipmentComponent }
+  { path: 'equipment/list', component: EquipmentComponent },
   { path: 'userProfile', component: UserProfileComponent },
 ];
 

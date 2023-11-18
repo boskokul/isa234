@@ -1,6 +1,5 @@
 package ftn.isa.dto;
 
-import ftn.isa.domain.Student;
 import ftn.isa.domain.User;
 
 public class UserResponseDTO {

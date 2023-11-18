@@ -1,9 +1,7 @@
 package ftn.isa.controller;
 
 import ftn.isa.domain.Role;
-import ftn.isa.domain.Student;
 import ftn.isa.domain.User;
-import ftn.isa.dto.StudentDTO;
 import ftn.isa.dto.UserCreateDTO;
 import ftn.isa.dto.UserResponseDTO;
 import ftn.isa.dto.UserUpdateDTO;

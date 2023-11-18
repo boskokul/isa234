@@ -146,7 +146,7 @@ public class User {
         this.email = email;
         this.city = city;
         this.country = country;
-        this.profession = profession;
+        this.profession = proffesion;
         this.companyInformation = companyInformation;
         this.password = password;
         this.role = role;
@@ -160,7 +160,7 @@ public class User {
         this.email = email;
         this.city = city;
         this.country = country;
-        this.profession = profession;
+        this.profession = proffesion;
         this.companyInformation = companyInformation;
         this.password = password;
         this.role = role;

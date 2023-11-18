@@ -77,6 +77,18 @@ public class Company {
 		this.averageGrade = averageGrade;
 		this.adress = adress;
 	}
+	
+	
+	public Set<CompanyAdmin> getCompanyAdmins() {
+		return companyAdmins;
+	}
+
+
+	public void setCompanyAdmins(Set<CompanyAdmin> companyAdmins) {
+		this.companyAdmins = companyAdmins;
+	}
+
+
 	public Set<Equipment> getEquipment() {
 		return equipment;
 	}

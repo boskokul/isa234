@@ -36,6 +36,8 @@ public class BaseUser {
 
     @Column(name = "role", nullable = false)
     private Role role;
+    
+    public BaseUser() {}
 
     public BaseUser(Integer id, String firstName, String lastName, String email, String city, String country, Integer phoneNumber, String password, Role role) {
         this.id = id;

@@ -1,8 +1,5 @@
 package ftn.isa.dto;
 
-import java.util.Set;
-
-import ftn.isa.domain.Company;
 import ftn.isa.domain.Equipment;
 import ftn.isa.domain.EquipmentType;
 
