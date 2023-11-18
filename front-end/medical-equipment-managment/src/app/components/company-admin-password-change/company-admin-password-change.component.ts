@@ -9,19 +9,42 @@ import { AdminService } from 'src/app/services/admin.service';
   styleUrls: ['./company-admin-password-change.component.css'],
 })
 export class CompanyAdminPasswordChangeComponent {
-  password: string;
-  passwordNew: string;
-  passwordRepeat: string;
+  password: string = '';
+  passwordNew: string = '';
+  passwordRepeat: string = '';
   constructor(
     @Inject(MAT_DIALOG_DATA) public admin: CompanyAdmin,
     public dialog: MatDialog,
     private adminService: AdminService
-  ) {
-    console.log(this.admin.firstName);
-  }
+  ) {}
 
   updateAdmin() {
-    if (this.password != this.admin.password) return;
-    if (this.passwordNew != this.passwordRepeat) return;
+    if (this.password != this.admin.password) {
+      alert('Provide your current password!');
+      return;
+    }
+    if (
+      this.passwordNew != this.passwordRepeat ||
+      this.passwordNew.length == 0
+    ) {
+      alert('Passwords have to match and can not be empty!');
+      return;
+    }
+    let adminForUpdate: CompanyAdmin = {
+      id: this.admin.id,
+      firstName: this.admin.firstName,
+      lastName: this.admin.lastName,
+      password: this.passwordNew,
+      email: this.admin.email,
+      city: this.admin.city,
+      country: this.admin.country,
+      phoneNumber: this.admin.phoneNumber,
+      companyId: this.admin.companyId,
+    };
+    this.adminService.updateAdmin(adminForUpdate).subscribe({
+      next: (result: CompanyAdmin) => {
+        this.dialog.closeAll();
+      },
+    });
   }
 }

@@ -104,7 +104,7 @@ export class CompanyAdminProfileComponent implements OnInit {
   }
 
   loadAdmin() {
-    this.adminService.getAdmin(-1).subscribe({
+    this.adminService.getAdmin(-2).subscribe({
       next: (result: CompanyAdmin) => {
         this.admin = result;
         this.loadCompany();
