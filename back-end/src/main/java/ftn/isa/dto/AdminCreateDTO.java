@@ -1,7 +1,6 @@
 package ftn.isa.dto;
 
 import ftn.isa.domain.Role;
-import ftn.isa.domain.User;
 
 public class AdminCreateDTO {
     private String firstName;
@@ -10,7 +9,7 @@ public class AdminCreateDTO {
     private String email;
     private String city;
     private String country;
-    private Integer phoneNumber;
+    private String phoneNumber;
     private String profession;
 
     private Role role = Role.CompanyAdmin;
@@ -87,11 +86,11 @@ public class AdminCreateDTO {
         this.companyInformation = companyInformation;
     }
 
-    public Integer getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(Integer phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 

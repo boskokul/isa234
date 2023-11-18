@@ -10,7 +10,7 @@ public class SystemAdmin extends BaseUser{
     @OneToMany(mappedBy = "systemAdmin", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Complaint> complaints = new HashSet<Complaint>();
 
-    public SystemAdmin(Integer id, String firstName, String lastName, String email, String city, String country, Integer phoneNumber, String password, Role role) {
+    public SystemAdmin(Integer id, String firstName, String lastName, String email, String city, String country, String phoneNumber, String password, Role role) {
         super(id, firstName, lastName, email, city, country, phoneNumber, password, role);
     }
 

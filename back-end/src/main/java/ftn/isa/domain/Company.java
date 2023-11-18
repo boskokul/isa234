@@ -30,9 +30,6 @@ public class Company {
     private double averageGrade;
     @Column(name = "adress", nullable = false)
     private String adress;
-
-	@OneToMany(mappedBy = "company", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Set<User> admins = new HashSet<User>();
 	
 	@OneToMany(mappedBy = "company", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<CompanyAdmin> companyAdmins = new HashSet<CompanyAdmin>();
@@ -130,14 +127,6 @@ public class Company {
 
 	public String getAdress() {
 		return adress;
-	}
-
-	public Set<User> getAdmins() {
-		return admins;
-	}
-
-	public void setAdmins(Set<User> admins) {
-		this.admins = admins;
 	}
 
 	public void setAdress(String adress) {

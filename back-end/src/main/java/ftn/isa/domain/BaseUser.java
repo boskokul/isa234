@@ -29,7 +29,7 @@ public class BaseUser {
     @Column(name = "country", nullable = false)
     private String country;
     @Column(name = "phone", nullable = false)
-    private Integer phoneNumber;
+    private String phoneNumber;
     @Column(name = "password", nullable = false)
     private String password;
 
@@ -38,8 +38,7 @@ public class BaseUser {
     private Role role;
     
     public BaseUser() {}
-
-    public BaseUser(Integer id, String firstName, String lastName, String email, String city, String country, Integer phoneNumber, String password, Role role) {
+    public BaseUser(Integer id, String firstName, String lastName, String email, String city, String country, String phoneNumber, String password, Role role) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -99,11 +98,11 @@ public class BaseUser {
         this.country = country;
     }
 
-    public Integer getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(Integer phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 

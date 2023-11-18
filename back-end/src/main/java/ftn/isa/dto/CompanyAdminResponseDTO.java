@@ -9,7 +9,7 @@ public class CompanyAdminResponseDTO {
     private String email;
     private String city;
     private String country;
-    private Integer phoneNumber;
+    private String phoneNumber;
     
     public CompanyAdminResponseDTO() {}
     
@@ -25,7 +25,7 @@ public class CompanyAdminResponseDTO {
     }
     
 	public CompanyAdminResponseDTO(Integer id, String firstName, String lastName, String email, String city,
-			String country, Integer phoneNumber) {
+			String country, String phoneNumber) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -71,10 +71,10 @@ public class CompanyAdminResponseDTO {
 	public void setCountry(String country) {
 		this.country = country;
 	}
-	public Integer getPhoneNumber() {
+	public String getPhoneNumber() {
 		return phoneNumber;
 	}
-	public void setPhoneNumber(Integer phoneNumber) {
+	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
     
