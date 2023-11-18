@@ -3,5 +3,5 @@ export interface Company {
   name: string;
   description: string;
   averageGrade: number;
-  address: string;
+  adress: string;
 }

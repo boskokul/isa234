@@ -1,5 +1,5 @@
 <h1>Companies</h1>
-<div id="rating">
+<div class="rating">
   <hr />
   <div id="details">
     <div>
@@ -8,7 +8,7 @@
         <tbody>
           <tr *ngFor="let c of companies">
             <td>{{ c.name }}</td>
-            <td><button (click)="ViewProfile(c.id)">Go to profile</button></td>
+            <td><button (click)="ViewProfile(c.id)" class="matija-button">Go to profile</button></td>
           </tr>
         </tbody>
       </table>

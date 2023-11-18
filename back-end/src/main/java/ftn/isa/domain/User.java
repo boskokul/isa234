@@ -151,6 +151,20 @@ public class User {
         this.password = password;
         this.role = role;
     }
+
+    public User( String firstName, String lastName, String email, String city, String country, String proffesion, String companyInformation,
+                String password, Role role) {
+        super();
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.city = city;
+        this.country = country;
+        this.profession = profession;
+        this.companyInformation = companyInformation;
+        this.password = password;
+        this.role = role;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) {
