@@ -2,6 +2,7 @@ package ftn.isa.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import ftn.isa.domain.*;
@@ -11,11 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+
+import antlr.debug.Event;
+
 import org.springframework.web.bind.annotation.*;
 import ftn.isa.dto.CompanyResponseDTO;
 import ftn.isa.dto.EquipmentDTO;
@@ -88,9 +87,9 @@ public class CompanyController {
 
 	@GetMapping(value = "/{companyId}/equipment")
 	public ResponseEntity<List<EquipmentDTO>> getCompanyEquipment(@PathVariable Integer companyId) {
-
+		
 		Company company = companyService.findOneWithEquipment(companyId);
-
+		
 		Set<Equipment> equipment = company.getEquipment();
 		List<EquipmentDTO> equipmentDTOs = new ArrayList<>();
 
@@ -115,6 +114,23 @@ public class CompanyController {
             responseDTOS.add(new CompanyResponseDTO(c));
         }
         return new ResponseEntity<>(responseDTOS, HttpStatus.OK);
+    }
+    
+    @PutMapping(consumes = "application/json")
+    public ResponseEntity<CompanyResponseDTO> update(@RequestBody CompanyResponseDTO companyUpdateDTO){
+        Company c = companyService.findOne(companyUpdateDTO.getId());
+
+        if (c == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        c.setName(companyUpdateDTO.getName());
+        c.setDescription(companyUpdateDTO.getDescription());
+        c.setCity(companyUpdateDTO.getCity());
+        c.setCountry(companyUpdateDTO.getCountry());
+
+        c = companyService.save(c);
+        return new ResponseEntity<>(new CompanyResponseDTO(c), HttpStatus.OK);
     }
 
 }

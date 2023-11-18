@@ -1,0 +1,14 @@
+<div>
+  <mat-card *ngFor="let a of admins" class="purple-card">
+    <div>
+      <p>Name: {{ a.firstName }} {{ a.lastName }}</p>
+      <p>Country: {{ a.country }}</p>
+      <p>City: {{ a.city }}</p>
+      <p>Email: {{ a.email }}</p>
+      <p>Phone number: {{ a.phoneNumber }}</p>
+      <div>
+        <p>************</p>
+      </div>
+    </div>
+  </mat-card>
+</div>
