@@ -1,0 +1,29 @@
+p {
+    font-size: 20pt;
+    font-family: "Rhodium Libre";
+  }
+  
+  h1{font-size: 26pt;
+    font-family: "Rhodium Libre";
+  }
+
+  .rating{
+    font-size:14pt;
+    font-family: "Rhodium Libre";
+  }
+
+  .matija-button{
+
+    color: white;
+    font-size: 18px;
+    background-color: #ad2831ff;
+    border-color: #ad2831ff;
+    z-index: 2;
+    font-family: "Rhodium Libre";
+  }
+
+  th{
+    background-color: #ad2831ff;
+  }
+  
+

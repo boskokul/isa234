@@ -1,0 +1,47 @@
+.container {
+    display: flex;
+    justify-content: space-between; 
+  }
+  
+  .flex-container {
+    display: flex;
+    width: 100%;
+    margin-bottom: 5vh; /* Move the form more to the upper border */
+  }
+  
+  .form-container {
+    flex: 1;
+    padding: 10px; /* Optional: Add padding for spacing between forms */
+    max-width: 45%; /* Optional: Adjust the max-width for individual form width */
+    margin-bottom: 12vh; /* Adjust the top margin for the second container */
+  }
+
+  .register-button {
+    display: flex;
+    justify-content: center;
+    margin-top: 1px; /* Adjust the top margin of the button */
+    background-color: #800e13ff!important;
+    font-family: "Rhodium Libre"!important;
+    color: white;
+    font-size: 18px;
+    
+  }
+
+  .admin-para{
+
+    font-family: "Rhodium Libre"!important;
+    font-size: 28px;
+  }
+
+  .admin-para-x{
+
+    font-weight: bold;
+    font-size: 14px;
+    color:red;
+  }
+
+  .admin-ol {
+    font-family: "Rhodium Libre" !important;
+    font-size: 18px;
+    /* Add any additional styling here */
+  }

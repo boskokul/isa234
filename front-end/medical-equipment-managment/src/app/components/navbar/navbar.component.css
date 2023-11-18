@@ -1,0 +1,89 @@
+.mat-toolbar {
+  background-color: #640d14ff;
+  color: white;
+  z-index: 2;
+}
+.mat-button {
+  margin-right: 5px;
+  margin-left: 5px;
+  color: white;
+  font-size: 18px;
+  background-color: #800e13ff;
+  z-index: 2;
+  font-family: "Rhodium Libre";
+}
+.mat-button-soft {
+  margin-right: 5px;
+  margin-left: 5px;
+  color: white;
+  font-size: 18px;
+  background-color: #ad2831ff;
+  z-index: 2;
+  font-family: "Rhodium Libre";
+}
+
+.custom-favicon {
+  display: inline-block;
+  width: 43px;
+  height: 43px;
+  background-image: url("src/favicon.ico");
+  background-size: contain;
+  background-position: left center;
+  background-repeat: no-repeat;
+  vertical-align: middle;
+  margin-right: 30px;
+  font-size: 26px;
+  line-height: 50px;
+  padding-left: 50px;
+  z-index: 2;
+}
+
+.custom-favicon .text-inside {
+  text-align: center;
+  font-size: 35px;
+  background-color: transparent; /* Set background-color to transparent */
+  font-family: "Rhodium Libre";
+  line-height: 40px; /* Adjust line-height to match the height of the icon */
+  padding-left: 10px; /* Adjust this value to control the space between the icon and text */
+  z-index: 2;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+/* The dropdown container */
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+/* Dropdown content (hidden by default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: transparent;
+  min-width: 160px;
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  float: none;
+  margin-top: 1px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* PALETA
+--black-bean: #250902ff;
+--black-bean-2: #38040eff;
+--rosewood: #640d14ff;
+--falu-red: #800e13ff;
+--auburn: #ad2831ff; */

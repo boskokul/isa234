@@ -1,0 +1,51 @@
+<h2>{{user.firstName}} {{user.lastName}} profile</h2>
+<div class="info">
+    <div class="form-row">
+        <div class="form-field">
+            <input [(ngModel)]="user.firstName" required [readonly]="!editable"/>
+            <label>First name</label>
+        </div>
+        <div class="form-field">
+            <input [(ngModel)]="user.lastName" required [readonly]="!editable"/>
+            <label>Last name</label>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-field">
+            <input [(ngModel)]="user.email" required [readonly]="true"/>
+            <label>Email</label>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-field">
+            <input [(ngModel)]="user.city" required [readonly]="!editable"/>
+            <label>City</label>
+        </div>
+        <div class="form-field">
+            <input [(ngModel)]="user.country" required [readonly]="!editable"/>
+            <label>Country</label>
+        </div>
+    </div>
+    <div class="form-field">
+        <div class="form-field">
+            <input [(ngModel)]="user.phoneNumber" required [readonly]="!editable"/>
+            <label>Phone number</label>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-field">
+            <input [(ngModel)]="user.profession" required [readonly]="!editable"/>
+            <label>Profession</label>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-field">
+            <input class="readonlyable" [(ngModel)]="user.companyInformation" required [readonly]="!editable"/>
+            <label>Company information</label>
+        </div>
+    </div>
+    <div>
+        <button class="btn" mat-button (click)="toggleEdit()">Edit</button>
+        <button mat-button (click)="updateUser()" [disabled]="!editable">Update</button>
+    </div>
+</div>
