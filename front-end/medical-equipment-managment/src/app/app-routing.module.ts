@@ -7,7 +7,6 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
 import { RegisterCompanyComponent } from './components/register-company/register-company.component';
 import { EquipmentComponent } from './components/equipment/equipment.component';
 
-
 const routes: Routes = [
   { path: '', redirectTo: 'register', pathMatch: 'full' },
   { path: 'companies', component: CompaniesComponent },

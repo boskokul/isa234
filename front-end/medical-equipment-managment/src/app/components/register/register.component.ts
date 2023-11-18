@@ -11,7 +11,7 @@ import { UserServiceService } from 'src/app/services/user-service.service';
 })
 export class RegisterComponent implements OnInit{
   hide = true
-  user: UserCreate = {firstName: '', lastName: '', email: '', city: '', country: '', phoneNumber: 0, companyInformation: '', profession: '', password: ''}
+  user: UserCreate = {firstName: '', lastName: '', email: '', city: '', country: '', phoneNumber: '', companyInformation: '', profession: '', password: ''}
   repeatPassword: string
   registerForm = new FormGroup({
     firstName: new FormControl('', [Validators.required]),
@@ -32,6 +32,10 @@ export class RegisterComponent implements OnInit{
   
   RegisterUser(){
     this.fillUser()
+    if(!this.IsValid()){
+      alert('You must fill all fields')
+      return;
+    }
     if(this.user.password != this.repeatPassword){
       alert('passwords must match!')
       return;
@@ -49,7 +53,7 @@ export class RegisterComponent implements OnInit{
     this.user.firstName = this.registerForm.value.firstName || ""
     this.user.lastName = this.registerForm.value.lastName || ""
     this.user.email = this.registerForm.value.email || ""
-    this.user.phoneNumber = Number(this.registerForm.value.phoneNumber || "")
+    this.user.phoneNumber = this.registerForm.value.phoneNumber || ""
     this.user.city = this.registerForm.value.city || ""
     this.user.country = this.registerForm.value.country || ""
     this.user.companyInformation = this.registerForm.value.companyInformation || ""
@@ -57,5 +61,23 @@ export class RegisterComponent implements OnInit{
     this.user.password = this.registerForm.value.password || ""
     this.repeatPassword = this.registerForm.value.repeatPassword || ""
     this.user.companyInformation = "."
+  }
+  IsValid(){
+    if(!this.user.firstName)
+      return false;
+    if(!this.user.lastName)
+      return false;
+    if(!this.user.email)
+      return false;
+    if(!this.user.phoneNumber)
+      return false;
+    if(!this.user.city)
+      return false;
+    if(!this.user.country)
+      return false;
+    if(!this.user.profession)
+      return false;
+    else
+      return true;
   }
 }

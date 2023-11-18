@@ -28,13 +28,11 @@ public class Company {
     private String description;
     @Column(name = "averageGrade", nullable = false)
     private double averageGrade;
+
 	@Column(name = "country", nullable = false)
 	private String country;
 	@Column(name = "city", nullable = false)
 	private String city;
-
-	@OneToMany(mappedBy = "company", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Set<User> admins = new HashSet<User>();
 	
 	@OneToMany(mappedBy = "company", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<CompanyAdmin> companyAdmins = new HashSet<CompanyAdmin>();
@@ -82,6 +80,18 @@ public class Company {
 		this.country = country;
 		this.city = city;
 	}
+	
+	
+	public Set<CompanyAdmin> getCompanyAdmins() {
+		return companyAdmins;
+	}
+
+
+	public void setCompanyAdmins(Set<CompanyAdmin> companyAdmins) {
+		this.companyAdmins = companyAdmins;
+	}
+
+
 	public Set<Equipment> getEquipment() {
 		return equipment;
 	}
@@ -121,13 +131,6 @@ public class Company {
 		this.averageGrade = averageGrade;
 	}
 
-	public Set<User> getAdmins() {
-		return admins;
-	}
-
-	public void setAdmins(Set<User> admins) {
-		this.admins = admins;
-	}
 
 	public String getCountry() { return country; }
 

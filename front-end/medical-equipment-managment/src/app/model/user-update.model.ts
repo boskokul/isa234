@@ -4,7 +4,7 @@ export interface UserUpdate{
     lastName: string;
     city: string;
     country: string;
-    phoneNumber: number;
+    phoneNumber: string;
     profession: string;
     companyInformation: string;
 }

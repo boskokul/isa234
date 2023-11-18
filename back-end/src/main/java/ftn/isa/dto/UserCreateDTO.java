@@ -1,6 +1,6 @@
 package ftn.isa.dto;
 
-import ftn.isa.domain.User;
+import ftn.isa.domain.RegisteredUser;
 
 public class UserCreateDTO {
     private String firstName;
@@ -9,13 +9,13 @@ public class UserCreateDTO {
     private String email;
     private String city;
     private String country;
-    private Integer phoneNumber;
+    private String phoneNumber;
     private String profession;
     private String companyInformation;
     public UserCreateDTO() {
 
     }
-    public UserCreateDTO(User user) {
+    public UserCreateDTO(RegisteredUser user) {
         this(user.getFirstName(), user.getLastName(), user.getEmail(), user.getCity(),
                 user.getCountry(), user.getProfession());
     }
@@ -69,11 +69,11 @@ public class UserCreateDTO {
         this.companyInformation = companyInformation;
     }
 
-    public Integer getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(Integer phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 

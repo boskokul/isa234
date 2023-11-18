@@ -13,8 +13,11 @@ public class CompanyAdmin extends BaseUser{
     private Company company;
     @OneToMany(mappedBy = "admin", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Appointment> appointments = new HashSet<Appointment>();
-
-    public CompanyAdmin(Integer id, String firstName, String lastName, String email, String city, String country, Integer phoneNumber, String password, Role role) {
+    
+    public CompanyAdmin() {
+    	super();
+    }
+    public CompanyAdmin(Integer id, String firstName, String lastName, String email, String city, String country, String phoneNumber, String password, Role role) {
         super(id, firstName, lastName, email, city, country, phoneNumber, password, role);
     }
 

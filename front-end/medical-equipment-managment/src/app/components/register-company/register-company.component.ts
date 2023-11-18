@@ -21,7 +21,7 @@ import { UserServiceService } from 'src/app/services/user-service.service';
     admins: AdminCreate[] = [];
     companyId = 0;
     emptyFlag = false;
-    user: AdminCreate = {firstName: '', lastName: '', email: '', city: '', country: '', phoneNumber: 0, companyInformation: '', profession: '', password: '', companyId: 0}
+    user: AdminCreate = {firstName: '', lastName: '', email: '', city: '', country: '', phoneNumber: '', companyInformation: '', profession: '', password: '', companyId: 0}
     repeatPassword: string
     registerForm = new FormGroup({
       firstName: new FormControl('', [Validators.required]),
@@ -155,9 +155,9 @@ this.companyService.registerCompany(this.company).pipe(
       if(this.user.lastName === ""){this.emptyFlag=true}
       this.user.email = this.registerForm.value.email || ""
       if(this.user.email === ""){this.emptyFlag=true}
-      this.user.phoneNumber = Number(this.registerForm.value.phoneNumber || "")
+      this.user.phoneNumber = this.registerForm.value.phoneNumber || ""
       console.log(this.user.phoneNumber);
-      if(this.user.phoneNumber === 0 || isNaN(this.user.phoneNumber)){this.emptyFlag=true}
+      if(this.user.phoneNumber === ""){this.emptyFlag=true}
       this.user.city = this.registerForm.value.city || ""
       if(this.user.city === ""){this.emptyFlag=true}
       this.user.country = this.registerForm.value.country || ""

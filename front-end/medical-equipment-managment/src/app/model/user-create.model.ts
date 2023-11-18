@@ -5,7 +5,7 @@ export interface UserCreate{
     email: string;
     city: string;
     country: string;
-    phoneNumber: number;
+    phoneNumber: string;
     profession: string;
     companyInformation: string;
 }

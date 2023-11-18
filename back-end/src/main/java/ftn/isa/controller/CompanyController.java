@@ -2,35 +2,26 @@ package ftn.isa.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.Set;
 
 import ftn.isa.domain.*;
+import ftn.isa.dto.CompanyAdminResponseDTO;
 import ftn.isa.dto.CompanyCreateDTO;
-import ftn.isa.service.EquipmentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 import ftn.isa.dto.CompanyResponseDTO;
 import ftn.isa.dto.EquipmentDTO;
 import ftn.isa.service.CompanyService;
-import ftn.isa.dto.UserCreateDTO;
 import ftn.isa.dto.UserResponseDTO;
-import ftn.isa.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 
-import static ftn.isa.domain.EquipmentType.*;
 
 @CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*")
 @RestController
@@ -38,10 +29,6 @@ import static ftn.isa.domain.EquipmentType.*;
 public class CompanyController {
 	@Autowired
 	private CompanyService companyService;
-    @Autowired
-    private EquipmentService equipmentService;
-    @Autowired
-    private UserService userService;
 	@GetMapping(value = "/all")
     public ResponseEntity<List<CompanyResponseDTO>> getCompanies() {
         List<Company> companies = companyService.findAll();
@@ -55,17 +42,17 @@ public class CompanyController {
     }
 
     @GetMapping(value = "/all/admins/{id}")
-    public ResponseEntity<List<UserResponseDTO>> getCompanyAdmins(@PathVariable Integer id) {
+    public ResponseEntity<List<CompanyAdminResponseDTO>> getCompanyAdmins(@PathVariable Integer id) {
         Company company = companyService.findOne(id);
         if(company==null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        List<UserResponseDTO> userResponseDTOs = company.getAdmins()
+        List<CompanyAdminResponseDTO> companyAdminResponseDTOs = company.getCompanyAdmins()
                 .stream()
-                .map(UserResponseDTO::new)
+                .map(CompanyAdminResponseDTO::new)
                 .toList();
 
-        return new ResponseEntity<>(userResponseDTOs, HttpStatus.OK);
+        return new ResponseEntity<>(companyAdminResponseDTOs, HttpStatus.OK);
     }
 
 	@GetMapping(value = "/last/created/id")
