@@ -45,4 +45,6 @@ public class CompanyService {
 	public Company findOneWithEquipment(Integer companyId) {
 		return companyRepository.findOneWithEquipment(companyId);
 	}
+
+	public List<Company> searchNameCountryCity(String name, String country, String city) { return companyRepository.findByNameContainsIgnoreCaseAndCountryContainingIgnoreCaseAndCityContainsIgnoreCase(name, country, city); }
 }

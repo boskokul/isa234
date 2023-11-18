@@ -6,8 +6,8 @@ INSERT INTO isa.equipments(
 	id, description, name, type)
 	VALUES (-2, 'opisoprema2', 'oprema2', 0);
 --kompanije
-INSERT INTO isa.companies(id, adress, average_grade, description, name) VALUES (-1, 'Stevana Hatale 1', 3, 'opis1', 'kompanija 1');
-INSERT INTO isa.companies(id, adress, average_grade, description, name) VALUES (-2, 'Ulica 1', 5, 'opis2', 'kompanija 2');
+INSERT INTO isa.companies(id, country, city, average_grade, description, name) VALUES (-1, 'Stevana', 'Hatale 1', 3, 'opis1', 'kompanija 1');
+INSERT INTO isa.companies(id, country, city, average_grade, description, name) VALUES (-2, 'Ulica',  '1', 5, 'opis2', 'kompanija 2');
 --veze kompanija i oprema
 INSERT INTO isa.company_equipment(
 	equipment_id, company_id)

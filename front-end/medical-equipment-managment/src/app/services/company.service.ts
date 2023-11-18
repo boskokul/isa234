@@ -25,5 +25,7 @@ export class CompanyService {
     return this.http.get<any>(environment.apiHost + 'companies/last/created/id' );
   }
 
-
+  searchCompanies(name: string, country: string, city: string): Observable<Company[]> {
+    return this.http.get<Company[]>(environment.apiHost + 'companies/search?' + 'name=' + name + '&country=' + country + '&city=' + city);
+  }
 }

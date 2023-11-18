@@ -16,7 +16,7 @@ import { UserServiceService } from 'src/app/services/user-service.service';
 })
   export class RegisterCompanyComponent implements OnInit{
     hide = true
-    company: Company = {id: 0, name: '', description: '', averageGrade: 0, adress: ''}
+    company: Company = {id: 0, name: '', description: '', averageGrade: 0, country: '', city: ''}
     adminNames: string[] = [];
     admins: AdminCreate[] = [];
     companyId = 0;
@@ -39,7 +39,8 @@ import { UserServiceService } from 'src/app/services/user-service.service';
     gigaChadForm = new FormGroup({
       name: new FormControl('', [Validators.required]),
       description: new FormControl('', [Validators.required]),
-      address: new FormControl('', [Validators.required]),
+      companyCountry: new FormControl('', [Validators.required]),
+      companyCity: new FormControl('', [Validators.required]),
     })
 
 
@@ -177,8 +178,10 @@ this.companyService.registerCompany(this.company).pipe(
         if(this.company.name === ""){this.emptyFlag=true}
         this.company.description= this.gigaChadForm.value.description || ''
         if(this.company.description === ""){this.emptyFlag=true}
-        this.company.adress= this.gigaChadForm.value.address || ''
-        if(this.company.adress === ""){this.emptyFlag=true}
+        this.company.country= this.gigaChadForm.value.companyCountry || ''
+        if(this.company.country === ""){this.emptyFlag=true}
+        this.company.city= this.gigaChadForm.value.companyCity || ''
+        if(this.company.city === ""){this.emptyFlag=true}
     }
 
 

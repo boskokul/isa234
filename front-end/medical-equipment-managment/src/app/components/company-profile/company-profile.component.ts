@@ -11,7 +11,8 @@ import { CompanyService } from 'src/app/services/company.service';
 export class CompanyProfileComponent implements OnInit {
   name: string;
   description: string;
-  adress: string;
+  country: string;
+  city: string;
   averageGrade: number;
   constructor(
     private companyService: CompanyService,
@@ -23,7 +24,8 @@ export class CompanyProfileComponent implements OnInit {
       next: (result: Company) => {
         this.name = result.name;
         this.description = result.description;
-        this.adress = result.adress;
+        this.country = result.country;
+        this.city = result.city;
         this.averageGrade = result.averageGrade;
       },
     });
