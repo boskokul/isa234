@@ -74,8 +74,7 @@ public class CompanyController {
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/{id}")
-    @GetMapping
+    @GetMapping(value = "/{id}")
     public ResponseEntity<CompanyResponseDTO> getCompanieById(@PathVariable Integer id) {
         Company company = companyService.getById(id);
         CompanyResponseDTO companyResponseDTO = new CompanyResponseDTO(company);
