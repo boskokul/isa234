@@ -5,6 +5,7 @@ import { concatMap, forkJoin, of, switchMap, tap } from 'rxjs';
 import { AdminCreate } from 'src/app/model/admin-create';
 import { Company } from 'src/app/model/company';
 import { UserCreate } from 'src/app/model/user-create.model';
+import { AdminService } from 'src/app/services/admin.service';
 import { CompanyService } from 'src/app/services/company.service';
 import { UserServiceService } from 'src/app/services/user-service.service';
 
@@ -43,7 +44,7 @@ import { UserServiceService } from 'src/app/services/user-service.service';
 
 
 
-    constructor(private userService: UserServiceService, private companyService: CompanyService, private router: Router){}
+    constructor(private userService: UserServiceService, private adminService: AdminService, private companyService: CompanyService, private router: Router){}
     ngOnInit(): void {
     }
     
@@ -106,39 +107,39 @@ import { UserServiceService } from 'src/app/services/user-service.service';
         return;
       }
     
-      this.companyService.registerCompany(this.company).pipe(
-        concatMap(() => this.companyService.getLastCompanyId()),
-        switchMap((companyId) => {
-          this.companyId = companyId; // Assign the received companyId
-          console.log(this.companyId);
-    
-          // You can replace of(null) with any value or operation you need to execute
-          return of(null);
-        })
-      ).subscribe(
-        () => {
-          const updatedAdmins = this.admins.map(admin => {
-            return { ...admin, companyId: this.companyId };
-          });
-    
-          const registerObservables = updatedAdmins.map(admin => {
-            return this.userService.registerUser(admin);
-          });
-    
-          forkJoin(registerObservables).subscribe(
-            () => {
-              console.log('All admins registered');
-              this.router.navigate(['/companies']);
-            },
-            (err) => {
-              console.error(err); // Handle errors if any
-            }
-          );
-        },
-        (err) => {
-          console.error(err); // Handle errors if any
-        }
-      );
+this.companyService.registerCompany(this.company).pipe(
+  concatMap(() => this.companyService.getLastCompanyId())
+).subscribe({
+  next: (companyId) => { 
+    this.companyId = companyId; // Assign the received companyId
+    console.log("Both events completed");
+    console.log(this.companyId); // Log the companyId after it's retrieved
+
+    // Execute the code after companyId is received
+    const updatedAdmins = this.admins.map(admin => {
+      return { ...admin, companyId: this.companyId };
+    });
+    console.log(updatedAdmins);
+
+    const registerObservables = updatedAdmins.map(admin => {
+      return this.adminService.registerUser(admin);
+    });
+
+    forkJoin(registerObservables).subscribe(
+      () => {
+        console.log('All admins registered');
+        this.router.navigate(['/companies']);
+      },
+      (err) => {
+        console.error(err); // Handle errors if any
+      }
+    );
+  },
+  error: (err) => {
+    // Handle errors if any
+    console.error(err);
+  }
+});
     }
     
   
