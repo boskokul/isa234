@@ -74,10 +74,12 @@ public class CompanyController {
         return new ResponseEntity<>(companyResponseDTO, HttpStatus.OK);
     }
 
+    //Trebam na frontu da probam da testiram ovu metodu i da promenim
     @PostMapping(consumes = "application/json")
     public ResponseEntity<CompanyResponseDTO> save(@RequestBody CompanyCreateDTO companyDTO){
         Company company = new Company();
-        company.setAdress(companyDTO.getAdress());
+        company.setCountry(companyDTO.getCountry());
+        company.setCity(company.getCity());
         company.setName(companyDTO.getName());
         company.setDescription(companyDTO.getDescription());
         company.setAverageGrade(companyDTO.getAverageGrade());
@@ -103,5 +105,22 @@ public class CompanyController {
 		}
 		return new ResponseEntity<>(equipmentDTOs, HttpStatus.OK);
 	}
+
+    @GetMapping(value = "/search")
+    public ResponseEntity<List<CompanyResponseDTO>> searchNameCountryCity(@RequestParam(required = false) String name, @RequestParam(required = false) String country, @RequestParam(required = false) String city){
+        if(name == null){ name = ""; }
+        if(country == null){ country = ""; }
+        if(city == null){ city = ""; }
+
+        List<Company> companies = companyService.searchNameCountryCity(name, country, city);
+        if(companies == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        List<CompanyResponseDTO> responseDTOS = new ArrayList<>();
+        for(Company c: companies){
+            responseDTOS.add(new CompanyResponseDTO(c));
+        }
+        return new ResponseEntity<>(responseDTOS, HttpStatus.OK);
+    }
   
 }
