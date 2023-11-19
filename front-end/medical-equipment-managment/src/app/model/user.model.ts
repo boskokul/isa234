@@ -8,4 +8,6 @@ export interface User{
     phoneNumber: string;
     profession: string;
     companyInformation: string;
+    penalPoints: number;
+    category: number
 }

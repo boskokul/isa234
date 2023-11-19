@@ -44,6 +44,18 @@
             <label>Company information</label>
         </div>
     </div>
+    <div class="form-row">
+        <div class="form-field">
+            <input [(ngModel)]="user.penalPoints" required [readonly]="true"/>
+            <label>Penal points</label>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-field">
+            <input [(ngModel)]="user.category" required [readonly]="true"/>
+            <label>Category</label>
+        </div>
+    </div>
     <div>
         <button class="btn" mat-button (click)="toggleEdit()">Edit</button>
         <button mat-button (click)="updateUser()" [disabled]="!editable">Update</button>
