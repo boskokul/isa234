@@ -1,12 +1,15 @@
 package ftn.isa.controller;
 
+import ftn.isa.domain.BaseUser;
 import ftn.isa.domain.RegisteredUser;
 import ftn.isa.domain.Role;
+import ftn.isa.domain.SecureToken;
 import ftn.isa.dto.UserCreateDTO;
 import ftn.isa.dto.UserResponseDTO;
 import ftn.isa.dto.UserUpdateDTO;
 import ftn.isa.service.EmailService;
 import ftn.isa.service.RegisteredUserService;
+import ftn.isa.service.SecureTokenService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +28,9 @@ public class UserController {
     private RegisteredUserService userService;
     @Autowired
     private EmailService emailService;
+
+    @Autowired
+    private SecureTokenService tokenService;
     private Logger logger = LoggerFactory.getLogger(UserController.class);
     @GetMapping(value = "/all")
     public ResponseEntity<List<UserResponseDTO>> getAllUsers(){
@@ -52,12 +58,9 @@ public class UserController {
         user.setProfession(userDTO.getProfession());
         user.setPhoneNumber(userDTO.getPhoneNumber());
         user.setRole(Role.RegisteredUser);
+        user.setVerified(false);
         user = userService.save(user);
-        try{
-            emailService.sendVerificationMail(user);
-        }catch (Exception e){
-            logger.info("Greska prilikom slanja emaila: " + e.getMessage());
-        }
+        sendRegistrationConfirmationEmail(user);
         UserResponseDTO userResponseDTO = new UserResponseDTO(user);
         return new ResponseEntity<>(userResponseDTO, HttpStatus.OK);
     }
@@ -90,4 +93,30 @@ public class UserController {
         }
         return new ResponseEntity<>(new UserResponseDTO(user), HttpStatus.OK);
     }
+
+    @GetMapping(value = "/registrationConfirm")
+    public String confirmRegistration(@RequestParam("token") String token){
+        SecureToken secureToken = tokenService.findByToken(token);
+        if(secureToken == null){
+            return "redirect: http://localhost:4200/invalidtoken";
+        }
+        RegisteredUser user = secureToken.getUser();
+        user.setVerified(true);
+        userService.save(user);
+        tokenService.removeToken(secureToken);
+        return "redirect: http://localhost:4200/verification";
+    }
+
+    private void sendRegistrationConfirmationEmail(RegisteredUser user) {
+        SecureToken secureToken= tokenService.createSecureToken();
+        secureToken.setUser(user);
+        tokenService.saveSecureToken(secureToken);
+        try {
+            emailService.sendVerificationMail(user, secureToken.getToken());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
 }

@@ -2,13 +2,8 @@ package ftn.isa.domain;
 
 import static javax.persistence.InheritanceType.JOINED;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name="baseUsers")
@@ -32,13 +27,14 @@ public class BaseUser {
     private String phoneNumber;
     @Column(name = "password", nullable = false)
     private String password;
-
+    @Column(name = "verified", nullable = false)
+    private boolean verified;
 
     @Column(name = "role", nullable = false)
     private Role role;
     
     public BaseUser() {}
-    public BaseUser(Integer id, String firstName, String lastName, String email, String city, String country, String phoneNumber, String password, Role role) {
+    public BaseUser(Integer id, String firstName, String lastName, String email, String city, String country, String phoneNumber, String password, Role role, boolean verified) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -48,6 +44,7 @@ public class BaseUser {
         this.phoneNumber = phoneNumber;
         this.password = password;
         this.role = role;
+        this.verified = verified;
     }
 
     public Integer getId() {
@@ -121,4 +118,13 @@ public class BaseUser {
     public void setRole(Role role) {
         this.role = role;
     }
+
+    public boolean isVerified() {
+        return verified;
+    }
+
+    public void setVerified(boolean verified) {
+        this.verified = verified;
+    }
+
 }

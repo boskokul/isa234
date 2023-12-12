@@ -67,6 +67,7 @@ public class AdminController {
         user.setPassword(userDTO.getPassword());
         user.setPhoneNumber(userDTO.getPhoneNumber());
         user.setRole(Role.CompanyAdmin);
+        user.setVerified(false);
         user = companyAadminService.save(user);
         CompanyAdminResponseDTO userResponseDTO = new CompanyAdminResponseDTO(user);
         return new ResponseEntity<>(userResponseDTO, HttpStatus.OK);

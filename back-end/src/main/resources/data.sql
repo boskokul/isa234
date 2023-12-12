@@ -32,20 +32,20 @@ INSERT INTO isa.company_equipment(
     VALUES (-4, -2);
 --useri
 INSERT INTO isa.base_users(
-	id, city, country, email, first_name, last_name, password, phone, role)
-	VALUES (-1, 'ns', 'srb', 'bfd@gmail.com', 'marko', 'nikic', 'ftn1', '06314222', 1);
+	id, city, country, email, first_name, last_name, password, phone, role, verified)
+	VALUES (-1, 'ns', 'srb', 'bfd@gmail.com', 'marko', 'nikic', 'ftn1', '06314222', 1, true);
 INSERT INTO isa.base_users(
-	id, city, country, email, first_name, last_name, password, phone, role)
-	VALUES (-2, 'bg', 'srb', 'aad@gmail.com', 'nemanja', 'zigic', 'ftn2', '064324562', 1);
+	id, city, country, email, first_name, last_name, password, phone, role, verified)
+	VALUES (-2, 'bg', 'srb', 'aad@gmail.com', 'nemanja', 'zigic', 'ftn2', '064324562', 1, true);
 INSERT INTO isa.base_users(
-    id, city, country, email, first_name, last_name, password, phone, role)
-VALUES (-3, 'nis', 'srb', 'huj@gmail.com', 'nika', 'nikic', 'ftn3', '06303222', 0);
+    id, city, country, email, first_name, last_name, password, phone, role, verified)
+VALUES (-3, 'nis', 'srb', 'huj@gmail.com', 'nika', 'nikic', 'ftn3', '06303222', 0, true);
 INSERT INTO isa.base_users(
-    id, city, country, email, first_name, last_name, password, phone, role)
-VALUES (-4, 'sub', 'srb', 'dad@gmail.com', 'nikola', 'zigic', 'ftn4', '061324562', 0);
+    id, city, country, email, first_name, last_name, password, phone, role, verified)
+VALUES (-4, 'sub', 'srb', 'dad@gmail.com', 'nikola', 'zigic', 'ftn4', '061324562', 0, true);
 INSERT INTO isa.base_users(
-    id, city, country, email, first_name, last_name, password, phone, role)
-VALUES (-5, 'zr', 'srb', 'admin@gmail.com', 'nemanja', 'matic', 'ftn5', '061324567', 1);
+    id, city, country, email, first_name, last_name, password, phone, role, verified)
+VALUES (-5, 'zr', 'srb', 'admin@gmail.com', 'nemanja', 'matic', 'ftn5', '061324567', 1, true);
 INSERT INTO isa.companys_admins(
 	id, company_id)
 	VALUES (-1, -2);
