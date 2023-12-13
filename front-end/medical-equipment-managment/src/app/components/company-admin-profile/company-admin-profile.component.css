@@ -38,6 +38,13 @@ h1 {
   color: white;
 }
 
+.icon-button {
+  background-image: url('calendar.ico');
+  background-size: 60px 50px;
+  height: 50px;
+  width: 40px;
+}
+
 .basic-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -45,4 +52,10 @@ h1 {
   padding: 6px;
   box-sizing: border-box;
   flex-wrap: wrap;
+}
+
+.calendar-container {
+  height: 400px; 
+  overflow-y: auto; 
+  border: 1px solid #ccc; 
 }
