@@ -13,7 +13,8 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 export class AuthService {
   currentUser = new BehaviorSubject<CurrentUser>({
     email: "",
-    role: ""
+    role: "",
+    id: 0
   })
   constructor(
     private http: HttpClient,
@@ -52,14 +53,15 @@ export class AuthService {
       localStorage.removeItem("jwt");
       this.access_token = null;
       this.router.navigate(['/login']);
-      this.currentUser.next({ email: "", role: "" });
+      this.currentUser.next({ email: "", role: "", id: 0});
     }
     setUser(){
       let token = localStorage.getItem("jwt")
       const jwtHelperService = new JwtHelperService();
       const user: CurrentUser = {
         email: jwtHelperService.decodeToken(token!).email,
-        role: jwtHelperService.decodeToken(token!).role
+        role: jwtHelperService.decodeToken(token!).role,
+        id: jwtHelperService.decodeToken(token!).id
       }
       console.log(user)
       this.currentUser.next(user)

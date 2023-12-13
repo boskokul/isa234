@@ -34,7 +34,7 @@ public class TokenUtils {
 
     // ============= Funkcije za generisanje JWT tokena =============
 
-    public String generateToken(String username, String role) {
+    public String generateToken(String username, String role, int id) {
         return Jwts.builder()
                 .setIssuer(APP_NAME)
                 .setSubject(username)
@@ -43,6 +43,7 @@ public class TokenUtils {
                 .setExpiration(generateExpirationDate())
                 .claim("role", role)
                 .claim("email", username)
+                .claim("id", id)
                 .signWith(SIGNATURE_ALGORITHM, SECRET).compact();
 
     }
