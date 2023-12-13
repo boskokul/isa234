@@ -11,10 +11,14 @@ import ftn.isa.dto.UserResponseDTO;
 import ftn.isa.dto.UserUpdateDTO;
 import ftn.isa.service.CompanyAdminService;
 import ftn.isa.service.CompanyService;
+import ftn.isa.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*")
@@ -25,6 +29,8 @@ public class AdminController {
     private CompanyAdminService companyAadminService;
     @Autowired
     private CompanyService companyService;
+    @Autowired
+    private RoleService roleService;
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<CompanyAdminResponseDTO> getById(@PathVariable Integer id){
@@ -59,20 +65,21 @@ public class AdminController {
 
         CompanyAdmin user = new CompanyAdmin();
         user.setCompany(companyService.findOne(userDTO.getCompanyId()));
-        user.setEmail(userDTO.getEmail());
+        user.setUsername(userDTO.getEmail());
         user.setFirstName(userDTO.getFirstName());
         user.setLastName(userDTO.getLastName());
         user.setCity(userDTO.getCity());
         user.setCountry(userDTO.getCountry());
         user.setPassword(userDTO.getPassword());
         user.setPhoneNumber(userDTO.getPhoneNumber());
-        user.setRole(Role.CompanyAdmin);
+        List<Role> roles = roleService.findByName("ROLE_COMPANY_ADMIN");
+        user.setRoles(roles);
         user.setVerified(false);
         user = companyAadminService.save(user);
         CompanyAdminResponseDTO userResponseDTO = new CompanyAdminResponseDTO(user);
         return new ResponseEntity<>(userResponseDTO, HttpStatus.OK);
     }
-    
+    @PreAuthorize("hasRole('COMPANY_ADMIN')")
     @PutMapping(consumes = "application/json")
     public ResponseEntity<CompanyAdminResponseDTO> update(@RequestBody CompanyAdminResponseDTO userUpdateDTO){
         CompanyAdmin user = companyAadminService.findOne(userUpdateDTO.getId());

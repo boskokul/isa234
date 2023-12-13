@@ -15,8 +15,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,12 +28,11 @@ import java.util.List;
 public class UserController {
     @Autowired
     private RegisteredUserService userService;
-    @Autowired
+ /*   @Autowired
     private EmailService emailService;
 
     @Autowired
-    private SecureTokenService tokenService;
-    private Logger logger = LoggerFactory.getLogger(UserController.class);
+    private SecureTokenService tokenService;*/
     @GetMapping(value = "/all")
     public ResponseEntity<List<UserResponseDTO>> getAllUsers(){
         List<RegisteredUser> users = userService.findAll();
@@ -41,6 +42,7 @@ public class UserController {
         }
         return new ResponseEntity<>(userDTOs, HttpStatus.OK);
     }
+    /*
     @PostMapping(consumes = "application/json")
     public ResponseEntity<UserResponseDTO> save(@RequestBody UserCreateDTO userDTO){
         RegisteredUser userWithMail = userService.findByEmail(userDTO.getEmail());
@@ -63,8 +65,9 @@ public class UserController {
         sendRegistrationConfirmationEmail(user);
         UserResponseDTO userResponseDTO = new UserResponseDTO(user);
         return new ResponseEntity<>(userResponseDTO, HttpStatus.OK);
-    }
+    }*/
 
+    @PreAuthorize("hasRole('REGISTERED_USER')")
     @PutMapping(consumes = "application/json")
     public ResponseEntity<UserResponseDTO> update(@RequestBody UserUpdateDTO userUpdateDTO){
         RegisteredUser user = userService.findOne(userUpdateDTO.getId());
@@ -93,30 +96,13 @@ public class UserController {
         }
         return new ResponseEntity<>(new UserResponseDTO(user), HttpStatus.OK);
     }
-
-    @GetMapping(value = "/registrationConfirm")
-    public String confirmRegistration(@RequestParam("token") String token){
-        SecureToken secureToken = tokenService.findByToken(token);
-        if(secureToken == null){
-            return "redirect: http://localhost:4200/invalidtoken";
+    @GetMapping(value = "/whoami")
+    public ResponseEntity<UserResponseDTO> getLoggedInUser(Principal u){
+        RegisteredUser user = userService.findByEmail(u.getName());
+        if(user == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        RegisteredUser user = secureToken.getUser();
-        user.setVerified(true);
-        userService.save(user);
-        tokenService.removeToken(secureToken);
-        return "redirect: http://localhost:4200/verification";
-    }
-
-    private void sendRegistrationConfirmationEmail(RegisteredUser user) {
-        SecureToken secureToken= tokenService.createSecureToken();
-        secureToken.setUser(user);
-        tokenService.saveSecureToken(secureToken);
-        try {
-            emailService.sendVerificationMail(user, secureToken.getToken());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        return new ResponseEntity<>(new UserResponseDTO(user), HttpStatus.OK);
     }
 
 }

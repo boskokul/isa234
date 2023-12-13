@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 
 import antlr.debug.Event;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ftn.isa.dto.CompanyResponseDTO;
 import ftn.isa.dto.EquipmentDTO;
@@ -115,7 +116,7 @@ public class CompanyController {
         }
         return new ResponseEntity<>(responseDTOS, HttpStatus.OK);
     }
-    
+    @PreAuthorize("hasRole('COMPANY_ADMIN')")
     @PutMapping(consumes = "application/json")
     public ResponseEntity<CompanyResponseDTO> update(@RequestBody CompanyResponseDTO companyUpdateDTO){
         Company c = companyService.findOne(companyUpdateDTO.getId());
