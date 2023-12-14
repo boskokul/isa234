@@ -1,6 +1,8 @@
 --kompanije
-INSERT INTO isa.companies(id, country, city, average_grade, description, name) VALUES (-1, 'Srbija', 'BG', 3, 'opis1', 'kompanija 1');
-INSERT INTO isa.companies(id, country, city, average_grade, description, name) VALUES (-2, 'Hrvatska',  'ZG', 5, 'opis2', 'kompanija 2');
+INSERT INTO isa.companies(id, country, city, average_grade, description, name, start_time, end_time) 
+	VALUES (-1, 'Srbija', 'BG', 3, 'opis1', 'kompanija 1', '08:00:00', '15:00:00');
+INSERT INTO isa.companies(id, country, city, average_grade, description, name, start_time, end_time) 
+	VALUES (-2, 'Hrvatska',  'ZG', 5, 'opis2', 'kompanija 2', '09:00:00', '16:00:00');
 --oprema
 INSERT INTO isa.equipments(
 	id, description, name, type, company_id, amount)
@@ -44,6 +46,6 @@ INSERT INTO isa.registered_users(penal_points, category, company_info, professio
 --apointmenti (predefinisani termini)
 INSERT INTO isa.appointments(
 	id, date_time, duration, company_admin_id)
-	VALUES (-1, '2023-12-16T15:18:12.850Z', 30, -5);
+	VALUES (-1, '2023-12-16T15:18:12', 30, -5);
 --rezervacije (one koriste te predefinisane termine u sebi)
 	
