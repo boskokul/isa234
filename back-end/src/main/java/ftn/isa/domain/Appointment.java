@@ -10,28 +10,35 @@ public class Appointment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "company_admin_id", nullable = true)
     private CompanyAdmin admin;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "equipment_id", nullable = false)
-    private Equipment equipment;
     @OneToOne(mappedBy = "appointment", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Reservation reservation;
     @Column(name = "date_time", nullable = false)
     private LocalDateTime dateTime;
     @Column(name = "duration", nullable = false)
     private int duration;
+    
     public Appointment(){}
-    public Appointment(Integer id, CompanyAdmin admin, Equipment equipment, LocalDateTime dateTime, int duration) {
+    public Appointment(Integer id, CompanyAdmin admin, LocalDateTime dateTime, int duration) {
         this.id = id;
         this.admin = admin;
-        this.equipment = equipment;
         this.dateTime = dateTime;
         this.duration = duration;
     }
 
-    public Integer getId() {
+    public Appointment(Integer id, CompanyAdmin admin, Reservation reservation, LocalDateTime dateTime, int duration) {
+		super();
+		this.id = id;
+		this.admin = admin;
+		this.reservation = reservation;
+		this.dateTime = dateTime;
+		this.duration = duration;
+	}
+    
+    
+	public Integer getId() {
         return id;
     }
 
@@ -45,14 +52,6 @@ public class Appointment {
 
     public void setAdmin(CompanyAdmin admin) {
         this.admin = admin;
-    }
-
-    public Equipment getEquipment() {
-        return equipment;
-    }
-
-    public void setEquipment(Equipment equipment) {
-        this.equipment = equipment;
     }
 
     public LocalDateTime getDateTime() {

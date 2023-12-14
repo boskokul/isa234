@@ -1,6 +1,7 @@
 package ftn.isa.controller;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -41,7 +42,8 @@ public class EquipmentController {
 
 		Equipment equipment = equipmentService.findOneWithCompanies(equipmentId);
 
-		Set<Company> companies = equipment.getCompanies();
+		Set<Company> companies = new HashSet<>();
+		companies.add(equipment.getCompany());
 		List<CompanyResponseDTO> companyDTOs = new ArrayList<>();
 
 		for (Company c : companies) {
