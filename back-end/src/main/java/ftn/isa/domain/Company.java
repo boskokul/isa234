@@ -39,8 +39,7 @@ public class Company {
 	@OneToMany(mappedBy = "company", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Rating> ratings = new HashSet<Rating>();
     
-    @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH})
-	@JoinTable(name = "company_equipment", joinColumns = @JoinColumn(name = "company_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "equipment_id", referencedColumnName = "id"))
+	@OneToMany(mappedBy = "company", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Equipment> equipment = new HashSet<Equipment>();
     
     public Company() {
@@ -75,7 +74,6 @@ public class Company {
 
 	public Company(String name, String description, double averageGrade, String country, String city) {
 		super();
-		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.averageGrade = averageGrade;

@@ -17,14 +17,16 @@ public class Equipment {
     private String description;
     @Column(name = "type", nullable = false)
 	private EquipmentType type;
+    @Column(name = "amount", nullable = false)
+	private Integer amount;
 
 
 	@OneToMany(mappedBy = "equipment", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Set<Appointment> appointments = new HashSet<Appointment>();
+	private Set<Reservation> reservations = new HashSet<Reservation>();
     
-    @ManyToMany( cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH})
-	@JoinTable(name = "company_equipment", joinColumns = @JoinColumn(name = "equipment_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "company_id", referencedColumnName = "id"))
-	private Set<Company> companies = new HashSet<Company>();
+	@ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "companyId", nullable = true)
+    private Company company;
     
     public Equipment() {
     	super();
@@ -45,21 +47,41 @@ public class Equipment {
 		this.type = type;
 	}
 	
-	public Equipment(Integer id, String name, String description, Set<Company> companies, EquipmentType type) {
+	public Equipment(Integer id, String name, String description, Company company, EquipmentType type) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.description = description;
-		this.companies = companies;
+		this.company = company;
 		this.type = type;
 	}
 
-	public Set<Company> getCompanies() {
-		return companies;
+	public Equipment(Integer id, String name, String description, EquipmentType type, Integer amount,
+			Set<Reservation> reservations, Company company) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.description = description;
+		this.type = type;
+		this.amount = amount;
+		this.reservations = reservations;
+		this.company = company;
 	}
 
-	public void setCompanies(Set<Company> companies) {
-		this.companies = companies;
+	public Integer getAmount() {
+		return amount;
+	}
+
+	public void setAmount(Integer amount) {
+		this.amount = amount;
+	}
+
+	public Company getCompany() {
+		return company;
+	}
+
+	public void setCompany(Company company) {
+		this.company = company;
 	}
 
 	public Integer getId() {
@@ -81,12 +103,12 @@ public class Equipment {
 		this.description = description;
 	}
 
-	public Set<Appointment> getAppointments() {
-		return appointments;
+	public Set<Reservation> getreservations() {
+		return reservations;
 	}
 
-	public void setAppointments(Set<Appointment> appointments) {
-		this.appointments = appointments;
+	public void setreservations(Set<Reservation> reservations) {
+		this.reservations = reservations;
   }
 
 	public EquipmentType getType() {
