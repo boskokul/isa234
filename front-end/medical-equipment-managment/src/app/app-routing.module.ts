@@ -8,6 +8,7 @@ import { RegisterCompanyComponent } from './components/register-company/register
 import { EquipmentComponent } from './components/equipment/equipment.component';
 import { VerificationComponent } from './components/verification/verification.component';
 import { CompanyAdminProfileComponent } from './components/company-admin-profile/company-admin-profile.component';
+import { CompanyCalendarComponent } from './components/company-calendar/company-calendar.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'register', pathMatch: 'full' },
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: 'userProfile', component: UserProfileComponent },
   { path: 'verification', component: VerificationComponent },
   { path: 'companyAdminProfile', component: CompanyAdminProfileComponent },
+  { path: 'calendar', component: CompanyCalendarComponent },
 ];
 
 @NgModule({

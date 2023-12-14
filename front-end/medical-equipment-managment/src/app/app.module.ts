@@ -32,7 +32,9 @@ import { MatTableModule } from '@angular/material/table';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatSortModule } from '@angular/material/sort';
 import { VerificationComponent } from './components/verification/verification.component';
+import { CompanyCalendarComponent } from './components/company-calendar/company-calendar.component';
 
+import { FullCalendarModule } from '@fullcalendar/angular';
 
 @NgModule({
   declarations: [
@@ -51,6 +53,7 @@ import { VerificationComponent } from './components/verification/verification.co
     CompanyEditComponent,
     OtherCompanyAdminsComponent,
     CompanyAdminPasswordChangeComponent,
+    CompanyCalendarComponent,
 
   ],
   imports: [
@@ -73,6 +76,7 @@ import { VerificationComponent } from './components/verification/verification.co
     MatTableModule,
     FontAwesomeModule,
     MatSortModule,
+    FullCalendarModule
   ],
   providers: [],
   bootstrap: [AppComponent],

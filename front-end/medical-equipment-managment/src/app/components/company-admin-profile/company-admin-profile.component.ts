@@ -128,4 +128,8 @@ export class CompanyAdminProfileComponent implements OnInit {
       },
     });
   }
+
+  openCalendar(){
+    console.log("KALENDAAAAAARRR!")
+  }
 }
