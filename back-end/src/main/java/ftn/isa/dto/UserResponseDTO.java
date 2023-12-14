@@ -1,5 +1,6 @@
 package ftn.isa.dto;
 
+import ftn.isa.domain.Category;
 import ftn.isa.domain.RegisteredUser;
 
 public class UserResponseDTO {
@@ -12,15 +13,17 @@ public class UserResponseDTO {
     private String phoneNumber;
     private String profession;
     private String companyInformation;
+    private Integer penalPoints;
+    private Category category;
     public UserResponseDTO() {
 
     }
     public UserResponseDTO(RegisteredUser user) {
         this(user.getId(), user.getFirstName(), user.getLastName(), user.getEmail(), user.getCity(),
-                user.getCountry(), user.getProfession(), user.getCompanyInformation(), user.getPhoneNumber());
+                user.getCountry(), user.getProfession(), user.getCompanyInformation(), user.getPhoneNumber(), user.getPenalPoints(), user.getCategory());
     }
     public UserResponseDTO(Integer id, String firstName, String lastName, String email, String city, String country,
-                           String profession, String companyInformation, String phoneNumber) {
+                           String profession, String companyInformation, String phoneNumber, Integer penalPoints, Category category) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -30,6 +33,8 @@ public class UserResponseDTO {
         this.profession = profession;
         this.companyInformation = companyInformation;
         this.phoneNumber = phoneNumber;
+        this.penalPoints = penalPoints;
+        this.category = category;
     }
 
     public Integer getId() {
@@ -102,5 +107,21 @@ public class UserResponseDTO {
 
     public void setProfession(String profession) {
         this.profession = profession;
+    }
+
+    public Integer getPenalPoints() {
+        return penalPoints;
+    }
+
+    public void setPenalPoints(Integer penalPoints) {
+        this.penalPoints = penalPoints;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }
