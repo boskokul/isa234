@@ -1,5 +1,9 @@
 package ftn.isa.dto;
 
+import java.time.LocalTime;
+
+import javax.persistence.Column;
+
 import ftn.isa.domain.Company;
 
 public class CompanyResponseDTO {
@@ -9,7 +13,10 @@ public class CompanyResponseDTO {
     private double averageGrade;
     private String country;
 	private String city;
-	public CompanyResponseDTO(Integer id, String name, String description, double averageGrade, String country, String city) {
+    private LocalTime startTime;
+    private LocalTime endTime;
+	public CompanyResponseDTO(Integer id, String name, String description, double averageGrade, String country,
+			String city, LocalTime startTime, LocalTime endTime) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -17,9 +24,26 @@ public class CompanyResponseDTO {
 		this.averageGrade = averageGrade;
 		this.country = country;
 		this.city = city;
+		this.startTime = startTime;
+		this.endTime = endTime;
 	}
+
 	public CompanyResponseDTO(Company c) {
-		this(c.getId(), c.getName(), c.getDescription(), c.getAverageGrade(), c.getCountry(), c.getCity());
+		this(c.getId(), c.getName(), c.getDescription(), c.getAverageGrade(), c.getCountry(), c.getCity(),
+				c.getStartTime(), c.getEndTime());
+	}
+	
+	public LocalTime getStartTime() {
+		return startTime;
+	}
+	public void setStartTime(LocalTime startTime) {
+		this.startTime = startTime;
+	}
+	public LocalTime getEndTime() {
+		return endTime;
+	}
+	public void setEndTime(LocalTime endTime) {
+		this.endTime = endTime;
 	}
 	public Integer getId() {
 		return id;
