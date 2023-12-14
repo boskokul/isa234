@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { Company } from 'src/app/model/company';
 import { Equipment } from 'src/app/model/equipment';
 import { CompanyService } from 'src/app/services/company.service';
 import { EquipmentService } from 'src/app/services/equipment.service';
+import { EquipmentAppointmentComponent } from '../equipment-appointment/equipment-appointment.component';
 
 @Component({
   selector: 'app-company-profile',
@@ -21,7 +23,8 @@ export class CompanyProfileComponent implements OnInit {
   constructor(
     private companyService: CompanyService,
     private route: ActivatedRoute,
-    private equipmentService: EquipmentService
+    private equipmentService: EquipmentService,
+    public dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {
@@ -44,5 +47,16 @@ export class CompanyProfileComponent implements OnInit {
         this.items = result;
       },
     });
+  }
+
+  buyEquipment(equipment: Equipment) {
+    const dialog = this.dialog.open(EquipmentAppointmentComponent, {
+      data: {
+        equipment: equipment
+      },
+      width: '800px',
+      height: '600px'
+    })
+    //TODO: Odradi poziv ovde da se otvori prozorce za zakazivanje
   }
 }

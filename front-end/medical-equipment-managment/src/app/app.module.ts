@@ -32,6 +32,7 @@ import { MatTableModule } from '@angular/material/table';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatSortModule } from '@angular/material/sort';
 import { VerificationComponent } from './components/verification/verification.component';
+import { EquipmentAppointmentComponent } from './components/equipment-appointment/equipment-appointment.component';
 
 
 @NgModule({
@@ -51,6 +52,7 @@ import { VerificationComponent } from './components/verification/verification.co
     CompanyEditComponent,
     OtherCompanyAdminsComponent,
     CompanyAdminPasswordChangeComponent,
+    EquipmentAppointmentComponent,
 
   ],
   imports: [
