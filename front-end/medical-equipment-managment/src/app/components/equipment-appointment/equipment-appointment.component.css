@@ -29,3 +29,13 @@ div label {
     margin-left: 10px;
     font-size: 16px;
 }
+
+hr {
+    margin: 20px;
+}
+
+ul {
+    columns: 2;
+    -webkit-columns: 2;
+    -moz-columns: 2;
+  }

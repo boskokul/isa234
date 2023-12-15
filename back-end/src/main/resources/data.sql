@@ -1,21 +1,21 @@
 --kompanije
-INSERT INTO isa.companies(id, country, city, average_grade, description, name, start_time, end_time) 
+INSERT INTO isa.companies(id, country, city, average_grade, description, name, start_time, end_time)
 	VALUES (-1, 'Srbija', 'BG', 3, 'opis1', 'kompanija 1', '08:00:00', '15:00:00');
-INSERT INTO isa.companies(id, country, city, average_grade, description, name, start_time, end_time) 
+INSERT INTO isa.companies(id, country, city, average_grade, description, name, start_time, end_time)
 	VALUES (-2, 'Hrvatska',  'ZG', 5, 'opis2', 'kompanija 2', '09:00:00', '16:00:00');
 --oprema
 INSERT INTO isa.equipments(
-	id, description, name, type, company_id, amount)
-	VALUES (-1, 'hirurske maske', 'oprema1', 1, -1, 100);
+	id, description, name, type, company_id, free_amount, reserved_amount)
+	VALUES (-1, 'hirurske maske', 'oprema1', 1, -1, 100, 0);
 INSERT INTO isa.equipments(
-	id, description, name, type, company_id, amount)
-	VALUES (-2, 'lateks rukavice', 'oprema2', 0, -1, 50);
+	id, description, name, type, company_id, free_amount, reserved_amount)
+	VALUES (-2, 'lateks rukavice', 'oprema2', 0, -1, 50, 0);
 INSERT INTO isa.equipments(
-    id, description, name, type, company_id, amount)
-    VALUES (-3, 'spricevi', 'oprema3', 0, -1, 40);
+    id, description, name, type, company_id, free_amount, reserved_amount)
+    VALUES (-3, 'spricevi', 'oprema3', 0, -1, 40, 0);
 INSERT INTO isa.equipments(
-    id, description, name, type, company_id, amount)
-    VALUES (-4, 'slusni aparati', 'oprema4', 1, -2, 45);
+    id, description, name, type, company_id, free_amount, reserved_amount)
+    VALUES (-4, 'slusni aparati', 'oprema4', 1, -2, 45, 0);
 --useri
 INSERT INTO isa.base_users(
 	id, city, country, email, first_name, last_name, password, phone, role)

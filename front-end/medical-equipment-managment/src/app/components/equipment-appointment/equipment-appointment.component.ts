@@ -10,8 +10,9 @@ import { CompanyService } from 'src/app/services/company.service';
 
 
 export interface ModalData {
-  equipment: Equipment,
-  company: Company
+  equipments: Equipment[],
+  quantities: number[],
+  company: Company,
 }
 @Component({
   selector: 'app-equipment-appointment',
@@ -20,9 +21,10 @@ export interface ModalData {
   providers: [DatePipe]
 })
 export class EquipmentAppointmentComponent implements OnInit {
-  equipment: Equipment;
+  equipments: Equipment[];
+  quantities: number[];
+
   availableAppointments: any;
-  quantity: number = 0;
   showForm: boolean = false;
 
   //Extraordinary dates
@@ -57,7 +59,8 @@ export class EquipmentAppointmentComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: ModalData,
     public datePipe: DatePipe,
   ) {
-    this.equipment = data.equipment;
+    this.equipments = data.equipments;
+    this.quantities = data.quantities;
     this.availableAppointments = new MatTableDataSource<Appointment>([]);
     this.availableTimes = new MatTableDataSource([]);
     let temp: Appointment = {

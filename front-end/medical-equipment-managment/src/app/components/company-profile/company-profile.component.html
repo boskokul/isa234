@@ -6,11 +6,12 @@
   <p>City: {{ city }}</p>
   <p>Description: {{ description }}</p>
   <p>AverageGrade: {{ averageGrade }}</p>
+  <button class="buy-button" (click)="buyEquipment()">Buy</button>
   <br />
   <br />
   <h1>Equipment available in this company:</h1>
   <div class="basic-container" fxLayout="row wrap" fxLayoutAlign="start">
-    <mat-card *ngFor="let item of items" class="purple-card">
+    <mat-card *ngFor="let item of items; index as i" class="purple-card">
       <div fxLayout="column" fxLayoutGap="8px">
         <div>
           <p>Name: {{ item.name }}</p>
@@ -22,7 +23,7 @@
           <p>Type: {{ item.type }}</p>
         </div>
         <div>
-          <button class="buy-button" (click)="buyEquipment(item)">Buy</button>
+          <input type="number" min="0" max="100" [(ngModel)]="quantities[i]"/>
         </div>
       </div>
     </mat-card>

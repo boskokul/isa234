@@ -1,17 +1,21 @@
 <div class="container">
     <div class="column">
+      <div>
+        <h3 style="margin-left: 10px;">Equipment you choose:</h3>
+          <ul class="row" style="width: 90%;" *ngFor="let equipment of equipments; index as i">
+            <li style="padding-right: 30px;">{{equipment.name}}</li>
+            <li style="list-style-type: none;">{{quantities[i]}}</li>
+          </ul>
+          <hr>
+      </div>
         <div class="row">
-            <h3 style="margin-left: 10px;">Equipment {{equipment.name}} available appointments:</h3>
+            <h3 style="margin-left: 10px;">Available appointments:</h3>
             <button style="margin: 10px; margin-left: auto; margin-bottom: 0px;" (click)="ToggleExtraordinaryAppointmentForm()">
                 <p *ngIf="showForm">Select ordinary appointment</p>
                 <p *ngIf="!showForm">Create extraorinary appointment</p>
             </button>
         </div>
-        <div class="row">
-            <label style="margin-right: 10px;">Quantity:</label>
-            <input type="number" [(ngModel)]="quantity" min="0" max="100"/>
-        </div>
-        <hr style="margin: 20px;">
+        <hr>
     </div>
 
     <!--Select ordinary appointment-->

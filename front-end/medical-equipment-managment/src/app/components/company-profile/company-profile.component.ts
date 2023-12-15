@@ -20,6 +20,7 @@ export class CompanyProfileComponent implements OnInit {
   city: string;
   averageGrade: number;
   items: Equipment[] = [];
+  quantities: number[] = [];
   constructor(
     private companyService: CompanyService,
     private route: ActivatedRoute,
@@ -45,18 +46,32 @@ export class CompanyProfileComponent implements OnInit {
     this.equipmentService.getCompanyEquipment(this.companyId).subscribe({
       next: (result: Equipment[]) => {
         this.items = result;
+        this.quantities = new Array<number>(this.items.length).fill(0);
       },
     });
   }
 
-  buyEquipment(equipment: Equipment) {
-    const dialog = this.dialog.open(EquipmentAppointmentComponent, {
-      data: {
-        equipment: equipment
-      },
-      width: '800px',
-      height: '600px'
-    })
-    //TODO: Odradi poziv ovde da se otvori prozorce za zakazivanje
+  buyEquipment() {
+    if(Math.max(...this.quantities) == 0){
+      alert('Please select equipment you want to buy');
+    }
+    else{
+      let selectedEquipments: Equipment[] = [];
+      let selectedQuantities: number[] = [];
+      for(let i = 0; i < this.items.length; i++){
+        if(this.quantities[i] > 0){
+          selectedEquipments.push(this.items[i]);
+          selectedQuantities.push(this.quantities[i]);
+        }
+      }
+      const dialog = this.dialog.open(EquipmentAppointmentComponent, {
+        data: {
+          equipments: selectedEquipments,
+          quantities: selectedQuantities,
+        },
+        width: '800px',
+        height: '600px'
+      })
+    }
   }
 }
