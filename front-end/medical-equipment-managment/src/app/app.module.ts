@@ -32,6 +32,7 @@ import { MatTableModule } from '@angular/material/table';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatSortModule } from '@angular/material/sort';
 import { VerificationComponent } from './components/verification/verification.component';
+import { EquipmentAppointmentComponent } from './components/equipment-appointment/equipment-appointment.component';
 import { CompanyCalendarComponent } from './components/company-calendar/company-calendar.component';
 
 import { FullCalendarModule } from '@fullcalendar/angular';
@@ -53,6 +54,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
     CompanyEditComponent,
     OtherCompanyAdminsComponent,
     CompanyAdminPasswordChangeComponent,
+    EquipmentAppointmentComponent,
     CompanyCalendarComponent,
 
   ],

@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { Company } from 'src/app/model/company';
 import { Equipment } from 'src/app/model/equipment';
 import { CompanyService } from 'src/app/services/company.service';
 import { EquipmentService } from 'src/app/services/equipment.service';
+import { EquipmentAppointmentComponent } from '../equipment-appointment/equipment-appointment.component';
 
 @Component({
   selector: 'app-company-profile',
@@ -18,10 +20,12 @@ export class CompanyProfileComponent implements OnInit {
   city: string;
   averageGrade: number;
   items: Equipment[] = [];
+  quantities: number[] = [];
   constructor(
     private companyService: CompanyService,
     private route: ActivatedRoute,
-    private equipmentService: EquipmentService
+    private equipmentService: EquipmentService,
+    public dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {
@@ -42,7 +46,32 @@ export class CompanyProfileComponent implements OnInit {
     this.equipmentService.getCompanyEquipment(this.companyId).subscribe({
       next: (result: Equipment[]) => {
         this.items = result;
+        this.quantities = new Array<number>(this.items.length).fill(0);
       },
     });
+  }
+
+  buyEquipment() {
+    if(Math.max(...this.quantities) == 0){
+      alert('Please select equipment you want to buy');
+    }
+    else{
+      let selectedEquipments: Equipment[] = [];
+      let selectedQuantities: number[] = [];
+      for(let i = 0; i < this.items.length; i++){
+        if(this.quantities[i] > 0){
+          selectedEquipments.push(this.items[i]);
+          selectedQuantities.push(this.quantities[i]);
+        }
+      }
+      const dialog = this.dialog.open(EquipmentAppointmentComponent, {
+        data: {
+          equipments: selectedEquipments,
+          quantities: selectedQuantities,
+        },
+        width: '800px',
+        height: '600px'
+      })
+    }
   }
 }
