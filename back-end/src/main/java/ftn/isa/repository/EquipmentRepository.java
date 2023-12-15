@@ -7,6 +7,6 @@ import ftn.isa.domain.Equipment;
 
 public interface EquipmentRepository extends JpaRepository<Equipment, Integer>{
 	
-	@Query("select e from Equipment e join fetch e.companies c where e.id =?1")
+	@Query("select e from Equipment e join fetch e.company c where e.id =?1")
 	public Equipment findOneWithCompanies(Integer equipmentId);
 }

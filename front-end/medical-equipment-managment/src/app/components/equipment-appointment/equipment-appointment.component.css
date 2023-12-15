@@ -1,0 +1,41 @@
+.container {
+    width: 100%;
+    height: 100%;
+    background-color: #800e13ff;
+    color: white;
+}
+
+th{
+    background-color: #ad2831ff;
+  }
+
+.row{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.column{
+    display: flex;
+    flex-direction: column;
+}
+
+div p {
+    margin-left: 10px;
+    font-size: 16px;
+}
+
+div label {
+    margin-left: 10px;
+    font-size: 16px;
+}
+
+hr {
+    margin: 20px;
+}
+
+ul {
+    columns: 2;
+    -webkit-columns: 2;
+    -moz-columns: 2;
+  }

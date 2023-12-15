@@ -38,7 +38,10 @@ import { AdminService } from './services/admin.service';
 import { CompanyService } from './services/company.service';
 import { EquipmentService } from './services/equipment.service';
 import { UserServiceService } from './services/user-service.service';
+import { EquipmentAppointmentComponent } from './components/equipment-appointment/equipment-appointment.component';
+import { CompanyCalendarComponent } from './components/company-calendar/company-calendar.component';
 
+import { FullCalendarModule } from '@fullcalendar/angular';
 
 @NgModule({
   declarations: [
@@ -58,6 +61,8 @@ import { UserServiceService } from './services/user-service.service';
     OtherCompanyAdminsComponent,
     CompanyAdminPasswordChangeComponent,
     LoginComponent,
+    EquipmentAppointmentComponent,
+    CompanyCalendarComponent,
 
   ],
   imports: [
@@ -80,6 +85,7 @@ import { UserServiceService } from './services/user-service.service';
     MatTableModule,
     FontAwesomeModule,
     MatSortModule,
+    FullCalendarModule
   ],
   providers: [
     {

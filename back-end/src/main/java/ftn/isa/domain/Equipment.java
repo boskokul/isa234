@@ -17,14 +17,15 @@ public class Equipment {
     private String description;
     @Column(name = "type", nullable = false)
 	private EquipmentType type;
-
-
+	@Column(name = "freeAmount", nullable = false)
+	private Integer freeAmount;
+	@Column(name = "reservedAmount", nullable = false)
+	private Integer reservedAmount;
 	@OneToMany(mappedBy = "equipment", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Set<Appointment> appointments = new HashSet<Appointment>();
-    
-    @ManyToMany( cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH})
-	@JoinTable(name = "company_equipment", joinColumns = @JoinColumn(name = "equipment_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "company_id", referencedColumnName = "id"))
-	private Set<Company> companies = new HashSet<Company>();
+	private Set<ReservationItem> reservations = new HashSet<ReservationItem>();
+	@ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "companyId", nullable = true)
+    private Company company;
     
     public Equipment() {
     	super();
@@ -36,6 +37,8 @@ public class Equipment {
 		this.name = name;
 		this.description = description;
 		this.type = type;
+		this.freeAmount = 0;
+		this.reservedAmount = 0;
 	}
 
 	public Equipment(String name, String description, EquipmentType type) {
@@ -43,23 +46,41 @@ public class Equipment {
 		this.name = name;
 		this.description = description;
 		this.type = type;
+		this.freeAmount = 0;
+		this.reservedAmount = 0;
 	}
 	
-	public Equipment(Integer id, String name, String description, Set<Company> companies, EquipmentType type) {
+	public Equipment(Integer id, String name, String description, Company company, EquipmentType type) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.description = description;
-		this.companies = companies;
+		this.company = company;
 		this.type = type;
+		this.freeAmount = 0;
+		this.reservedAmount = 0;
 	}
 
-	public Set<Company> getCompanies() {
-		return companies;
+	public Equipment(Integer id, String name, String description, EquipmentType type, Integer amount,
+					 Integer freeAmount, Integer reservedAmount, Set<ReservationItem> reservations, Company company) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.description = description;
+		this.type = type;
+		this.freeAmount = freeAmount;
+		this.reservedAmount = reservedAmount;
+		this.reservations = reservations;
+		this.company = company;
 	}
 
-	public void setCompanies(Set<Company> companies) {
-		this.companies = companies;
+
+	public Company getCompany() {
+		return company;
+	}
+
+	public void setCompany(Company company) {
+		this.company = company;
 	}
 
 	public Integer getId() {
@@ -80,13 +101,26 @@ public class Equipment {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
-	public Set<Appointment> getAppointments() {
-		return appointments;
+	public Integer getFreeAmount() { return freeAmount;	}
+	public void setFreeAmount(Integer freeAmount) {
+		if(freeAmount < 0){
+			throw new IllegalArgumentException("freeAmount can not be negative");
+		}
+		this.freeAmount = freeAmount;
+	}
+	public Integer getReservedAmount() { return reservedAmount;	}
+	public void setReservedAmount(Integer reservedAmount) {
+		if(reservedAmount < 0){
+			throw new IllegalArgumentException("reservedAmount can not be negative");
+		}
+		this.reservedAmount = reservedAmount;
+	}
+	public Set<ReservationItem> getreservations() {
+		return reservations;
 	}
 
-	public void setAppointments(Set<Appointment> appointments) {
-		this.appointments = appointments;
+	public void setreservations(Set<ReservationItem> reservations) {
+		this.reservations = reservations;
   }
 
 	public EquipmentType getType() {

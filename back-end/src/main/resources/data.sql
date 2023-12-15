@@ -2,38 +2,24 @@
 INSERT INTO isa.ROLE(id, name) VALUES (1, 'ROLE_REGISTERED_USER');
 INSERT INTO isa.ROLE(id, name) VALUES (2, 'ROLE_COMPANY_ADMIN');
 INSERT INTO isa.ROLE(id, name) VALUES (3, 'ROLE_SYSTEM_ADMIN');
+--kompanije
+INSERT INTO isa.companies(id, country, city, average_grade, description, name, start_time, end_time)
+	VALUES (-1, 'Srbija', 'BG', 3, 'opis1', 'kompanija 1', '08:00:00', '15:00:00');
+INSERT INTO isa.companies(id, country, city, average_grade, description, name, start_time, end_time)
+	VALUES (-2, 'Hrvatska',  'ZG', 5, 'opis2', 'kompanija 2', '09:00:00', '16:00:00');
 --oprema
 INSERT INTO isa.equipments(
-	id, description, name, type)
-	VALUES (-1, 'opisoprema1', 'oprema1', 1);
+	id, description, name, type, company_id, free_amount, reserved_amount)
+	VALUES (-1, 'hirurske maske', 'oprema1', 1, -1, 100, 0);
 INSERT INTO isa.equipments(
-	id, description, name, type)
-	VALUES (-2, 'opisoprema2', 'oprema2', 0);
+	id, description, name, type, company_id, free_amount, reserved_amount)
+	VALUES (-2, 'lateks rukavice', 'oprema2', 0, -1, 50, 0);
 INSERT INTO isa.equipments(
-    id, description, name, type)
-    VALUES (-3, 'opisoprema3', 'oprema3', 0);
+    id, description, name, type, company_id, free_amount, reserved_amount)
+    VALUES (-3, 'spricevi', 'oprema3', 0, -1, 40, 0);
 INSERT INTO isa.equipments(
-    id, description, name, type)
-    VALUES (-4, 'opisoprema4', 'oprema4', 1);
---kompanije
-INSERT INTO isa.companies(id, country, city, average_grade, description, name) VALUES (-1, 'Srbija', 'BG', 3, 'opis1', 'kompanija 1');
-INSERT INTO isa.companies(id, country, city, average_grade, description, name) VALUES (-2, 'Hrvatska',  'ZG', 5, 'opis2', 'kompanija 2');
---veze kompanija i oprema
-INSERT INTO isa.company_equipment(
-	equipment_id, company_id)
-	VALUES (-1, -2);
-INSERT INTO isa.company_equipment(
-	equipment_id, company_id)
-	VALUES (-2, -2);
-INSERT INTO isa.company_equipment(
-	equipment_id, company_id)
-	VALUES (-1, -1);
-INSERT INTO isa.company_equipment(
-    equipment_id, company_id)
-    VALUES (-3, -1);
-INSERT INTO isa.company_equipment(
-    equipment_id, company_id)
-    VALUES (-4, -2);
+    id, description, name, type, company_id, free_amount, reserved_amount)
+    VALUES (-4, 'slusni aparati', 'oprema4', 1, -2, 45, 0);
 --useri
 INSERT INTO isa.base_users(
 	id, city, country, username, first_name, last_name, password, phone, verified)
@@ -66,3 +52,9 @@ INSERT INTO isa.user_role(user_id, role_id) VALUES (-2, 2);
 INSERT INTO isa.user_role(user_id, role_id) VALUES (-3, 1);
 INSERT INTO isa.user_role(user_id, role_id) VALUES (-4, 1);
 INSERT INTO isa.user_role(user_id, role_id) VALUES (-5, 2);
+--apointmenti (predefinisani termini)
+INSERT INTO isa.appointments(
+	id, date_time, duration, company_admin_id)
+	VALUES (-1, '2023-12-16T15:18:12', 30, -5);
+--rezervacije (one koriste te predefinisane termine u sebi)
+	
