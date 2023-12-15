@@ -28,11 +28,7 @@ import java.util.List;
 public class UserController {
     @Autowired
     private RegisteredUserService userService;
- /*   @Autowired
-    private EmailService emailService;
 
-    @Autowired
-    private SecureTokenService tokenService;*/
     @GetMapping(value = "/all")
     public ResponseEntity<List<UserResponseDTO>> getAllUsers(){
         List<RegisteredUser> users = userService.findAll();
@@ -42,30 +38,6 @@ public class UserController {
         }
         return new ResponseEntity<>(userDTOs, HttpStatus.OK);
     }
-    /*
-    @PostMapping(consumes = "application/json")
-    public ResponseEntity<UserResponseDTO> save(@RequestBody UserCreateDTO userDTO){
-        RegisteredUser userWithMail = userService.findByEmail(userDTO.getEmail());
-        if(userWithMail != null){
-            return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
-        }
-        RegisteredUser user = new RegisteredUser();
-        user.setEmail(userDTO.getEmail());
-        user.setFirstName(userDTO.getFirstName());
-        user.setLastName(userDTO.getLastName());
-        user.setCity(userDTO.getCity());
-        user.setCountry(userDTO.getCountry());
-        user.setPassword(userDTO.getPassword());
-        user.setCompanyInformation(userDTO.getCompanyInformation());
-        user.setProfession(userDTO.getProfession());
-        user.setPhoneNumber(userDTO.getPhoneNumber());
-        user.setRole(Role.RegisteredUser);
-        user.setVerified(false);
-        user = userService.save(user);
-        sendRegistrationConfirmationEmail(user);
-        UserResponseDTO userResponseDTO = new UserResponseDTO(user);
-        return new ResponseEntity<>(userResponseDTO, HttpStatus.OK);
-    }*/
 
     @PreAuthorize("hasRole('REGISTERED_USER')")
     @PutMapping(consumes = "application/json")
@@ -84,21 +56,13 @@ public class UserController {
         user.setProfession(userUpdateDTO.getProfession());
         user.setCompanyInformation(userUpdateDTO.getCompanyInformation());
 
-        user = userService.save(user);
+        user = userService.update(user);
         return new ResponseEntity<>(new UserResponseDTO(user), HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<UserResponseDTO> getById(@PathVariable Integer id){
         RegisteredUser user = userService.findOne(id);
-        if(user == null){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(new UserResponseDTO(user), HttpStatus.OK);
-    }
-    @GetMapping(value = "/whoami")
-    public ResponseEntity<UserResponseDTO> getLoggedInUser(Principal u){
-        RegisteredUser user = userService.findByEmail(u.getName());
         if(user == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

@@ -36,6 +36,12 @@ VALUES (-4, 'sub', 'srb', 'dad@gmail.com', 'nikola', 'zigic', '$2a$12$ztIwerX104
 INSERT INTO isa.base_users(
     id, city, country, username, first_name, last_name, password, phone, verified)
 VALUES (-5, 'zr', 'srb', 'admin@gmail.com', 'nemanja', 'matic', '$2a$12$ztIwerX104rJ41MYLl7GDeaKMsK3ENPxFdqnwgLk2GjqEz2Re/qsW', '061324567', true);
+INSERT INTO isa.base_users(
+    id, city, country, username, first_name, last_name, password, phone, verified)
+VALUES (-6, 'bg', 'srb', 'sysadmin@gmail.com', 'nemanja', 'nikolic', '$2a$12$ztIwerX104rJ41MYLl7GDeaKMsK3ENPxFdqnwgLk2GjqEz2Re/qsW', '061324567', true);
+INSERT INTO isa.system_admins(
+    id)
+VALUES (-6);
 INSERT INTO isa.companys_admins(
 	id, company_id)
 	VALUES (-1, -2);
@@ -52,6 +58,7 @@ INSERT INTO isa.user_role(user_id, role_id) VALUES (-2, 2);
 INSERT INTO isa.user_role(user_id, role_id) VALUES (-3, 1);
 INSERT INTO isa.user_role(user_id, role_id) VALUES (-4, 1);
 INSERT INTO isa.user_role(user_id, role_id) VALUES (-5, 2);
+INSERT INTO isa.user_role(user_id, role_id) VALUES (-6, 3);
 --apointmenti (predefinisani termini)
 INSERT INTO isa.appointments(
 	id, date_time, duration, company_admin_id)

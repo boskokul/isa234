@@ -22,6 +22,9 @@ public class RegisteredUserService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return registeredUserRepository.save(user);
     }
+    public RegisteredUser update(RegisteredUser user){
+        return registeredUserRepository.save(user);
+    }
     public RegisteredUser findByEmail(String email) {
         return registeredUserRepository.findByUsername(email);
     }

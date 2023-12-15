@@ -9,14 +9,22 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class LoginComponent {
   hide = true
+  errorDescription: string = ''
   registerForm = new FormGroup({
     email: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required])
   });
   constructor(private authService: AuthService){}
   LoginUser(){
-    this.authService.login(this.registerForm.value).subscribe(data=>{
-      
-    })
+    this.errorDescription = ''
+    this.authService.login(this.registerForm.value).subscribe({
+      next: (result: any) => {
+      },
+      error: (err: any) => {
+        if(err.status == 401){
+          this.errorDescription = 'Wrong username and/or password'
+        }
+      }
+  })
   }
 }

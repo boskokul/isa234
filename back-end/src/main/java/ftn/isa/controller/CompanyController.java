@@ -1,5 +1,6 @@
 package ftn.isa.controller;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -68,7 +69,7 @@ public class CompanyController {
 
         return new ResponseEntity<>(companyResponseDTO, HttpStatus.OK);
     }
-
+    @PreAuthorize("hasRole('SYSTEM_ADMIN')")
     @PostMapping(consumes = "application/json")
     public ResponseEntity<CompanyResponseDTO> save(@RequestBody CompanyCreateDTO companyDTO){
         Company company = new Company();
@@ -77,7 +78,8 @@ public class CompanyController {
         company.setName(companyDTO.getName());
         company.setDescription(companyDTO.getDescription());
         company.setAverageGrade(companyDTO.getAverageGrade());
-
+        company.setStartTime(LocalTime.of(companyDTO.getStartHour(), companyDTO.getStartMinute()));
+        company.setEndTime(LocalTime.of(companyDTO.getEndHour(), companyDTO.getEndMinute()));
         company = companyService.save(company);
 
 
@@ -116,7 +118,6 @@ public class CompanyController {
         }
         return new ResponseEntity<>(responseDTOS, HttpStatus.OK);
     }
-    @PreAuthorize("hasRole('COMPANY_ADMIN')")
     @PutMapping(consumes = "application/json")
     public ResponseEntity<CompanyResponseDTO> update(@RequestBody CompanyResponseDTO companyUpdateDTO){
         Company c = companyService.findOne(companyUpdateDTO.getId());

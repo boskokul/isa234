@@ -1,8 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { Company } from 'src/app/model/company';
+import { CurrentUser } from 'src/app/model/current-user';
+import { AuthService } from 'src/app/services/auth.service';
 import { CompanyService } from 'src/app/services/company.service';
 
 @Component({
@@ -10,17 +13,18 @@ import { CompanyService } from 'src/app/services/company.service';
   templateUrl: './companies.component.html',
   styleUrls: ['./companies.component.css'],
 })
-export class CompaniesComponent implements OnInit {
+export class CompaniesComponent implements OnInit, OnDestroy {
   dataSource: any;
   nameSearch: string;
   countrySearch: string;
   citySearch: string;
-
+  subscription: Subscription
+  loggedInUserData: CurrentUser | undefined
   displayedColumns: string[] = ['name', 'country', 'city', 'button'];
 
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private companyService: CompanyService, private router: Router) {
+  constructor(private companyService: CompanyService, private router: Router, private authService: AuthService) {
     this.dataSource = new MatTableDataSource<Company>();
     this.nameSearch = '';
     this.countrySearch = '';
@@ -28,9 +32,14 @@ export class CompaniesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.subscription = this.authService.currentUser.subscribe(user => {
+      this.loggedInUserData = user;
+    });
     this.LoadCompanies();
   }
-
+  ngOnDestroy() {
+    this.subscription.unsubscribe()
+  }
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
   }

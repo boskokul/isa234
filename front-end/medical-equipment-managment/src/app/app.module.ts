@@ -40,8 +40,9 @@ import { EquipmentService } from './services/equipment.service';
 import { UserServiceService } from './services/user-service.service';
 import { EquipmentAppointmentComponent } from './components/equipment-appointment/equipment-appointment.component';
 import { CompanyCalendarComponent } from './components/company-calendar/company-calendar.component';
-
 import { FullCalendarModule } from '@fullcalendar/angular';
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
+import { AuthGuardService } from './ActivateGuard/AuthGuardService';
 
 @NgModule({
   declarations: [
@@ -85,7 +86,8 @@ import { FullCalendarModule } from '@fullcalendar/angular';
     MatTableModule,
     FontAwesomeModule,
     MatSortModule,
-    FullCalendarModule
+    FullCalendarModule,
+    NgxMaterialTimepickerModule
   ],
   providers: [
     {
@@ -96,7 +98,8 @@ import { FullCalendarModule } from '@fullcalendar/angular';
     AdminService,
     CompanyService,
     EquipmentService,
-    UserServiceService
+    UserServiceService,
+    AuthGuardService
   ],
   bootstrap: [AppComponent],
 })

@@ -20,7 +20,9 @@ export class AuthService {
     private http: HttpClient,
     private router: Router,
     private userService: UserServiceService
-    ) {}
+    ) {
+      this.setUser()
+    }
     private access_token = null;
     login(user:any) {
       const loginHeaders = new HttpHeaders({
@@ -44,10 +46,16 @@ export class AuthService {
       }));
     }
     tokenIsPresent() {
-      return this.access_token != undefined && this.access_token != null;
+      let token = localStorage.getItem("jwt")
+      if(token == null){
+        return false;
+      }
+      else{
+        return true;
+      }
     }
     getToken() {
-      return this.access_token;
+      return localStorage.getItem("jwt");
     }
     logout() {
       localStorage.removeItem("jwt");
@@ -57,6 +65,9 @@ export class AuthService {
     }
     setUser(){
       let token = localStorage.getItem("jwt")
+      if(token == null){
+        return;
+      }
       const jwtHelperService = new JwtHelperService();
       const user: CurrentUser = {
         email: jwtHelperService.decodeToken(token!).email,

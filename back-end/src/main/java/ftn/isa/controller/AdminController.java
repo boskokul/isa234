@@ -51,18 +51,15 @@ public class AdminController {
 
         return new ResponseEntity<>(companyResponseDTO, HttpStatus.OK);
     }
-
+    @PreAuthorize("hasRole('SYSTEM_ADMIN')")
     @PostMapping(consumes = "application/json")
     public ResponseEntity<CompanyAdminResponseDTO> save(@RequestBody AdminCreateDTO userDTO){
-
 
         Company company = companyService.findOne(userDTO.getCompanyId());
 
         if (company == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-
-
         CompanyAdmin user = new CompanyAdmin();
         user.setCompany(companyService.findOne(userDTO.getCompanyId()));
         user.setUsername(userDTO.getEmail());
@@ -94,8 +91,7 @@ public class AdminController {
         user.setCountry(userUpdateDTO.getCountry());
         user.setPhoneNumber(userUpdateDTO.getPhoneNumber());
         user.setPassword(userUpdateDTO.getPassword());
-
-        user = companyAadminService.save(user);
+        user = companyAadminService.update(user);
         return new ResponseEntity<>(new CompanyAdminResponseDTO(user), HttpStatus.OK);
     }
 }

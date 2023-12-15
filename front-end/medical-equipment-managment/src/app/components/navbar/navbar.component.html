@@ -4,7 +4,7 @@
   </span>
   <div class="spacer"></div>
   <a mat-button [routerLink]="['/companies']" class="mat-button">Companies</a>
-  <a *ngIf="user" mat-button [routerLink]="['/company/create']" class="mat-button"
+  <a *ngIf="user && user.role == 'ROLE_SYSTEM_ADMIN'" mat-button [routerLink]="['/company/create']" class="mat-button"
     >Create Company</a
   >
   <a mat-button [routerLink]="['/equipment/list']" class="mat-button"
