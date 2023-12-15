@@ -19,14 +19,17 @@ public class RegisteredUser extends BaseUser {
     private Set<Rating> ratings = new HashSet<Rating>();
     @OneToMany(mappedBy = "registeredUser", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Reservation> reservations = new HashSet<Reservation>();
-    
+
+    @OneToMany(mappedBy = "user")
+    private Set<SecureToken> tokens;
+
     public RegisteredUser(){
         super();
         this.category = Category.Regular;
         this.penalPoints = 0;
     }
-    public RegisteredUser(Integer id, String firstName, String lastName, String email, String city, String country, String phoneNumber, String password, Role role, String profession, String companyInformation) {
-        super(id, firstName, lastName, email, city, country, phoneNumber, password, role);
+    public RegisteredUser(Integer id, String firstName, String lastName, String email, String city, String country, String phoneNumber, String password, Role role, String profession, String companyInformation, boolean verified) {
+        super(id, firstName, lastName, email, city, country, phoneNumber, password, role, verified);
         this.profession = profession;
         this.companyInformation = companyInformation;
         this.category = Category.Regular;

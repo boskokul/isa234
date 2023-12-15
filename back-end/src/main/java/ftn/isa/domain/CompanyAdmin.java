@@ -17,8 +17,8 @@ public class CompanyAdmin extends BaseUser{
     public CompanyAdmin() {
     	super();
     }
-    public CompanyAdmin(Integer id, String firstName, String lastName, String email, String city, String country, String phoneNumber, String password, Role role) {
-        super(id, firstName, lastName, email, city, country, phoneNumber, password, role);
+    public CompanyAdmin(Integer id, String firstName, String lastName, String email, String city, String country, String phoneNumber, String password, Role role, boolean verified) {
+        super(id, firstName, lastName, email, city, country, phoneNumber, password, role, verified);
     }
 
     public Company getCompany() {

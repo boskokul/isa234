@@ -8,19 +8,22 @@ import { RegisterCompanyComponent } from './components/register-company/register
 import { EquipmentComponent } from './components/equipment/equipment.component';
 import { VerificationComponent } from './components/verification/verification.component';
 import { CompanyAdminProfileComponent } from './components/company-admin-profile/company-admin-profile.component';
+import { LoginComponent } from './components/login/login.component';
 import { CompanyCalendarComponent } from './components/company-calendar/company-calendar.component';
+import { AuthGuardService } from './ActivateGuard/AuthGuardService';
 
 const routes: Routes = [
   { path: '', redirectTo: 'register', pathMatch: 'full' },
-  { path: 'companies', component: CompaniesComponent },
-  { path: 'companies/:id', component: CompanyProfileComponent },
-  { path: 'register', component: RegisterComponent },
-  { path: 'company/create', component: RegisterCompanyComponent },
-  { path: 'equipment/list', component: EquipmentComponent },
-  { path: 'userProfile', component: UserProfileComponent },
-  { path: 'verification', component: VerificationComponent },
-  { path: 'companyAdminProfile', component: CompanyAdminProfileComponent },
-  { path: 'calendar', component: CompanyCalendarComponent },
+  { path: 'companies', component: CompaniesComponent, canActivate: [AuthGuardService] },
+  { path: 'companies/:id', component: CompanyProfileComponent, canActivate: [AuthGuardService] },
+  { path: 'register', component: RegisterComponent, canActivate: [AuthGuardService] },
+  { path: 'company/create', component: RegisterCompanyComponent, canActivate: [AuthGuardService] },
+  { path: 'equipment/list', component: EquipmentComponent, canActivate: [AuthGuardService] },
+  { path: 'userProfile', component: UserProfileComponent, canActivate: [AuthGuardService] },
+  { path: 'verification', component: VerificationComponent, canActivate: [AuthGuardService] },
+  { path: 'companyAdminProfile', component: CompanyAdminProfileComponent, canActivate: [AuthGuardService] },
+  { path: 'login', component: LoginComponent, canActivate: [AuthGuardService] },
+  { path: 'calendar', component: CompanyCalendarComponent, canActivate: [AuthGuardService] },
 ];
 
 @NgModule({

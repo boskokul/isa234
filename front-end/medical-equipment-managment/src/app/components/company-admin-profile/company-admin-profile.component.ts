@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Company } from 'src/app/model/company';
 import { CompanyAdmin } from 'src/app/model/company-admin.model';
@@ -10,13 +10,17 @@ import { CompanyAdminEditComponent } from '../company-admin-edit/company-admin-e
 import { OtherCompanyAdminsComponent } from '../other-company-admins/other-company-admins.component';
 import { CompanyEditComponent } from '../company-edit/company-edit.component';
 import { CompanyAdminPasswordChangeComponent } from '../company-admin-password-change/company-admin-password-change.component';
+import { AuthService } from 'src/app/services/auth.service';
+import { CurrentUser } from 'src/app/model/current-user';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-company-admin-profile',
   templateUrl: './company-admin-profile.component.html',
   styleUrls: ['./company-admin-profile.component.css'],
 })
-export class CompanyAdminProfileComponent implements OnInit {
+export class CompanyAdminProfileComponent implements OnInit, OnDestroy {
   items: Equipment[] = [];
+  user: CurrentUser | undefined
   company: Company = {
     id: 0,
     averageGrade: 0,
@@ -36,17 +40,26 @@ export class CompanyAdminProfileComponent implements OnInit {
     phoneNumber: '',
     companyId: 0,
   };
+  subscription: Subscription
   constructor(
-    private companyService: CompanyService,
     private equipmentService: EquipmentService,
     private adminService: AdminService,
+    private authService: AuthService,
     public dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
-    this.loadAdmin();
+    this.subscription = this.authService.currentUser.subscribe(user => {
+      this.user = user;
+    });
+    setTimeout(() => {
+      this.loadAdmin();
+    }, 100);
+    
   }
-
+  ngOnDestroy() {
+    this.subscription.unsubscribe()
+  }
   editPersonalInfo() {
     const dialogRef = this.dialog.open(CompanyAdminEditComponent, {
       data: this.admin,
@@ -55,7 +68,7 @@ export class CompanyAdminProfileComponent implements OnInit {
       panelClass: 'custom-dialog',
     });
     dialogRef.afterClosed().subscribe((item) => {
-      this.adminService.getAdmin(-2).subscribe({
+      this.adminService.getAdmin(this.user!.id).subscribe({
         next: (result: CompanyAdmin) => {
           this.admin = result;
         },
@@ -71,7 +84,7 @@ export class CompanyAdminProfileComponent implements OnInit {
       panelClass: 'custom-dialog',
     });
     dialogRef.afterClosed().subscribe((item) => {
-      this.adminService.getAdmin(-2).subscribe({
+      this.adminService.getAdmin(this.user!.id).subscribe({
         next: (result: CompanyAdmin) => {
           this.admin = result;
         },
@@ -104,7 +117,7 @@ export class CompanyAdminProfileComponent implements OnInit {
   }
 
   loadAdmin() {
-    this.adminService.getAdmin(-2).subscribe({
+    this.adminService.getAdmin(this.user!.id).subscribe({
       next: (result: CompanyAdmin) => {
         this.admin = result;
         this.loadCompany();

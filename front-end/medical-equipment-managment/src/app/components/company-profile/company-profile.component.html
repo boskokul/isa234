@@ -6,7 +6,7 @@
   <p>City: {{ city }}</p>
   <p>Description: {{ description }}</p>
   <p>AverageGrade: {{ averageGrade }}</p>
-  <button class="buy-button" (click)="buyEquipment()">Buy</button>
+  <button *ngIf="user?.role == 'ROLE_REGISTERED_USER'" class="buy-button" (click)="buyEquipment()">Buy</button>
   <br />
   <br />
   <h1>Equipment available in this company:</h1>

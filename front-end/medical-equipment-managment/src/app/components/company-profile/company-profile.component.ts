@@ -6,6 +6,8 @@ import { Equipment } from 'src/app/model/equipment';
 import { CompanyService } from 'src/app/services/company.service';
 import { EquipmentService } from 'src/app/services/equipment.service';
 import { EquipmentAppointmentComponent } from '../equipment-appointment/equipment-appointment.component';
+import { AuthService } from 'src/app/services/auth.service';
+import { CurrentUser } from 'src/app/model/current-user';
 
 @Component({
   selector: 'app-company-profile',
@@ -21,14 +23,19 @@ export class CompanyProfileComponent implements OnInit {
   averageGrade: number;
   items: Equipment[] = [];
   quantities: number[] = [];
+  user: CurrentUser | undefined
   constructor(
     private companyService: CompanyService,
     private route: ActivatedRoute,
     private equipmentService: EquipmentService,
+    private authService: AuthService,
     public dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {
+    this.authService.currentUser.subscribe(user => {
+      this.user = user;
+    });
     this.companyService.getCompany(this.route.snapshot.params['id']).subscribe({
       next: (result: Company) => {
         this.name = result.name;

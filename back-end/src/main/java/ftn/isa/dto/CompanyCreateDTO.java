@@ -11,6 +11,10 @@ public class CompanyCreateDTO {
 	private double averageGrade;
 	private String country;
 	private String city;
+	private int startHour;
+	private int startMinute;
+	private int endHour;
+	private int endMinute;
 	public CompanyCreateDTO(Integer id, String name, String description, double averageGrade, String country, String city) {
 		super();
 		this.id = id;
@@ -54,4 +58,36 @@ public class CompanyCreateDTO {
 	public void setCountry(String country) { this.country = country; }
 	public String getCity() { return city; }
 	public void setCity(String city) { this.city = city; }
+
+	public int getStartHour() {
+		return startHour;
+	}
+
+	public void setStartHour(int startHour) {
+		this.startHour = startHour;
+	}
+
+	public int getStartMinute() {
+		return startMinute;
+	}
+
+	public void setStartMinute(int startMinute) {
+		this.startMinute = startMinute;
+	}
+
+	public int getEndHour() {
+		return endHour;
+	}
+
+	public void setEndHour(int endHour) {
+		this.endHour = endHour;
+	}
+
+	public int getEndMinute() {
+		return endMinute;
+	}
+
+	public void setEndMinute(int endMinute) {
+		this.endMinute = endMinute;
+	}
 }
