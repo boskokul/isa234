@@ -61,9 +61,9 @@ public class RegistrationController {
         user.setPhoneNumber(userDTO.getPhoneNumber());
         List<Role> roles = roleService.findByName("ROLE_REGISTERED_USER");
         user.setRoles(roles);
-        user.setVerified(true);
+        user.setVerified(false);
         user = userService.save(user);
-        //sendRegistrationConfirmationEmail(user);
+        sendRegistrationConfirmationEmail(user);
         UserResponseDTO userResponseDTO = new UserResponseDTO(user);
         return new ResponseEntity<>(userResponseDTO, HttpStatus.OK);
     }

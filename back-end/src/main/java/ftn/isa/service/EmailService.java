@@ -22,7 +22,7 @@ public class EmailService {
         mail.setFrom(env.getProperty("spring.mail.username"));
         mail.setSubject("Account verification");
         mail.setText("Hi, " + user.getFirstName() + ",\n\nClick on link below to verificate your account on" +
-                " medical equipment management system. \n http://localhost:8084/api/users/registrationConfirm?token="+token);
+                " medical equipment management system. \n http://localhost:8084/api/registration/registrationConfirm?token="+token);
         javaMailSender.send(mail);
     }
 }
