@@ -99,36 +99,45 @@ export class CompanyCalendarComponent implements OnInit {
     }, 100);
     const eventsList: any[] = [
       {
-        title: 'Meeting with Client', // Updated event title
-        start: '2023-12-01T08:00:00', // Set start time to 8:00 AM
-        end: '2023-12-01T09:30:00', // Set end time to 9:30 AM
+        title: 'Meeting with Client', 
+        start: '2023-12-01T08:00:00', 
+        end: '2023-12-01T09:30:00', 
         color: 'green',
-        description: 'Discuss project details', // Additional event property
+        description: 'Discuss project details',
+        id: 'hehe',
       },
       {
-        title: 'Meeting with Client 2', // Updated event title
-        start: '2023-12-01T10:30:00', // Set start time to 10:30 AM
-        end: '2023-12-01T12:00:00', // Set end time to 12:00 PM
+        title: 'Meeting with Client 2', 
+        start: '2023-12-01T10:30:00', 
+        end: '2023-12-01T12:00:00', 
         color: 'green',
-        description: 'Discuss project details', // Additional event property
+        description: 'Discuss project details',
+        id: 'hehe',
+
       },
       {
-        title: 'Team Lunch', // Updated event title
+        title: 'Team Lunch', 
         start: '2023-12-05T10:00:00',
-        end: '2023-12-05T10:00:00', // Set end time same as start time
-        color: 'blue',
-        description: 'Bonding session', // Additional event property
-      },
-      // Add more event objects as needed...
+        end: '2023-12-05T10:00:00', 
+        color: 'red',
+        description: 'Bonding session',
+        id: 'hehe',
+      }
     ];
 
     // Assign the eventsList to calendarOptions.events
     this.calendarOptions.events = eventsList;
-  }
-  handleEventClick(clickInfo: any): void {
-    const eventTitle = clickInfo.event.title || 'No title';
-    const eventDescription =
-      clickInfo.event.extendedProps.description || 'No description';
+  };
+    handleEventClick(clickInfo: any): void {
+      const eventTitle = clickInfo.event.title || 'No title';
+      const eventDescription = clickInfo.event.extendedProps.description || 'No description';
+      const eventId = clickInfo.event.extendedProps.id || 'No id';
+    
+      alert(`Event clicked:\nTitle: ${eventTitle}\nDescription: ${eventDescription}\nEventId: ${eventId}`);
+      // For example, open a modal, navigate to a different page, etc.
+    }
+  
+  constructor(){
 
     alert(
       `Event clicked:\nTitle: ${eventTitle}\nDescription: ${eventDescription}`

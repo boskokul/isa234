@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { concatMap, forkJoin, of, switchMap, tap } from 'rxjs';
@@ -9,53 +9,55 @@ import { UserCreate } from 'src/app/model/user-create.model';
 import { AdminService } from 'src/app/services/admin.service';
 import { CompanyService } from 'src/app/services/company.service';
 import { UserServiceService } from 'src/app/services/user-service.service';
+import { MapComponent } from 'src/app/shared/maps/map/map.component';
 
 @Component({
   selector: 'app-register-company',
   templateUrl: './register-company.component.html',
   styleUrls: ['./register-company.component.css'],
 })
-export class RegisterCompanyComponent implements OnInit {
-  startTime: string = '08:00';
-  endTime: string = '16:00';
-  hide = true;
-  company: CompanyCreate = {
-    id: 0,
-    name: '',
-    description: '',
-    averageGrade: 0,
-    country: '',
-    city: '',
-  };
-  adminNames: string[] = [];
-  admins: AdminCreate[] = [];
-  companyId = 0;
-  emptyFlag = false;
-  user: AdminCreate = {
-    firstName: '',
-    lastName: '',
-    email: '',
-    city: '',
-    country: '',
-    phoneNumber: '',
-    companyInformation: '',
-    profession: '',
-    password: '',
-    companyId: 0,
-  };
-  repeatPassword: string;
-  registerForm = new FormGroup({
-    firstName: new FormControl('', [Validators.required]),
-    lastName: new FormControl('', [Validators.required]),
-    email: new FormControl('', [Validators.required]),
-    city: new FormControl('', [Validators.required]),
-    country: new FormControl('', [Validators.required]),
-    companyInformation: new FormControl('', [Validators.required]),
-    profession: new FormControl('', [Validators.required]),
-    phoneNumber: new FormControl('', [Validators.required]),
-    password: new FormControl('', [Validators.required]),
-    repeatPassword: new FormControl('', [Validators.required]),
-  });
+
+  export class RegisterCompanyComponent implements OnInit{
+
+    @ViewChild(MapComponent) mapComponent: MapComponent;
+    longitude: number = 0;
+    latitude: number = 0;
+
+    startTime: string = '08:00'
+    endTime: string = '16:00'
+    hide = true
+    company: Company = {id: 0, name: '', description: '', averageGrade: 0, country: '', city: ''}
+    adminNames: string[] = [];
+    admins: AdminCreate[] = [];
+    companyId = 0;
+    emptyFlag = false;
+    user: AdminCreate = {firstName: '', lastName: '', email: '', city: '', country: '', phoneNumber: '', companyInformation: '', profession: '', password: '', companyId: 0}
+    repeatPassword: string
+    registerForm = new FormGroup({
+      firstName: new FormControl('', [Validators.required]),
+      lastName: new FormControl('', [Validators.required]),
+      email: new FormControl('', [Validators.required]),
+      city: new FormControl('', [Validators.required]),
+      country: new FormControl('', [Validators.required]),
+      companyInformation: new FormControl('', [Validators.required]),
+      profession: new FormControl('', [Validators.required]),
+      phoneNumber: new FormControl('', [Validators.required]),
+      password: new FormControl('', [Validators.required]),
+      repeatPassword: new FormControl('', [Validators.required]),
+
+
+    });
+
+    gigaChadForm = new FormGroup({
+      name: new FormControl('', [Validators.required]),
+      description: new FormControl('', [Validators.required]),
+      companyCountry: new FormControl('', [Validators.required]),
+      companyCity: new FormControl('', [Validators.required]),
+      companyStreet: new FormControl(''),
+      companyNumber: new FormControl(''),
+      longitude: new FormControl(''),
+      latitude: new FormControl(''),
+    })
 
   gigaChadForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
@@ -259,23 +261,30 @@ export class RegisterCompanyComponent implements OnInit {
     console.log(this.emptyFlag);
   }
 
-  fillGiga() {
-    this.emptyFlag = false;
-    this.company.name = this.gigaChadForm.value.name || '';
-    if (this.company.name === '') {
-      this.emptyFlag = true;
+    onMapClick(event: { lat: number; lon: number }) {
+      this.searchByCoord(event.lat, event.lon);
     }
-    this.company.description = this.gigaChadForm.value.description || '';
-    if (this.company.description === '') {
-      this.emptyFlag = true;
+
+    private searchByCoord(lat: number, lon: number) {
+      this.mapComponent.reverseSearch(lat, lon).subscribe({
+        next: (location) => {
+          // Handle the location data here
+          const foundLocation = location;
+          console.log('Found Location Lat:', foundLocation.lat);
+          console.log('Found Location Lon:', foundLocation.lon);
+          console.log('Found Location Name:', foundLocation.display_name);
+          this.latitude = foundLocation.lat;
+          this.longitude = foundLocation.lon;
+          //this.checkpointForm.controls.latitude.setValue(this.latitude);
+          //this.checkpointForm.controls.longitude.setValue(this.longitude);
+          //this.checkpointForm.controls.address.setValue(foundLocation.display_name);
+        },
+        error: (error) => {
+          console.error('Error:', error);
+        },
+      });
     }
-    this.company.country = this.gigaChadForm.value.companyCountry || '';
-    if (this.company.country === '') {
-      this.emptyFlag = true;
-    }
-    this.company.city = this.gigaChadForm.value.companyCity || '';
-    if (this.company.city === '') {
-      this.emptyFlag = true;
-    }
-  }
+
+    
+    
 }

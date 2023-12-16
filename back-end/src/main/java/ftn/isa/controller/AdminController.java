@@ -56,7 +56,7 @@ public class AdminController {
 
         return new ResponseEntity<>(companyResponseDTO, HttpStatus.OK);
     }
-    @PreAuthorize("hasRole('SYSTEM_ADMIN')")
+    @PreAuthorize("hasRole('COMPANY_ADMIN')")
     @PostMapping(consumes = "application/json")
     public ResponseEntity<CompanyAdminResponseDTO> save(@RequestBody AdminCreateDTO userDTO){
 

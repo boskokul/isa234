@@ -11,6 +11,7 @@ import { CompanyAdminProfileComponent } from './components/company-admin-profile
 import { LoginComponent } from './components/login/login.component';
 import { CompanyCalendarComponent } from './components/company-calendar/company-calendar.component';
 import { AuthGuardService } from './ActivateGuard/AuthGuardService';
+import { SysAdminFormComponent } from './components/sys-admin-form/sys-admin-form.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'register', pathMatch: 'full' },
@@ -24,6 +25,7 @@ const routes: Routes = [
   { path: 'companyAdminProfile', component: CompanyAdminProfileComponent, canActivate: [AuthGuardService] },
   { path: 'login', component: LoginComponent, canActivate: [AuthGuardService] },
   { path: 'calendar', component: CompanyCalendarComponent, canActivate: [AuthGuardService] },
+  { path: 'sys-register', component: SysAdminFormComponent, canActivate: [AuthGuardService]  },
 ];
 
 @NgModule({

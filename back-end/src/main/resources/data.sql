@@ -22,8 +22,8 @@ INSERT INTO isa.equipments(
     VALUES (-4, 'slusni aparati', 'oprema4', 1, -2, 45, 0);
 --useri
 INSERT INTO isa.base_users(
-	id, city, country, username, first_name, last_name, password, phone, verified)
-	VALUES (-1, 'ns', 'srb', 'bfd@gmail.com', 'marko', 'nikic', '$2a$12$ztIwerX104rJ41MYLl7GDeaKMsK3ENPxFdqnwgLk2GjqEz2Re/qsW', '06314222', true);
+    id, city, country, username, first_name, last_name, password, phone, verified)
+VALUES (-1, 'ns', 'srb', 'bfd@gmail.com', 'marko', 'nikic', '$2a$12$ztIwerX104rJ41MYLl7GDeaKMsK3ENPxFdqnwgLk2GjqEz2Re/qsW', '06314222', true);
 INSERT INTO isa.base_users(
 	id, city, country, username, first_name, last_name, password, phone, verified)
 	VALUES (-2, 'bg', 'srb', 'aad@gmail.com', 'nemanja', 'zigic', '$2a$12$ztIwerX104rJ41MYLl7GDeaKMsK3ENPxFdqnwgLk2GjqEz2Re/qsW', '064324562', false);
@@ -62,6 +62,6 @@ INSERT INTO isa.user_role(user_id, role_id) VALUES (-6, 3);
 --apointmenti (predefinisani termini)
 INSERT INTO isa.appointments(
 	id, date_time, duration, company_admin_id)
-	VALUES (-1, '2023-12-16T15:18:12', 30, -5);
+	VALUES (-1, '2023-12-17T15:18:12', 30, -5);
 --rezervacije (one koriste te predefinisane termine u sebi)
 	
