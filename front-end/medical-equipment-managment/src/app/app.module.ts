@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { RegisterComponent } from './components/register/register.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -34,7 +34,17 @@ import { MatSortModule } from '@angular/material/sort';
 import { VerificationComponent } from './components/verification/verification.component';
 import { EquipmentEditComponent } from './components/equipment-edit/equipment-edit.component';
 import { EquipmentCreateComponent } from './components/equipment-create/equipment-create.component';
-
+import { LoginComponent } from './components/login/login.component';
+import { TokenInterceptor } from './interceptor/TokenInterceptor';
+import { AdminService } from './services/admin.service';
+import { CompanyService } from './services/company.service';
+import { EquipmentService } from './services/equipment.service';
+import { UserServiceService } from './services/user-service.service';
+import { EquipmentAppointmentComponent } from './components/equipment-appointment/equipment-appointment.component';
+import { CompanyCalendarComponent } from './components/company-calendar/company-calendar.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
+import { AuthGuardService } from './ActivateGuard/AuthGuardService';
 
 @NgModule({
   declarations: [
@@ -55,6 +65,9 @@ import { EquipmentCreateComponent } from './components/equipment-create/equipmen
     CompanyAdminPasswordChangeComponent,
     EquipmentEditComponent,
     EquipmentCreateComponent,
+    LoginComponent,
+    EquipmentAppointmentComponent,
+    CompanyCalendarComponent,
 
   ],
   imports: [
@@ -77,8 +90,21 @@ import { EquipmentCreateComponent } from './components/equipment-create/equipmen
     MatTableModule,
     FontAwesomeModule,
     MatSortModule,
+    FullCalendarModule,
+    NgxMaterialTimepickerModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    },
+    AdminService,
+    CompanyService,
+    EquipmentService,
+    UserServiceService,
+    AuthGuardService
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

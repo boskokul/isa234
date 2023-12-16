@@ -5,4 +5,8 @@ export interface Company {
   averageGrade: number;
   country: string;
   city: string;
+  startHour?: number;
+  startMinute?: number;
+  endHour?: number;
+  endMinute?: number;
 }

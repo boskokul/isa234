@@ -46,3 +46,14 @@ h1 {
   box-sizing: border-box;
   flex-wrap: wrap;
 }
+
+.buy-button {
+  background-color: #800e13ff;
+  font-size: 20px;
+  padding: 3px;
+  padding-left: 20px;
+  padding-right: 20px;
+  color: white;
+  font-family: "Rhodium Libre";
+  font-weight: 700;
+}

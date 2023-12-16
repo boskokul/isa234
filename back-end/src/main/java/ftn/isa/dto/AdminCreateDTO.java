@@ -11,14 +11,12 @@ public class AdminCreateDTO {
     private String country;
     private String phoneNumber;
     private String profession;
-
-    private Role role = Role.CompanyAdmin;
     private String companyInformation;
 
     private Integer companyId;
 
     public AdminCreateDTO(String firstName, String lastName, String email, String city, String country,
-                         String profession, Integer companyId, Role role) {
+                         String profession, Integer companyId) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -26,16 +24,6 @@ public class AdminCreateDTO {
         this.country = country;
         this.profession = profession;
         this.companyId = companyId;
-        this.role = role;
-    }
-
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
     }
 
     public Integer getCompanyId() {

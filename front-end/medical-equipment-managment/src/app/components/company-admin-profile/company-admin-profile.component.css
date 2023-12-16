@@ -37,6 +37,13 @@ h1 {
   color: white;
 }
 
+.icon-button {
+  background-image: url('calendar.ico');
+  background-size: 60px 50px;
+  height: 50px;
+  width: 40px;
+}
+
 .basic-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -45,6 +52,7 @@ h1 {
   box-sizing: border-box;
   flex-wrap: wrap;
 }
+
 .rotate-icon .mat-icon {
   transform: rotate(90deg); /* Adjust the rotation angle as needed */
 }
@@ -65,4 +73,9 @@ h1 {
   padding: 5%;
   margin-top: 75px;
   margin-left: 60px;
+
+.calendar-container {
+  height: 400px; 
+  overflow-y: auto; 
+  border: 1px solid #ccc; 
 }

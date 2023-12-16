@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, map } from 'rxjs';
 import { UserCreate } from '../model/user-create.model';
 import { environment } from '../env/environment';
 import { User } from '../model/user.model';
@@ -10,11 +10,11 @@ import { UserUpdate } from '../model/user-update.model';
   providedIn: 'root'
 })
 export class UserServiceService {
-
+  
   constructor(private http: HttpClient) { }
 
   registerUser(user: UserCreate): Observable<any> {
-    return this.http.post<any>(environment.apiHost + "users", user);
+    return this.http.post<any>(environment.apiHost + "registration", user);
   }
 
   getLoggedUser(id: number): Observable<User> {
@@ -24,4 +24,5 @@ export class UserServiceService {
   updateUser(userUpdate: UserUpdate): Observable<User> {
     return this.http.put<User>(environment.apiHost + "users", userUpdate)
   }
+  
 }

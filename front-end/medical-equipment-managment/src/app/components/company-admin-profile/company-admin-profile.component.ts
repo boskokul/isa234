@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Company } from 'src/app/model/company';
 import { CompanyAdmin } from 'src/app/model/company-admin.model';
@@ -10,22 +10,32 @@ import { CompanyAdminEditComponent } from '../company-admin-edit/company-admin-e
 import { OtherCompanyAdminsComponent } from '../other-company-admins/other-company-admins.component';
 import { CompanyEditComponent } from '../company-edit/company-edit.component';
 import { CompanyAdminPasswordChangeComponent } from '../company-admin-password-change/company-admin-password-change.component';
+
 import { Subscription } from 'rxjs';
 import { EquipmentEditComponent } from '../equipment-edit/equipment-edit.component';
 import { EquipmentCreateComponent } from '../equipment-create/equipment-create.component';
 import { EquipmentCreate } from 'src/app/model/equipment-create.model';
 import { Router } from '@angular/router';
+
+import { AuthService } from 'src/app/services/auth.service';
+import { CurrentUser } from 'src/app/model/current-user';
+import { Subscription } from 'rxjs';
+
 @Component({
   selector: 'app-company-admin-profile',
   templateUrl: './company-admin-profile.component.html',
   styleUrls: ['./company-admin-profile.component.css'],
 })
-export class CompanyAdminProfileComponent implements OnInit {
+export class CompanyAdminProfileComponent implements OnInit, OnDestroy {
   items: Equipment[] = [];
+
   backupItems: Equipment[] = [];
   nameFilter: string = '';
   typeFilter: string = 'All';
   private subscriptions: Subscription[] = [];
+
+  user: CurrentUser | undefined
+
   company: Company = {
     id: 0,
     averageGrade: 0,
@@ -45,6 +55,7 @@ export class CompanyAdminProfileComponent implements OnInit {
     phoneNumber: '',
     companyId: 0,
   };
+
   newEquipment: EquipmentCreate = {
     amount: 0,
     companyId: 0,
@@ -55,13 +66,24 @@ export class CompanyAdminProfileComponent implements OnInit {
   constructor(
     private router: Router,
     private companyService: CompanyService,
+    private subscription: Subscription,
     private equipmentService: EquipmentService,
     private adminService: AdminService,
+    private authService: AuthService,
     public dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
-    this.loadAdmin();
+    this.subscription = this.authService.currentUser.subscribe(user => {
+      this.user = user;
+    });
+    setTimeout(() => {
+      this.loadAdmin();
+    }, 100);
+    
+  }
+  ngOnDestroy() {
+    this.subscription.unsubscribe()
   }
 
   goToCalendar() {
@@ -76,7 +98,7 @@ export class CompanyAdminProfileComponent implements OnInit {
       panelClass: 'custom-dialog',
     });
     dialogRef.afterClosed().subscribe((item) => {
-      this.adminService.getAdmin(-2).subscribe({
+      this.adminService.getAdmin(this.user!.id).subscribe({
         next: (result: CompanyAdmin) => {
           this.admin = result;
         },
@@ -92,7 +114,7 @@ export class CompanyAdminProfileComponent implements OnInit {
       panelClass: 'custom-dialog',
     });
     dialogRef.afterClosed().subscribe((item) => {
-      this.adminService.getAdmin(-2).subscribe({
+      this.adminService.getAdmin(this.user!.id).subscribe({
         next: (result: CompanyAdmin) => {
           this.admin = result;
         },
@@ -125,7 +147,7 @@ export class CompanyAdminProfileComponent implements OnInit {
   }
 
   loadAdmin() {
-    this.adminService.getAdmin(-2).subscribe({
+    this.adminService.getAdmin(this.user!.id).subscribe({
       next: (result: CompanyAdmin) => {
         this.admin = result;
         this.loadCompany();
@@ -222,5 +244,8 @@ export class CompanyAdminProfileComponent implements OnInit {
     this.subscriptions.forEach((subscription) => {
       subscription.unsubscribe();
     });
+    
+  openCalendar(){
+    console.log("KALENDAAAAAARRR!")
   }
 }

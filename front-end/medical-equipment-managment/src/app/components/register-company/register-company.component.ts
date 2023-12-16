@@ -9,12 +9,15 @@ import { AdminService } from 'src/app/services/admin.service';
 import { CompanyService } from 'src/app/services/company.service';
 import { UserServiceService } from 'src/app/services/user-service.service';
 
+
 @Component({
   selector: 'app-register-company',
   templateUrl: './register-company.component.html',
   styleUrls: ['./register-company.component.css']
 })
   export class RegisterCompanyComponent implements OnInit{
+    startTime: string = '08:00'
+    endTime: string = '16:00'
     hide = true
     company: Company = {id: 0, name: '', description: '', averageGrade: 0, country: '', city: ''}
     adminNames: string[] = [];
@@ -107,7 +110,17 @@ import { UserServiceService } from 'src/app/services/user-service.service';
       if (this.admins.length === 0) {
         return;
       }
-    
+    this.setCompanyWorkTime();
+    if(this.company.startHour! > this.company.endHour!){
+      alert('Start time must be before end time')
+      return;
+    }
+    else if(this.company.startHour! == this.company.endHour!){
+      if(this.company.startMinute! >= this.company.endMinute!){
+        alert('Start time must be before end time')
+      return;
+      }
+    }
 this.companyService.registerCompany(this.company).pipe(
   concatMap(() => this.companyService.getLastCompanyId())
 ).subscribe({
@@ -143,7 +156,25 @@ this.companyService.registerCompany(this.company).pipe(
 });
     }
     
-  
+    onChangeStartTime(event: any){
+      this.startTime = event
+    }
+    onChangeEndTime(event: any){
+      this.endTime = event
+    }
+    setCompanyWorkTime(){
+      let startTimeArray = this.startTime.split(':')
+      if(startTimeArray[0][0] == '0'){ this.company.startHour = parseInt(startTimeArray[0][1]) }
+      else { this.company.startHour = parseInt(startTimeArray[0][0] + startTimeArray[0][1]) }
+      if(startTimeArray[1][0] == '0'){ this.company.startMinute = parseInt(startTimeArray[1][1]) }
+      else { this.company.startMinute = parseInt(startTimeArray[1][0] + startTimeArray[1][1]) }
+
+      let endTimeArray = this.endTime.split(':')
+      if(endTimeArray[0][0] == '0'){ this.company.endHour = parseInt(endTimeArray[0][1]) }
+      else { this.company.endHour = parseInt(endTimeArray[0][0] + endTimeArray[0][1]) }
+      if(endTimeArray[1][0] == '0'){ this.company.endMinute = parseInt(endTimeArray[1][1]) }
+      else { this.company.endMinute = parseInt(endTimeArray[1][0] + endTimeArray[1][1]) }
+    }
     fillUser(){
       this.emptyFlag=false
       this.user.firstName = this.registerForm.value.firstName || ""

@@ -16,14 +16,13 @@ public class EmailService {
     @Autowired
     private Environment env;
 
-    public void sendVerificationMail(RegisteredUser user) throws MailException, InterruptedException {
-
+    public void sendVerificationMail(RegisteredUser user, String token) throws MailException, InterruptedException {
         SimpleMailMessage mail = new SimpleMailMessage();
         mail.setTo(user.getEmail());
         mail.setFrom(env.getProperty("spring.mail.username"));
         mail.setSubject("Account verification");
         mail.setText("Hi, " + user.getFirstName() + ",\n\nClick on link below to verificate your account on" +
-                " medical equipment management system. \n http://localhost:4200/verification");
+                " medical equipment management system. \n http://localhost:8084/api/registration/registrationConfirm?token="+token);
         javaMailSender.send(mail);
     }
 }

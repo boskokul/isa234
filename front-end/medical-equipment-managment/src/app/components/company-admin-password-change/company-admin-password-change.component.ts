@@ -19,10 +19,10 @@ export class CompanyAdminPasswordChangeComponent {
   ) {}
 
   updateAdmin() {
-    if (this.password != this.admin.password) {
+    /*if (this.password != this.admin.password) {
       alert('Provide your current password!');
       return;
-    }
+    }*/
     if (
       this.passwordNew != this.passwordRepeat ||
       this.passwordNew.length == 0

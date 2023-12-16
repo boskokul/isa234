@@ -1,9 +1,11 @@
 package ftn.isa.domain;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@Table(name="reservations", schema = "isa")
+@Table(name="reservation", schema = "isa")
 public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,11 +19,11 @@ public class Reservation {
     private RegisteredUser registeredUser;
     @Column(name = "status", nullable = false)
     private ReservationStatus status;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "equipment_id", nullable = false)
-    private Equipment equipment;
-    @Column(name = "amount", nullable = false)
-    private Integer amount;
+    @OneToMany(mappedBy = "reservation", fetch = FetchType.LAZY)
+    private Set<ReservationItem> reservationItems = new HashSet<ReservationItem>();
+
+
+    public Reservation(){}
 
     public Reservation(Integer id, Appointment appointment, ReservationStatus status) {
         this.id = id;
@@ -29,15 +31,12 @@ public class Reservation {
         this.status = status;
     }
 
-    public Reservation(Integer id, Appointment appointment, RegisteredUser registeredUser, ReservationStatus status,
-			Equipment equipment, Integer amount) {
+    public Reservation(Integer id, Appointment appointment, RegisteredUser registeredUser, ReservationStatus status) {
 		super();
 		this.id = id;
 		this.appointment = appointment;
 		this.registeredUser = registeredUser;
 		this.status = status;
-		this.equipment = equipment;
-		this.amount = amount;
 	}
 
 
@@ -57,7 +56,6 @@ public class Reservation {
     public void setAppointment(Appointment appointment) {
         this.appointment = appointment;
     }
-
     
     public RegisteredUser getRegisteredUser() {
 		return registeredUser;
@@ -65,22 +63,6 @@ public class Reservation {
 
 	public void setRegisteredUser(RegisteredUser registeredUser) {
 		this.registeredUser = registeredUser;
-	}
-
-	public Equipment getEquipment() {
-		return equipment;
-	}
-
-	public void setEquipment(Equipment equipment) {
-		this.equipment = equipment;
-	}
-
-	public Integer getAmount() {
-		return amount;
-	}
-
-	public void setAmount(Integer amount) {
-		this.amount = amount;
 	}
 
 	public ReservationStatus getStatus() {
