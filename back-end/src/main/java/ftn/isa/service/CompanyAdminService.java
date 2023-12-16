@@ -22,6 +22,7 @@ public class CompanyAdminService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return cARepository.save(user);
     }
+
     public CompanyAdmin update(CompanyAdmin user) {
         return cARepository.save(user);
     }

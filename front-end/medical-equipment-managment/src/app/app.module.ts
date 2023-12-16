@@ -45,7 +45,10 @@ import { CompanyCalendarComponent } from './components/company-calendar/company-
 import { FullCalendarModule } from '@fullcalendar/angular';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import { AuthGuardService } from './ActivateGuard/AuthGuardService';
+
 import { ReservationService } from './services/reservation-service';
+import { SysAdminFormComponent } from './components/sys-admin-form/sys-admin-form.component';
+import { SharedModule } from "./shared/maps/shared.module";
 
 @NgModule({
   declarations: [
@@ -69,6 +72,7 @@ import { ReservationService } from './services/reservation-service';
     LoginComponent,
     EquipmentAppointmentComponent,
     CompanyCalendarComponent,
+    SysAdminFormComponent,
 
   ],
   imports: [
@@ -92,7 +96,8 @@ import { ReservationService } from './services/reservation-service';
     FontAwesomeModule,
     MatSortModule,
     FullCalendarModule,
-    NgxMaterialTimepickerModule
+    NgxMaterialTimepickerModule,
+    SharedModule
   ],
   providers: [
     {
