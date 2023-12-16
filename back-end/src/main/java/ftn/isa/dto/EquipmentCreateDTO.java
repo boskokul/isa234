@@ -1,50 +1,23 @@
 package ftn.isa.dto;
 
-import ftn.isa.domain.Equipment;
 import ftn.isa.domain.EquipmentType;
 
-public class EquipmentDTO {
-	private Integer id;
+public class EquipmentCreateDTO {
     private String name;
     private String description;
 	private EquipmentType type;
 	private Integer amount;
-    
+	private Integer companyId;
 	
-	public EquipmentDTO(Equipment e) {
-		this.id = e.getId();
-		this.name = e.getName();
-		this.description = e.getDescription();
-		this.type = e.getType();
-		this.amount = e.getFreeAmount();
-	}
-    
-	
-	public EquipmentDTO(Integer id, String name, String description, EquipmentType type, Integer amount) {
+	public EquipmentCreateDTO(String name, String description, EquipmentType type, Integer amount, Integer companyId) {
 		super();
-		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.type = type;
 		this.amount = amount;
+		this.companyId = companyId;
 	}
-
-
-
-	public Integer getAmount() {
-		return amount;
-	}
-
-	public void setAmount(Integer amount) {
-		this.amount = amount;
-	}
-
-	public Integer getId() {
-		return id;
-	}
-	public void setId(Integer id) {
-		this.id = id;
-	}
+	
 	public String getName() {
 		return name;
 	}
@@ -57,12 +30,25 @@ public class EquipmentDTO {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
 	public EquipmentType getType() {
 		return type;
 	}
-
 	public void setType(EquipmentType type) {
 		this.type = type;
 	}
+	public Integer getAmount() {
+		return amount;
+	}
+	public void setAmount(Integer amount) {
+		this.amount = amount;
+	}
+	public Integer getCompanyId() {
+		return companyId;
+	}
+	public void setCompanyId(Integer companyId) {
+		this.companyId = companyId;
+	}
+	
+	
+
 }

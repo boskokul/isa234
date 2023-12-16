@@ -92,7 +92,10 @@ public class CompanyController {
 	public ResponseEntity<List<EquipmentDTO>> getCompanyEquipment(@PathVariable Integer companyId) {
 		
 		Company company = companyService.findOneWithEquipment(companyId);
-		
+		if(company == null) {
+			List<EquipmentDTO> equipmentDTOs = new ArrayList<>();
+			return new ResponseEntity<>(equipmentDTOs, HttpStatus.OK);
+		}
 		Set<Equipment> equipment = company.getEquipment();
 		List<EquipmentDTO> equipmentDTOs = new ArrayList<>();
 
