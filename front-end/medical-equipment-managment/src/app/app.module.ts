@@ -43,6 +43,7 @@ import { CompanyCalendarComponent } from './components/company-calendar/company-
 import { FullCalendarModule } from '@fullcalendar/angular';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import { AuthGuardService } from './ActivateGuard/AuthGuardService';
+import { ReservationService } from './services/reservation-service';
 
 @NgModule({
   declarations: [
@@ -99,6 +100,7 @@ import { AuthGuardService } from './ActivateGuard/AuthGuardService';
     CompanyService,
     EquipmentService,
     UserServiceService,
+    ReservationService,
     AuthGuardService
   ],
   bootstrap: [AppComponent],

@@ -7,16 +7,17 @@ public class EquipmentDTO {
 	private Integer id;
     private String name;
     private String description;
-
 	private EquipmentType type;
-    
-    
+    private int freeAmount;
+	private int reservedAmount;
 
 	public EquipmentDTO(Equipment e) {
 		this.id = e.getId();
 		this.name = e.getName();
 		this.description = e.getDescription();
 		this.type = e.getType();
+		this.freeAmount = e.getFreeAmount();
+		this.reservedAmount = e.getReservedAmount();
 	}
     
 	public EquipmentDTO(Integer id, String name, String description, EquipmentType type) {
@@ -51,5 +52,21 @@ public class EquipmentDTO {
 
 	public void setType(EquipmentType type) {
 		this.type = type;
+	}
+
+	public int getFreeAmount() {
+		return freeAmount;
+	}
+
+	public void setFreeAmount(int freeAmount) {
+		this.freeAmount = freeAmount;
+	}
+
+	public int getReservedAmount() {
+		return reservedAmount;
+	}
+
+	public void setReservedAmount(int reservedAmount) {
+		this.reservedAmount = reservedAmount;
 	}
 }

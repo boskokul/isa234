@@ -3,4 +3,6 @@ export interface Equipment{
     name: string;
     description: string;
     type: string;
+    freeAmount: number;
+    reservedAmount: number;
   }
