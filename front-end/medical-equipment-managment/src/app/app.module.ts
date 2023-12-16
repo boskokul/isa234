@@ -32,6 +32,8 @@ import { MatTableModule } from '@angular/material/table';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatSortModule } from '@angular/material/sort';
 import { VerificationComponent } from './components/verification/verification.component';
+import { EquipmentEditComponent } from './components/equipment-edit/equipment-edit.component';
+import { EquipmentCreateComponent } from './components/equipment-create/equipment-create.component';
 import { LoginComponent } from './components/login/login.component';
 import { TokenInterceptor } from './interceptor/TokenInterceptor';
 import { AdminService } from './services/admin.service';
@@ -43,67 +45,73 @@ import { CompanyCalendarComponent } from './components/company-calendar/company-
 import { FullCalendarModule } from '@fullcalendar/angular';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import { AuthGuardService } from './ActivateGuard/AuthGuardService';
+
+import { ReservationService } from './services/reservation-service';
 import { SysAdminFormComponent } from './components/sys-admin-form/sys-admin-form.component';
 import { SharedModule } from "./shared/maps/shared.module";
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        NavbarComponent,
-        RegisterComponent,
-        CompaniesComponent,
-        CompanyProfileComponent,
-        UserProfileComponent,
-        RegisterCompanyComponent,
-        EquipmentComponent,
-        CompanyListPopupComponent,
-        VerificationComponent,
-        CompanyAdminProfileComponent,
-        CompanyAdminEditComponent,
-        CompanyEditComponent,
-        OtherCompanyAdminsComponent,
-        CompanyAdminPasswordChangeComponent,
-        LoginComponent,
-        EquipmentAppointmentComponent,
-        CompanyCalendarComponent,
-        SysAdminFormComponent,
-    ],
-    providers: [
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: TokenInterceptor,
-            multi: true
-        },
-        AdminService,
-        CompanyService,
-        EquipmentService,
-        UserServiceService,
-        AuthGuardService
-    ],
-    bootstrap: [AppComponent],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        HttpClientModule,
-        BrowserAnimationsModule,
-        MatToolbarModule,
-        MatButtonModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatIconModule,
-        FormsModule,
-        ReactiveFormsModule,
-        MatCardModule,
-        MatOptionModule,
-        MatFormFieldModule,
-        MatSelectModule,
-        MatDialogModule,
-        MatTableModule,
-        FontAwesomeModule,
-        MatSortModule,
-        FullCalendarModule,
-        NgxMaterialTimepickerModule,
-        SharedModule
-    ]
+  declarations: [
+    AppComponent,
+    NavbarComponent,
+    RegisterComponent,
+    CompaniesComponent,
+    CompanyProfileComponent,
+    UserProfileComponent,
+    RegisterCompanyComponent,
+    EquipmentComponent,
+    CompanyListPopupComponent,
+    VerificationComponent,
+    CompanyAdminProfileComponent,
+    CompanyAdminEditComponent,
+    CompanyEditComponent,
+    OtherCompanyAdminsComponent,
+    CompanyAdminPasswordChangeComponent,
+    EquipmentEditComponent,
+    EquipmentCreateComponent,
+    LoginComponent,
+    EquipmentAppointmentComponent,
+    CompanyCalendarComponent,
+    SysAdminFormComponent,
+
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatCardModule,
+    MatOptionModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatDialogModule,
+    MatTableModule,
+    FontAwesomeModule,
+    MatSortModule,
+    FullCalendarModule,
+    NgxMaterialTimepickerModule,
+    SharedModule
+  ],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    },
+    AdminService,
+    CompanyService,
+    EquipmentService,
+    UserServiceService,
+    ReservationService,
+    AuthGuardService
+  ],
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

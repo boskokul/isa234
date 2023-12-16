@@ -1,11 +1,13 @@
 package ftn.isa.controller;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,7 +44,8 @@ public class AppointmentController {
 
         return new ResponseEntity<>(aResponseDTOs, HttpStatus.OK);
     }
-	
+
+    @PreAuthorize("hasRole('COMPANY_ADMIN')")
 	@PostMapping(consumes = "application/json")
     public ResponseEntity<AppointmentResponseDTO> save(@RequestBody AppointmentCreateDTO aDTO){
         Appointment a = new Appointment();
@@ -64,5 +67,21 @@ public class AppointmentController {
 
         return new ResponseEntity<>(aResponseDTO, HttpStatus.OK);
     }
-	
+
+    @GetMapping(value = "/company/{id}")
+    public ResponseEntity<List<AppointmentResponseDTO>> getAppointmentsByCompanyId(@PathVariable Integer id) {
+        List<Appointment> appointments = appointmentService.findByCompanyId(id);
+        List<AppointmentResponseDTO> aResponseDTOs = new ArrayList<>();
+        for (Appointment c : appointments) {
+            if(c.getDateTime().isBefore(LocalDateTime.now())){
+                continue;
+            }
+            else if(c.getReservation() != null){
+                continue;
+            }
+            aResponseDTOs.add(new AppointmentResponseDTO(c));
+        }
+        return new ResponseEntity<>(aResponseDTOs, HttpStatus.OK);
+    }
+
 }

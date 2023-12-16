@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../env/environment';
 import { Company } from '../model/company';
+import { Appointment } from '../model/appointment.model';
 
 @Injectable({
   providedIn: 'root',
@@ -46,5 +47,8 @@ export class CompanyService {
         '&city=' +
         city
     );
+  }
+  getAppointmentsForCompany(companyId: number): Observable<Appointment[]>{
+    return this.http.get<Appointment[]>(environment.apiHost + 'appointments/company/'+companyId);
   }
 }

@@ -24,5 +24,8 @@ public class AppointmentService {
     public Appointment getById(int id) {
 		return aRepository.getReferenceById(id);
 	}
+    public List<Appointment> findByCompanyId(Integer companyId){
+        return aRepository.findAppointmentByCompany(companyId);
+    }
 
 }

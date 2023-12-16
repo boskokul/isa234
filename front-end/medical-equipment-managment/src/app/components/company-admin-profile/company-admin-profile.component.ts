@@ -10,9 +10,16 @@ import { CompanyAdminEditComponent } from '../company-admin-edit/company-admin-e
 import { OtherCompanyAdminsComponent } from '../other-company-admins/other-company-admins.component';
 import { CompanyEditComponent } from '../company-edit/company-edit.component';
 import { CompanyAdminPasswordChangeComponent } from '../company-admin-password-change/company-admin-password-change.component';
+
+import { Subscription } from 'rxjs';
+import { EquipmentEditComponent } from '../equipment-edit/equipment-edit.component';
+import { EquipmentCreateComponent } from '../equipment-create/equipment-create.component';
+import { EquipmentCreate } from 'src/app/model/equipment-create.model';
+import { Router } from '@angular/router';
+
 import { AuthService } from 'src/app/services/auth.service';
 import { CurrentUser } from 'src/app/model/current-user';
-import { Subscription } from 'rxjs';
+
 @Component({
   selector: 'app-company-admin-profile',
   templateUrl: './company-admin-profile.component.html',
@@ -20,7 +27,14 @@ import { Subscription } from 'rxjs';
 })
 export class CompanyAdminProfileComponent implements OnInit, OnDestroy {
   items: Equipment[] = [];
-  user: CurrentUser | undefined
+
+  backupItems: Equipment[] = [];
+  nameFilter: string = '';
+  typeFilter: string = 'All';
+  private subscriptions: Subscription[] = [];
+
+  user: CurrentUser | undefined;
+
   company: Company = {
     id: 0,
     averageGrade: 0,
@@ -40,8 +54,18 @@ export class CompanyAdminProfileComponent implements OnInit, OnDestroy {
     phoneNumber: '',
     companyId: 0,
   };
-  subscription: Subscription
+  subscription: Subscription;
+
+  newEquipment: EquipmentCreate = {
+    amount: 0,
+    companyId: 0,
+    description: '',
+    name: '',
+    type: 'DiagnosticEquipment',
+  };
   constructor(
+    private router: Router,
+    private companyService: CompanyService,
     private equipmentService: EquipmentService,
     private adminService: AdminService,
     private authService: AuthService,
@@ -49,17 +73,19 @@ export class CompanyAdminProfileComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.subscription = this.authService.currentUser.subscribe(user => {
+    this.subscription = this.authService.currentUser.subscribe((user) => {
       this.user = user;
+      console.log(this.user.id);
     });
     setTimeout(() => {
       this.loadAdmin();
     }, 100);
-    
   }
-  ngOnDestroy() {
-    this.subscription.unsubscribe()
+
+  goToCalendar() {
+    this.router.navigate(['/companyCalendar']);
   }
+
   editPersonalInfo() {
     const dialogRef = this.dialog.open(CompanyAdminEditComponent, {
       data: this.admin,
@@ -129,7 +155,8 @@ export class CompanyAdminProfileComponent implements OnInit, OnDestroy {
     this.adminService.getCompanyForAdmin(this.admin.id).subscribe({
       next: (result: Company) => {
         this.company = result;
-        this.loadEquipment();
+        //this.loadEquipment();
+        this.loadItems();
       },
     });
   }
@@ -142,7 +169,79 @@ export class CompanyAdminProfileComponent implements OnInit, OnDestroy {
     });
   }
 
-  openCalendar(){
-    console.log("KALENDAAAAAARRR!")
+  loadItems() {
+    const subscription = this.equipmentService
+      .getCompanyEquipment(this.company.id)
+      .subscribe(
+        (data) => {
+          this.items = data;
+          this.backupItems = data;
+        },
+        (error) => {
+          console.error('Error loading equipment:', error);
+        }
+      );
   }
+
+  applyFilters() {
+    this.items = this.backupItems;
+    const filteredItems = this.items.filter((item) => {
+      const nameMatch = item.name
+        .toLowerCase()
+        .includes(this.nameFilter.toLowerCase());
+      const typeMatch =
+        this.typeFilter === 'All' || item.type === this.typeFilter;
+      return nameMatch && typeMatch;
+    });
+    // Update the items to display the filtered results
+    this.items = filteredItems;
+  }
+
+  editEquipment(e: Equipment) {
+    const dialogRef = this.dialog.open(EquipmentEditComponent, {
+      data: e,
+      width: '650px',
+      height: '450px',
+      panelClass: 'custom-dialog',
+    });
+    dialogRef.afterClosed().subscribe((item) => {
+      this.loadCompany();
+    });
+  }
+
+  addEquipment() {
+    this.newEquipment.companyId = this.company.id;
+    const dialogRef = this.dialog.open(EquipmentCreateComponent, {
+      data: this.newEquipment,
+      width: '650px',
+      height: '450px',
+      panelClass: 'custom-dialog',
+    });
+    dialogRef.afterClosed().subscribe((item) => {
+      this.loadCompany();
+      this.newEquipment.amount = 0;
+      this.newEquipment.companyId = 0;
+      this.newEquipment.description = '';
+      this.newEquipment.name = '';
+      this.newEquipment.type = 'DiagnosticEquipment';
+    });
+  }
+
+  deleteEquipment(itemId: number) {
+    this.equipmentService.deleteEquipment(itemId).subscribe({
+      next: (result: Equipment) => {
+        this.loadItems();
+      },
+    });
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+    // Unsubscribe from all subscriptions to avoid memory leaks when the component is destroyed
+    this.subscriptions.forEach((subscription) => {
+      subscription.unsubscribe();
+    });
+  }
+
+  openCalendar() {}
 }
