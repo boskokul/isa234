@@ -75,6 +75,8 @@ export class CompanyProfileComponent implements OnInit {
         data: {
           equipments: selectedEquipments,
           quantities: selectedQuantities,
+          companyId: this.companyId,
+          userId: this.user!.id
         },
         width: '800px',
         height: '600px'
