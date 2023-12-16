@@ -137,6 +137,10 @@ public class CompanyController {
         c.setDescription(companyUpdateDTO.getDescription());
         c.setCity(companyUpdateDTO.getCity());
         c.setCountry(companyUpdateDTO.getCountry());
+        c.setLat(companyUpdateDTO.getLat());
+        c.setLon(companyUpdateDTO.getLon());
+        c.setStreet(companyUpdateDTO.getStreet());
+        c.setHouseNumber(companyUpdateDTO.getHouseNumber());
 
         c = companyService.save(c);
         return new ResponseEntity<>(new CompanyResponseDTO(c), HttpStatus.OK);
