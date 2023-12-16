@@ -99,45 +99,44 @@ export class CompanyCalendarComponent implements OnInit {
     }, 100);
     const eventsList: any[] = [
       {
-        title: 'Meeting with Client', 
-        start: '2023-12-01T08:00:00', 
-        end: '2023-12-01T09:30:00', 
+        title: 'Meeting with Client',
+        start: '2023-12-01T08:00:00',
+        end: '2023-12-01T09:30:00',
         color: 'green',
         description: 'Discuss project details',
         id: 'hehe',
       },
       {
-        title: 'Meeting with Client 2', 
-        start: '2023-12-01T10:30:00', 
-        end: '2023-12-01T12:00:00', 
+        title: 'Meeting with Client 2',
+        start: '2023-12-01T10:30:00',
+        end: '2023-12-01T12:00:00',
         color: 'green',
         description: 'Discuss project details',
         id: 'hehe',
-
       },
       {
-        title: 'Team Lunch', 
+        title: 'Team Lunch',
         start: '2023-12-05T10:00:00',
-        end: '2023-12-05T10:00:00', 
+        end: '2023-12-05T10:00:00',
         color: 'red',
         description: 'Bonding session',
         id: 'hehe',
-      }
+      },
     ];
 
     // Assign the eventsList to calendarOptions.events
     this.calendarOptions.events = eventsList;
-  };
-    handleEventClick(clickInfo: any): void {
-      const eventTitle = clickInfo.event.title || 'No title';
-      const eventDescription = clickInfo.event.extendedProps.description || 'No description';
-      const eventId = clickInfo.event.extendedProps.id || 'No id';
-    
-      alert(`Event clicked:\nTitle: ${eventTitle}\nDescription: ${eventDescription}\nEventId: ${eventId}`);
-      // For example, open a modal, navigate to a different page, etc.
-    }
-  
-  constructor(){
+  }
+  handleEventClick(clickInfo: any): void {
+    const eventTitle = clickInfo.event.title || 'No title';
+    const eventDescription =
+      clickInfo.event.extendedProps.description || 'No description';
+    const eventId = clickInfo.event.extendedProps.id || 'No id';
+
+    alert(
+      `Event clicked:\nTitle: ${eventTitle}\nDescription: ${eventDescription}\nEventId: ${eventId}`
+    );
+    // For example, open a modal, navigate to a different page, etc.
 
     alert(
       `Event clicked:\nTitle: ${eventTitle}\nDescription: ${eventDescription}`
