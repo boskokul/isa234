@@ -1,8 +1,4 @@
 <div>
-  <p>Choose on map:</p>
-  <div class="map-div">
-    <xp-map (mapClick)="onMapClick($event)"></xp-map>
-  </div>
   <div class="form-container">
     <div class="flex-container">
       <div class="form-container">
@@ -18,6 +14,11 @@
           </mat-form-field>
           <br />
 
+          <p>Choose on map:</p>
+          <div class="map-div">
+            <xp-map (mapClick)="onMapClick($event)"></xp-map>
+          </div>
+
           <mat-form-field>
             <mat-label>Country</mat-label>
             <input matInput formControlName="companyCountry" />
@@ -28,11 +29,11 @@
           </mat-form-field>
           <mat-form-field>
             <mat-label>Street name</mat-label>
-            <input matInput formControlName="companyCountry" />
+            <input matInput formControlName="companyStreet" />
           </mat-form-field>
           <mat-form-field>
             <mat-label>Street number</mat-label>
-            <input matInput formControlName="companyCity" />
+            <input matInput formControlName="companyNumber" />
           </mat-form-field>
 
           <mat-form-field>

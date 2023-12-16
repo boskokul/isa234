@@ -80,6 +80,10 @@ public class CompanyController {
         company.setAverageGrade(companyDTO.getAverageGrade());
         company.setStartTime(LocalTime.of(companyDTO.getStartHour(), companyDTO.getStartMinute()));
         company.setEndTime(LocalTime.of(companyDTO.getEndHour(), companyDTO.getEndMinute()));
+        company.setLat(companyDTO.getLat());
+        company.setLon(companyDTO.getLon());
+        company.setStreet(companyDTO.getStreet());
+        company.setHouseNumber(companyDTO.getHouseNumber());
         company = companyService.save(company);
 
 

@@ -31,6 +31,10 @@ export class RegisterCompanyComponent implements OnInit {
     averageGrade: 0,
     country: '',
     city: '',
+    lat: 0,
+    lon: 0,
+    street: '',
+    houseNumber: 0,
   };
   adminNames: string[] = [];
   admins: AdminCreate[] = [];
@@ -134,7 +138,7 @@ export class RegisterCompanyComponent implements OnInit {
   RegisterCompany() {
     this.fillGiga();
     if (this.emptyFlag) {
-      return;
+      //return;
     }
     if (this.admins.length === 0) {
       return;
@@ -286,6 +290,12 @@ export class RegisterCompanyComponent implements OnInit {
     if (this.company.city === '') {
       this.emptyFlag = true;
     }
+    this.company.lon = parseFloat(this.gigaChadForm.value.longitude || '');
+    this.company.lat = parseFloat(this.gigaChadForm.value.latitude || '');
+    this.company.street = this.gigaChadForm.value.companyStreet || '';
+    this.company.houseNumber = parseInt(
+      this.gigaChadForm.value.companyNumber || ''
+    );
   }
 
   onMapClick(event: { lat: number; lon: number }) {
@@ -300,8 +310,40 @@ export class RegisterCompanyComponent implements OnInit {
         console.log('Found Location Lat:', foundLocation.lat);
         console.log('Found Location Lon:', foundLocation.lon);
         console.log('Found Location Name:', foundLocation.display_name);
-        this.latitude = foundLocation.lat;
-        this.longitude = foundLocation.lon;
+        console.log('city', foundLocation.address.city || '');
+        console.log('town', foundLocation.address.town || '');
+        console.log('city_distr', foundLocation.address.city_district || '');
+        console.log('country', foundLocation.address.country);
+
+        this.gigaChadForm.patchValue({
+          companyStreet: foundLocation.address.road,
+        });
+        this.gigaChadForm.patchValue({
+          longitude: foundLocation.lon.toString(),
+        });
+        this.gigaChadForm.patchValue({
+          latitude: foundLocation.lat.toString(),
+        });
+        this.gigaChadForm.patchValue({
+          companyNumber: foundLocation.address.house_number,
+        });
+        if (foundLocation.address.town) {
+          this.gigaChadForm.patchValue({
+            companyCity: foundLocation.address.town,
+          });
+        } else if (foundLocation.address.city) {
+          this.gigaChadForm.patchValue({
+            companyCity: foundLocation.address.city,
+          });
+        } else {
+          this.gigaChadForm.patchValue({
+            companyCity: foundLocation.address.city_district,
+          });
+        }
+        this.gigaChadForm.patchValue({
+          companyCountry: foundLocation.address.country,
+        });
+        // this.company.lon = foundLocation.lon;
         //this.checkpointForm.controls.latitude.setValue(this.latitude);
         //this.checkpointForm.controls.longitude.setValue(this.longitude);
         //this.checkpointForm.controls.address.setValue(foundLocation.display_name);
