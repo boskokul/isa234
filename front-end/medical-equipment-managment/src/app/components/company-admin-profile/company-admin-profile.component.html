@@ -44,30 +44,88 @@
           Other admins
         </button>
 
-        <button class="icon-button" style="margin-left: 5%" [routerLink]="['/calendar']" mat-raised-button (click)="openCalendar()"></button>
-
+        <button
+          class="icon-button"
+          style="margin-left: 5%"
+          [routerLink]="['/calendar']"
+          mat-raised-button
+          (click)="openCalendar()"
+        ></button>
       </div>
       <br />
     </div>
   </div>
+  <br />
+  <h2>Equipment available in this company:</h2>
+  <div>
+    <div fxLayout="row" fxLayoutAlign="start center">
+      <mat-form-field class="search-field">
+        <input
+          style="margin-left: 2%"
+          matInput
+          placeholder="Search by Name"
+          type="text"
+          [(ngModel)]="nameFilter"
+        />
+      </mat-form-field>
 
-  <h1>Equipment available in this company:</h1>
-  <div class="basic-container" fxLayout="row wrap" fxLayoutAlign="start">
-    <mat-card *ngFor="let item of items" class="purple-card">
-      <div fxLayout="column" fxLayoutGap="8px">
-        <div>
-          <p>Name: {{ item.name }}</p>
+      <mat-form-field style="margin-left: 2%" class="search-field">
+        <mat-select placeholder="Search by Role" [(ngModel)]="typeFilter">
+          <mat-option value="All">All</mat-option>
+          <mat-option value="DiagnosticEquipment">Diagnostic</mat-option>
+          <mat-option value="TherapeuticEqupiment">Therapeutic</mat-option>
+          <mat-option value="PatientMobilityAids">Patient Mobility</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <button
+        mat-raised-button
+        style="margin-left: 5%"
+        class="search-button"
+        (click)="applyFilters()"
+      >
+        Search
+      </button>
+    </div>
+
+    <div class="basic-container" fxLayout="row wrap" fxLayoutAlign="start">
+      <mat-card *ngFor="let item of items" class="purple-card">
+        <div fxLayout="column" fxLayoutGap="8px">
+          <div>
+            <p>Name: {{ item.name }}</p>
+          </div>
+          <div>
+            <p>Description: {{ item.description }}</p>
+          </div>
+          <div>
+            <p>Type: {{ item.type }}</p>
+          </div>
+          <div>
+            <p>Amount left: {{ item.amount }}</p>
+          </div>
+          <div>
+            <button
+              mat-raised-button
+              style="margin-left: 5%"
+              (click)="editEquipment(item)"
+              class="mat-button-large"
+            >
+              Edit
+            </button>
+            <button
+              mat-raised-button
+              style="margin-left: 2%"
+              (click)="deleteEquipment(item.id)"
+              class="mat-button-large"
+            >
+              Delete
+            </button>
+          </div>
         </div>
-        <div>
-          <p>Description: {{ item.description }}</p>
-        </div>
-        <div>
-          <p>Type: {{ item.type }}</p>
-        </div>
-        <div>
-          <p>************</p>
-        </div>
-      </div>
-    </mat-card>
+      </mat-card>
+      <button mat-raised-button class="add-button" (click)="addEquipment()">
+        Add new
+      </button>
+    </div>
   </div>
 </div>

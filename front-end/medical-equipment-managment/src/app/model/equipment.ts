@@ -5,4 +5,5 @@ export interface Equipment{
     type: string;
     freeAmount: number;
     reservedAmount: number;
+    amount: number;
   }

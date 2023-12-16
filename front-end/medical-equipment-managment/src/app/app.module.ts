@@ -32,6 +32,8 @@ import { MatTableModule } from '@angular/material/table';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatSortModule } from '@angular/material/sort';
 import { VerificationComponent } from './components/verification/verification.component';
+import { EquipmentEditComponent } from './components/equipment-edit/equipment-edit.component';
+import { EquipmentCreateComponent } from './components/equipment-create/equipment-create.component';
 import { LoginComponent } from './components/login/login.component';
 import { TokenInterceptor } from './interceptor/TokenInterceptor';
 import { AdminService } from './services/admin.service';
@@ -62,6 +64,8 @@ import { ReservationService } from './services/reservation-service';
     CompanyEditComponent,
     OtherCompanyAdminsComponent,
     CompanyAdminPasswordChangeComponent,
+    EquipmentEditComponent,
+    EquipmentCreateComponent,
     LoginComponent,
     EquipmentAppointmentComponent,
     CompanyCalendarComponent,
