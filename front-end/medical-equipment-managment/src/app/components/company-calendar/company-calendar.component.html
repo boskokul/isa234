@@ -1,9 +1,35 @@
-<div class="row box">
+<div>
+  <div style="margin-left: 5%">
+    <h3>Create new equipment pick-up slot</h3>
+    <p>Choose date and time:</p>
+    <input
+      [min]="todaysDate"
+      [(ngModel)]="selectedDateTime"
+      type="datetime-local"
+    />
+    <p>Work hours: {{ company.startTime }} - {{ company.endTime }}</p>
+    <p>Choose company admin for this slot:</p>
+    <select [(ngModel)]="selectedAdmin">
+      <option *ngFor="let option of admins" [ngValue]="option">
+        {{ option.firstName + option.lastName }}
+      </option>
+    </select>
+
+    <button
+      mat-raised-button
+      style="margin-left: 5%; background-color: rgba(215, 150, 11, 0.239)"
+      (click)="addSlot()"
+    >
+      Add slot
+    </button>
+  </div>
+  <div class="row box">
     <div class="col-md-5 mt-3">
-        <h1 class="test-muted mb-6 text-center">Company Calendar</h1>
-        <hr>
-        <div class="calendar-container">
-            <full-calendar [options]="calendarOptions"></full-calendar>
-        </div>
+      <h1 class="test-muted mb-6 text-center">Company Calendar</h1>
+      <hr />
+      <div class="calendar-container">
+        <full-calendar [options]="calendarOptions"></full-calendar>
+      </div>
     </div>
+  </div>
 </div>

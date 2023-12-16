@@ -61,6 +61,8 @@ public class BaseUser implements UserDetails {
         this.roles.add(role);
         this.verified = verified;
     }
+    
+    
 
     public Integer getId() {
         return id;

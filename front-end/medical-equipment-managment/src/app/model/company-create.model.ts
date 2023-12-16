@@ -1,12 +1,14 @@
 import { Time } from '@angular/common';
 
-export interface Company {
+export interface CompanyCreate {
   id: number;
   name: string;
   description: string;
   averageGrade: number;
   country: string;
   city: string;
-  startTime: Time;
-  endTime: Time;
+  startHour?: number;
+  startMinute?: number;
+  endHour?: number;
+  endMinute?: number;
 }
