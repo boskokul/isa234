@@ -63,5 +63,13 @@ INSERT INTO isa.user_role(user_id, role_id) VALUES (-6, 3);
 INSERT INTO isa.appointments(
 	id, date_time, duration, company_admin_id)
 	VALUES (-1, '2023-12-17T15:18:12', 30, -5);
+
+INSERT INTO isa.appointments(
+    id, date_time, duration, company_admin_id)
+VALUES (-2, '2023-12-17T16:48:12', 30, -5);
+
+INSERT INTO isa.appointments(
+    id, date_time, duration, company_admin_id)
+VALUES (-3, '2023-12-18T15:18:12', 30, -5);
 --rezervacije (one koriste te predefinisane termine u sebi)
 	

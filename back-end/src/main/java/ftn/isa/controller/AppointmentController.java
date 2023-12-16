@@ -84,4 +84,18 @@ public class AppointmentController {
         return new ResponseEntity<>(aResponseDTOs, HttpStatus.OK);
     }
 
+    @GetMapping(value = "/company/full/{id}")
+    public ResponseEntity<List<AppointmentResponseDTO>> getAppointmentsByCompanyIdAll(@PathVariable Integer id) {
+        List<Appointment> appointments = appointmentService.findByCompanyId(id);
+        List<AppointmentResponseDTO> aResponseDTOs = new ArrayList<>();
+        for (Appointment c : appointments) {
+            if(c.getDateTime().isBefore(LocalDateTime.now())){
+                continue;
+            }
+            aResponseDTOs.add(new AppointmentResponseDTO(c));
+        }
+        return new ResponseEntity<>(aResponseDTOs, HttpStatus.OK);
+    }
+
+
 }

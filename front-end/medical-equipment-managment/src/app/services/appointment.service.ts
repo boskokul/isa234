@@ -25,4 +25,12 @@ export class AppointmentService {
       appointment
     );
   }
+
+  getAllAppointments(id: number): Observable<any[]> {
+    return this.http.get<any>(
+      environment.apiHost + 'appointments/company/full/' + id 
+    );
+  }
+
+
 }
