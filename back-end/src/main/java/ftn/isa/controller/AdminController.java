@@ -1,5 +1,6 @@
 package ftn.isa.controller;
 
+import ftn.isa.domain.BaseUser;
 import ftn.isa.domain.Company;
 import ftn.isa.domain.CompanyAdmin;
 import ftn.isa.domain.RegisteredUser;
@@ -9,6 +10,7 @@ import ftn.isa.dto.CompanyAdminResponseDTO;
 import ftn.isa.dto.CompanyResponseDTO;
 import ftn.isa.dto.UserResponseDTO;
 import ftn.isa.dto.UserUpdateDTO;
+import ftn.isa.dto.UserVerificationDTO;
 import ftn.isa.service.CompanyAdminService;
 import ftn.isa.service.CompanyService;
 import ftn.isa.service.RoleService;
@@ -16,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,6 +28,8 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "api/admins")
 public class AdminController {
+	@Autowired
+    private PasswordEncoder passwordEncoder;
 	@Autowired
     private CompanyAdminService companyAadminService;
     @Autowired
@@ -93,5 +98,40 @@ public class AdminController {
         user.setPassword(userUpdateDTO.getPassword());
         user = companyAadminService.update(user);
         return new ResponseEntity<>(new CompanyAdminResponseDTO(user), HttpStatus.OK);
+    }
+    
+    @PreAuthorize("hasRole('COMPANY_ADMIN')")
+    @PutMapping(value="/pass",consumes = "application/json")
+    public ResponseEntity<CompanyAdminResponseDTO> updatePassword(@RequestBody CompanyAdminResponseDTO userUpdateDTO){
+        CompanyAdmin user = companyAadminService.findOne(userUpdateDTO.getId());
+
+        if (user == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        user.setPassword(passwordEncoder.encode(userUpdateDTO.getPassword()));
+        user.setVerified(true);
+        user = companyAadminService.update(user);
+        return new ResponseEntity<>(new CompanyAdminResponseDTO(user), HttpStatus.OK);
+    }
+    
+    @GetMapping(value = "/isverified/{id}")
+    public ResponseEntity<UserVerificationDTO> getVerificationById(@PathVariable Integer id){
+        BaseUser user = companyAadminService.findOne(id);
+        if(user == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(new UserVerificationDTO(user), HttpStatus.OK);
+    }
+    @PreAuthorize("hasRole('COMPANY_ADMIN')")
+    @PutMapping(value = "/verify", consumes = "application/json")
+    public ResponseEntity<UserVerificationDTO> update(@RequestBody UserVerificationDTO userUpdateDTO){
+        BaseUser user = companyAadminService.findOne(userUpdateDTO.getId());
+
+        if (user == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        user.setVerified(true);
+        return new ResponseEntity<>(new UserVerificationDTO(user), HttpStatus.OK);
     }
 }

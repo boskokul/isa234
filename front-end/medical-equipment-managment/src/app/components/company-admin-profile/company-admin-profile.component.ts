@@ -42,6 +42,8 @@ export class CompanyAdminProfileComponent implements OnInit, OnDestroy {
     country: '',
     description: '',
     name: '',
+    startTime: { hours: 10, minutes: 10 },
+    endTime: { hours: 10, minutes: 10 },
   };
   admin: CompanyAdmin = {
     id: 0,

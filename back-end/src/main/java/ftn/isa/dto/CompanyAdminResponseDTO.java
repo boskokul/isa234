@@ -11,6 +11,7 @@ public class CompanyAdminResponseDTO {
     private String country;
     private String phoneNumber;
     private String password;
+    private Boolean verified;
    
     
     public String getPassword() {
