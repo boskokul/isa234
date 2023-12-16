@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { concatMap, forkJoin, of, switchMap, tap } from 'rxjs';
@@ -8,6 +8,7 @@ import { UserCreate } from 'src/app/model/user-create.model';
 import { AdminService } from 'src/app/services/admin.service';
 import { CompanyService } from 'src/app/services/company.service';
 import { UserServiceService } from 'src/app/services/user-service.service';
+import { MapComponent } from 'src/app/shared/maps/map/map.component';
 
 
 @Component({
@@ -16,6 +17,11 @@ import { UserServiceService } from 'src/app/services/user-service.service';
   styleUrls: ['./register-company.component.css']
 })
   export class RegisterCompanyComponent implements OnInit{
+
+    @ViewChild(MapComponent) mapComponent: MapComponent;
+    longitude: number = 0;
+    latitude: number = 0;
+
     startTime: string = '08:00'
     endTime: string = '16:00'
     hide = true
@@ -37,6 +43,8 @@ import { UserServiceService } from 'src/app/services/user-service.service';
       phoneNumber: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required]),
       repeatPassword: new FormControl('', [Validators.required]),
+
+
     });
 
     gigaChadForm = new FormGroup({
@@ -44,6 +52,10 @@ import { UserServiceService } from 'src/app/services/user-service.service';
       description: new FormControl('', [Validators.required]),
       companyCountry: new FormControl('', [Validators.required]),
       companyCity: new FormControl('', [Validators.required]),
+      companyStreet: new FormControl(''),
+      companyNumber: new FormControl(''),
+      longitude: new FormControl(''),
+      latitude: new FormControl(''),
     })
 
 
@@ -214,6 +226,35 @@ this.companyService.registerCompany(this.company).pipe(
         this.company.city= this.gigaChadForm.value.companyCity || ''
         if(this.company.city === ""){this.emptyFlag=true}
     }
+
+
+    onMapClick(event: { lat: number; lon: number }) {
+      this.searchByCoord(event.lat, event.lon);
+    }
+
+    private searchByCoord(lat: number, lon: number) {
+      this.mapComponent.reverseSearch(lat, lon).subscribe({
+        next: (location) => {
+          // Handle the location data here
+          const foundLocation = location;
+          console.log('Found Location Lat:', foundLocation.lat);
+          console.log('Found Location Lon:', foundLocation.lon);
+          console.log('Found Location Name:', foundLocation.display_name);
+          this.latitude = foundLocation.lat;
+          this.longitude = foundLocation.lon;
+          //this.checkpointForm.controls.latitude.setValue(this.latitude);
+          //this.checkpointForm.controls.longitude.setValue(this.longitude);
+          //this.checkpointForm.controls.address.setValue(foundLocation.display_name);
+        },
+        error: (error) => {
+          console.error('Error:', error);
+        },
+      });
+    }
+
+    
+    
+
 
 
 }
