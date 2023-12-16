@@ -1,0 +1,25 @@
+<div class="info">
+  <div class="form-row">
+    <div class="form-field">
+      <input [(ngModel)]="equipment.name" required />
+      <label>Name</label>
+    </div>
+    <div class="form-field">
+      <input [(ngModel)]="equipment.description" required />
+      <label>Description</label>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-field">
+      <input [(ngModel)]="equipment.type" required />
+      <label>Type</label>
+    </div>
+    <div class="form-field">
+      <input [(ngModel)]="equipment.amount" required />
+      <label>Amount</label>
+    </div>
+  </div>
+  <div>
+    <button (click)="updateEquipment()" mat-button class="btn">Edit</button>
+  </div>
+</div>
