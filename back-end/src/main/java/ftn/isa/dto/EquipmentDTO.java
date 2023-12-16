@@ -16,7 +16,7 @@ public class EquipmentDTO {
 		this.name = e.getName();
 		this.description = e.getDescription();
 		this.type = e.getType();
-		this.amount = e.getAmount();
+		this.amount = e.getFreeAmount();
 	}
     
 	

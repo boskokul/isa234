@@ -80,7 +80,8 @@ public class EquipmentController {
 
         Equipment e = new Equipment();
         e.setDescription(eDTO.getDescription());
-        e.setAmount(eDTO.getAmount());
+        e.setFreeAmount(eDTO.getAmount());
+        e.setReservedAmount(0);
         e.setName(eDTO.getName());
         e.setType(eDTO.getType());
         
@@ -101,7 +102,7 @@ public class EquipmentController {
         }
 
         e.setDescription(eDTO.getDescription());
-        e.setAmount(eDTO.getAmount());
+        e.setFreeAmount(eDTO.getAmount());
         e.setName(eDTO.getName());
         e.setType(eDTO.getType());
 

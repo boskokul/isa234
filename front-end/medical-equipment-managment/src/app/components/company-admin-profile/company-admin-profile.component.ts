@@ -19,7 +19,6 @@ import { Router } from '@angular/router';
 
 import { AuthService } from 'src/app/services/auth.service';
 import { CurrentUser } from 'src/app/model/current-user';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-company-admin-profile',
@@ -34,7 +33,7 @@ export class CompanyAdminProfileComponent implements OnInit, OnDestroy {
   typeFilter: string = 'All';
   private subscriptions: Subscription[] = [];
 
-  user: CurrentUser | undefined
+  user: CurrentUser | undefined;
 
   company: Company = {
     id: 0,
@@ -74,16 +73,12 @@ export class CompanyAdminProfileComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.subscription = this.authService.currentUser.subscribe(user => {
+    this.subscription = this.authService.currentUser.subscribe((user) => {
       this.user = user;
     });
     setTimeout(() => {
       this.loadAdmin();
     }, 100);
-    
-  }
-  ngOnDestroy() {
-    this.subscription.unsubscribe()
   }
 
   goToCalendar() {
@@ -240,12 +235,12 @@ export class CompanyAdminProfileComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.subscription.unsubscribe();
     // Unsubscribe from all subscriptions to avoid memory leaks when the component is destroyed
     this.subscriptions.forEach((subscription) => {
       subscription.unsubscribe();
     });
-    
-  openCalendar(){
-    console.log("KALENDAAAAAARRR!")
   }
+
+  openCalendar() {}
 }
