@@ -44,21 +44,16 @@
           Other admins
         </button>
 
-        <button class="icon-button" style="margin-left: 5%" [routerLink]="['/calendar']" mat-raised-button (click)="openCalendar()"></button>
-
+        <button
+          class="icon-button"
+          style="margin-left: 5%"
+          [routerLink]="['/calendar']"
+          mat-raised-button
+          (click)="openCalendar()"
+        ></button>
       </div>
       <br />
     </div>
-  </div>
-  <br />
-  <div>
-    <button
-      (click)="goToCalendar()"
-      mat-raised-button
-      style="background-color: rgb(237, 149, 33); font-size: large"
-    >
-      Manage equipment pick-up time slots and work calendar
-    </button>
   </div>
   <br />
   <h2>Equipment available in this company:</h2>

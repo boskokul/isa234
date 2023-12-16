@@ -54,6 +54,7 @@ export class CompanyAdminProfileComponent implements OnInit, OnDestroy {
     phoneNumber: '',
     companyId: 0,
   };
+  subscription: Subscription;
 
   newEquipment: EquipmentCreate = {
     amount: 0,
@@ -65,7 +66,6 @@ export class CompanyAdminProfileComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private companyService: CompanyService,
-    private subscription: Subscription,
     private equipmentService: EquipmentService,
     private adminService: AdminService,
     private authService: AuthService,
@@ -75,6 +75,7 @@ export class CompanyAdminProfileComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.subscription = this.authService.currentUser.subscribe((user) => {
       this.user = user;
+      console.log(this.user.id);
     });
     setTimeout(() => {
       this.loadAdmin();
