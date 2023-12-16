@@ -19,6 +19,7 @@ import { Router } from '@angular/router';
 
 import { AuthService } from 'src/app/services/auth.service';
 import { CurrentUser } from 'src/app/model/current-user';
+import { CompanyMapComponent } from '../company-map/company-map.component';
 
 @Component({
   selector: 'app-company-admin-profile',
@@ -44,6 +45,10 @@ export class CompanyAdminProfileComponent implements OnInit, OnDestroy {
     name: '',
     startTime: { hours: 10, minutes: 10 },
     endTime: { hours: 10, minutes: 10 },
+    lat: 0,
+    lon: 0,
+    street: '',
+    houseNumber: 0,
   };
   admin: CompanyAdmin = {
     id: 0,
@@ -122,6 +127,18 @@ export class CompanyAdminProfileComponent implements OnInit, OnDestroy {
 
   editCompanyInfo() {
     const dialogRef = this.dialog.open(CompanyEditComponent, {
+      data: this.company,
+      width: '680px',
+      height: '450px',
+      panelClass: 'custom-dialog',
+    });
+    dialogRef.afterClosed().subscribe((item) => {
+      this.loadCompany();
+    });
+  }
+
+  showMap() {
+    const dialogRef = this.dialog.open(CompanyMapComponent, {
       data: this.company,
       width: '650px',
       height: '450px',

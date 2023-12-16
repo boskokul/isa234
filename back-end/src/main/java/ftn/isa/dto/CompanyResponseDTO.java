@@ -15,6 +15,10 @@ public class CompanyResponseDTO {
 	private String city;
     private LocalTime startTime;
     private LocalTime endTime;
+	private float lat;
+	private float lon;
+	private String street;
+	private Integer houseNumber;
 	public CompanyResponseDTO(Integer id, String name, String description, double averageGrade, String country,
 			String city, LocalTime startTime, LocalTime endTime) {
 		super();
@@ -30,9 +34,57 @@ public class CompanyResponseDTO {
 
 	public CompanyResponseDTO(Company c) {
 		this(c.getId(), c.getName(), c.getDescription(), c.getAverageGrade(), c.getCountry(), c.getCity(),
-				c.getStartTime(), c.getEndTime());
+				c.getStartTime(), c.getEndTime(), c.getLat(), c.getLon(), c.getStreet(), c.getHouseNumber());
 	}
-	
+
+	public CompanyResponseDTO(Integer id, String name, String description, double averageGrade, String country, String city,
+							  LocalTime startTime, LocalTime endTime, float lat, float lon, String street, Integer houseNumber) {
+		this.id = id;
+		this.name = name;
+		this.description = description;
+		this.averageGrade = averageGrade;
+		this.country = country;
+		this.city = city;
+		this.startTime = startTime;
+		this.endTime = endTime;
+		this.lat = lat;
+		this.lon = lon;
+		this.street = street;
+		this.houseNumber = houseNumber;
+	}
+
+	public float getLat() {
+		return lat;
+	}
+
+	public void setLat(float lat) {
+		this.lat = lat;
+	}
+
+	public float getLon() {
+		return lon;
+	}
+
+	public void setLon(float lon) {
+		this.lon = lon;
+	}
+
+	public String getStreet() {
+		return street;
+	}
+
+	public void setStreet(String street) {
+		this.street = street;
+	}
+
+	public Integer getHouseNumber() {
+		return houseNumber;
+	}
+
+	public void setHouseNumber(Integer houseNumber) {
+		this.houseNumber = houseNumber;
+	}
+
 	public LocalTime getStartTime() {
 		return startTime;
 	}

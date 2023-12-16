@@ -3,10 +3,10 @@ INSERT INTO isa.ROLE(id, name) VALUES (1, 'ROLE_REGISTERED_USER');
 INSERT INTO isa.ROLE(id, name) VALUES (2, 'ROLE_COMPANY_ADMIN');
 INSERT INTO isa.ROLE(id, name) VALUES (3, 'ROLE_SYSTEM_ADMIN');
 --kompanije
-INSERT INTO isa.companies(id, country, city, average_grade, description, name, start_time, end_time)
-	VALUES (-1, 'Srbija', 'BG', 3, 'opis1', 'kompanija 1', '08:00:00', '15:00:00');
-INSERT INTO isa.companies(id, country, city, average_grade, description, name, start_time, end_time)
-	VALUES (-2, 'Hrvatska',  'ZG', 5, 'opis2', 'kompanija 2', '09:00:00', '16:00:00');
+INSERT INTO isa.companies(id, country, city, average_grade, description, name, start_time, end_time, lat, lon, street, house_number)
+	VALUES (-1, 'Srbija', 'BG', 3, 'opis1', 'kompanija 1', '08:00:00', '15:00:00', 15.78, 45.66, 'Mise Dime', 12);
+INSERT INTO isa.companies(id, country, city, average_grade, description, name, start_time, end_time, lat, lon, street, house_number)
+	VALUES (-2, 'Hrvatska',  'ZG', 5, 'opis2', 'kompanija 2', '09:00:00', '16:00:00', 15.78, 45.66, 'Mise Dime', 12);
 --oprema
 INSERT INTO isa.equipments(
 	id, description, name, type, company_id, free_amount, reserved_amount)

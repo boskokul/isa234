@@ -39,6 +39,10 @@ export class CompanyCalendarComponent implements OnInit {
     name: '',
     startTime: { hours: 10, minutes: 10 },
     endTime: { hours: 10, minutes: 10 },
+    lat: 0,
+    lon: 0,
+    street: '',
+    houseNumber: 0,
   };
   admin: CompanyAdmin = {
     id: 0,
