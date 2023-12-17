@@ -41,12 +41,14 @@ export class AppointmentService {
       appointment
     );
   }
+  getAppointmentsForUser(userId: number): Observable<Appointment[]>{
+    return this.http.get<Appointment[]>(environment.apiHost + 'appointments/futureappointments/'+userId);
+  }
 
   getAllAppointments(id: number): Observable<any[]> {
     return this.http.get<any>(
       environment.apiHost + 'appointments/company/full/' + id 
     );
   }
-
 
 }

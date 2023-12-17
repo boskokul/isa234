@@ -42,6 +42,9 @@ public class AppointmentService {
     public List<Appointment> findByCompanyId(Integer companyId){
         return aRepository.findAppointmentByCompany(companyId);
     }
+    public List<Appointment> findByUserId(Integer userId){
+        return aRepository.findAppointmentByUserId(userId);
+    }
     public List<ExtraordinaryAppointmentDTO> getExtraordinaryAppointments(LocalDate date, int companyId){
         List<ExtraordinaryAppointmentDTO> ret = getAllPosslibleExtraotdinaryAppointments(date, companyId);
         List<Appointment> scheduledAppointments = aRepository.findAppointmentByCompanyAndDate(companyId, LocalDateTime.of(date, LocalTime.MIN), LocalDateTime.of(date, LocalTime.MAX));

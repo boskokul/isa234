@@ -11,9 +11,10 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface AppointmentRepository extends JpaRepository<Appointment, Integer> {
 
-    //@Query("select e from Equipment e join fetch e.company c where e.id =?1")
     @Query("select a from Appointment a join fetch a.admin ca where ca.company.id =?1")
     public List<Appointment> findAppointmentByCompany(Integer companyId);
+    @Query("select a from Appointment a join fetch a.reservation r where r.registeredUser.id =?1")
+    public List<Appointment> findAppointmentByUserId(Integer userId);
 
     @Query("select a from Appointment a join fetch a.admin ca where ca.company.id=?1 and a.dateTime>?2 and a.dateTime<?3")
     public List<Appointment> findAppointmentByCompanyAndDate(Integer companyId, LocalDateTime start, LocalDateTime end);

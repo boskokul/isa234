@@ -49,6 +49,7 @@ import { ReservationService } from './services/reservation-service';
 import { AppointmentService } from './services/appointment.service';
 import { SysAdminFormComponent } from './components/sys-admin-form/sys-admin-form.component';
 import { SharedModule } from "./shared/maps/shared.module";
+import { AppointmentService } from './services/appointment.service';
 import { CompanyMapComponent } from './components/company-map/company-map.component';
 import { SysPassChangeComponent } from './components/sys-pass-change/sys-pass-change.component';
 
@@ -115,7 +116,7 @@ import { SysPassChangeComponent } from './components/sys-pass-change/sys-pass-ch
     UserServiceService,
     ReservationService,
     AuthGuardService,
-    AppointmentService,
+    AppointmentService
   ],
   bootstrap: [AppComponent],
 })
