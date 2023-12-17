@@ -6,7 +6,7 @@ import { AdminService } from 'src/app/services/admin.service';
 import { SysAdminService } from 'src/app/services/sys-admin.service';
 
 @Component({
-  selector: 'app-company-admin-password-change',
+  selector: 'app-sys-pass-change',
   templateUrl: './sys-pass-change.component.html',
   styleUrls: ['./sys-pass-change.component.css'],
 })
@@ -42,7 +42,7 @@ export class SysPassChangeComponent {
       country: this.admin.country,
       phoneNumber: this.admin.phoneNumber,
     };
-    console.log(adminForUpdate)
+    console.log(adminForUpdate);
     this.adminService.updateAdminPassword(adminForUpdate).subscribe({
       next: (result: SystemAdmin) => {
         this.dialog.closeAll();

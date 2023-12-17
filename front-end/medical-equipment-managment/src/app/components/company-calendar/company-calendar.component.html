@@ -11,7 +11,7 @@
     <p>Choose company admin for this slot:</p>
     <select [(ngModel)]="selectedAdmin">
       <option *ngFor="let option of admins" [ngValue]="option">
-        {{ option.firstName + option.lastName }}
+        {{ option.firstName + " " + option.lastName }}
       </option>
     </select>
 

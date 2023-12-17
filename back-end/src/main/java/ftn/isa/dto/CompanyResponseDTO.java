@@ -32,6 +32,8 @@ public class CompanyResponseDTO {
 		this.endTime = endTime;
 	}
 
+	public CompanyResponseDTO(){}
+
 	public CompanyResponseDTO(Company c) {
 		this(c.getId(), c.getName(), c.getDescription(), c.getAverageGrade(), c.getCountry(), c.getCity(),
 				c.getStartTime(), c.getEndTime(), c.getLat(), c.getLon(), c.getStreet(), c.getHouseNumber());
