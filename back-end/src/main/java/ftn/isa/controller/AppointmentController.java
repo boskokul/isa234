@@ -7,6 +7,7 @@ import java.util.List;
 
 import ftn.isa.domain.Reservation;
 import ftn.isa.dto.*;
+import ftn.isa.service.EmailService;
 import ftn.isa.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,8 @@ import ftn.isa.domain.Company;
 import ftn.isa.service.AppointmentService;
 import ftn.isa.service.CompanyAdminService;
 
+import javax.mail.MessagingException;
+
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
@@ -30,7 +33,9 @@ public class AppointmentController {
     private CompanyAdminService cAdminService;
     @Autowired
     private ReservationService reservationService;
-	
+    @Autowired
+    private EmailService emailService;
+
 	@GetMapping(value = "/all")
     public ResponseEntity<List<AppointmentResponseDTO>> getAppointments() {
         List<Appointment> appointments = appointmentService.findAll();
@@ -92,7 +97,7 @@ public class AppointmentController {
 
     @PreAuthorize("hasRole('REGISTERED_USER')")
     @PostMapping(value = "/selectExtraordinaryAppointment")
-    public ResponseEntity<AppointmentResponseDTO> selectExtraordinaryAppointment(@RequestBody ExtraordinaryAppointmentCreateDTO extraordinaryAppointmentCreateDTO){
+    public ResponseEntity<AppointmentResponseDTO> selectExtraordinaryAppointment(@RequestBody ExtraordinaryAppointmentCreateDTO extraordinaryAppointmentCreateDTO) throws MessagingException {
         ExtraordinaryAppointmentDTO eoAppointment = extraordinaryAppointmentCreateDTO.getExtraordinaryAppointmentDTO();
         ReservationCreateDTO reservationDTO = extraordinaryAppointmentCreateDTO.getReservationCreateDTO();
         int companyId = extraordinaryAppointmentCreateDTO.getCompanyId();
@@ -103,11 +108,17 @@ public class AppointmentController {
         reservationDTO.setAppointmentId(appointment.getId());
         Reservation reservation = reservationService.makeReservation(reservationDTO);
         int numberOfEquipments = reservationDTO.getEquipmentIds().size();
+        int totalAmount = 0;
         for(int i=0; i<numberOfEquipments; i++){
             reservationService.makeReservationItem(reservation.getId(), reservationDTO.getEquipmentIds().get(i), reservationDTO.getAmounts().get(i));
+            totalAmount += reservationDTO.getAmounts().get(i);
         }
         appointment.setReservation(reservation);
         appointment = appointmentService.save(appointment);
+
+        String data = "You created appointment at time: "+appointment.getDateTime()+", equipment amount: " +totalAmount+", company admin: "+appointment.getAdmin().getFirstName()+" "+reservation.getAppointment().getAdmin().getLastName();
+        emailService.sendReservationConfirmationQR(data, reservation.getRegisteredUser().getEmail());
+
         AppointmentResponseDTO responseDTO = new AppointmentResponseDTO(
                 appointment.getId(),
                 appointment.getAdmin().getFirstName() + " " + appointment.getAdmin().getLastName(),
