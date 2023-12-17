@@ -102,7 +102,7 @@ public class EquipmentController {
         }
 
         e.setDescription(eDTO.getDescription());
-        e.setFreeAmount(eDTO.getAmount());
+        e.setFreeAmount(eDTO.getFreeAmount());
         e.setName(eDTO.getName());
         e.setType(eDTO.getType());
 

@@ -1,4 +1,39 @@
-<p>Your company:</p>
-<div class="map-div">
-  <xp-map></xp-map>
+<div class="form-row">
+  <div class="form-field">
+    <div class="map-div">
+      <xp-map (mapClick)="onMapClick($event)"></xp-map>
+    </div>
+  </div>
+  <div>
+    <mat-label>Country</mat-label>
+    <input [(ngModel)]="company.country" matInput />
+
+    <mat-label>City</mat-label>
+    <input [(ngModel)]="company.city" matInput />
+
+    <mat-label>Street name</mat-label>
+    <input [(ngModel)]="company.street" matInput />
+
+    <mat-label>House number</mat-label>
+    <input [(ngModel)]="company.houseNumber" matInput />
+
+    <mat-label>Longitude:</mat-label>
+    <input [(ngModel)]="company.lon" matInput type="number" />
+
+    <mat-label>Latitude:</mat-label>
+    <input [(ngModel)]="company.lat" matInput type="number" />
+
+    <br />
+    <br />
+    <div>
+      <button
+        (click)="updateCompany()"
+        style="margin-left: 5%"
+        mat-button
+        class="btn"
+      >
+        Save
+      </button>
+    </div>
+  </div>
 </div>

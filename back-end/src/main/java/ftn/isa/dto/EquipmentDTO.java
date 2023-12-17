@@ -10,8 +10,6 @@ public class EquipmentDTO {
 	private EquipmentType type;
     private int freeAmount;
 	private int reservedAmount;
-
-	private Integer amount;
    
 	public EquipmentDTO(Equipment e) {
 		this.id = e.getId();
@@ -20,27 +18,15 @@ public class EquipmentDTO {
 		this.type = e.getType();
 		this.freeAmount = e.getFreeAmount();
 		this.reservedAmount = e.getReservedAmount();
-		this.amount = e.getFreeAmount();
 	}
     
 	
-	public EquipmentDTO(Integer id, String name, String description, EquipmentType type, Integer amount) {
+	public EquipmentDTO(Integer id, String name, String description, EquipmentType type) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.type = type;
-		this.amount = amount;
-	}
-
-
-
-	public Integer getAmount() {
-		return amount;
-	}
-
-	public void setAmount(Integer amount) {
-		this.amount = amount;
 	}
 
 	public Integer getId() {

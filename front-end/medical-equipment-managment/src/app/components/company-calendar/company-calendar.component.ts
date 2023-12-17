@@ -25,6 +25,7 @@ import { ActivatedRoute } from '@angular/router';
   providers: [DatePipe],
 })
 export class CompanyCalendarComponent implements OnInit {
+  appointmentsAll: Appointment[] = [];
 
   idFromUrl: number;
 
@@ -97,9 +98,10 @@ export class CompanyCalendarComponent implements OnInit {
     private adminService: AdminService,
     private appointmentService: AppointmentService,
     public datePipe: DatePipe,
-    private route: ActivatedRoute,
-    
-  ) {this.dataSource = new MatTableDataSource<Appointment>();}
+    private route: ActivatedRoute
+  ) {
+    this.dataSource = new MatTableDataSource<Appointment>();
+  }
 
   ngOnInit(): void {
     this.subscription = this.authService.currentUser.subscribe((user) => {
@@ -115,12 +117,10 @@ export class CompanyCalendarComponent implements OnInit {
     this.LoadAppointments();
     //console.log(this.dataSource.data);
 
-    
     console.log(this.eventsList); // Your transformed data in the desired format
 
     // Assign the eventsList to calendarOptions.events
     this.calendarOptions.events = this.eventsList;
-
   }
   handleEventClick(clickInfo: any): void {
     const eventTitle = clickInfo.event.title || 'No title';
@@ -199,6 +199,24 @@ export class CompanyCalendarComponent implements OnInit {
       workingEndHour,
       workingEndMinutes
     );
+    if (
+      60 * parseInt(selectedHour) +
+        parseInt(selectedMinutes) -
+        (60 * parseInt(workingStartHour) + parseInt(workingStartMinutes)) <
+      0
+    ) {
+      alert('We are closed in that time!');
+      return;
+    }
+    if (
+      60 * parseInt(selectedHour) +
+        parseInt(selectedMinutes) -
+        (60 * parseInt(workingEndHour) + parseInt(workingEndMinutes)) >
+      -30
+    ) {
+      alert('We are closed in that time!');
+      return;
+    }
     if (selectedHour < workingStartHour || selectedHour > workingEndHour) {
       alert('We are closed in that time!');
       return;
@@ -215,6 +233,50 @@ export class CompanyCalendarComponent implements OnInit {
         return;
       }
     }
+    let flag = false;
+    this.appointmentsAll.forEach((a) => {
+      if (
+        a.adminName ==
+        this.selectedAdmin.firstName + ' ' + this.selectedAdmin.lastName
+      ) {
+        let selectedDate = this.selectedDateTime.toLocaleString().split('T')[0];
+        let aDate = a.dateTime.toLocaleString().split('T')[0];
+        if (selectedDate == aDate) {
+          let aTime = a.dateTime.toLocaleString().split('T')[1];
+          let aHour = aTime.split(':')[0];
+          let aMinutes = aTime.split(':')[1];
+          console.log(aHour, aMinutes, selectedHour, selectedMinutes);
+          if (
+            60 * parseInt(aHour) +
+              parseInt(aMinutes) -
+              (60 * parseInt(selectedHour) + parseInt(selectedMinutes)) <
+              30 &&
+            60 * parseInt(aHour) +
+              parseInt(aMinutes) -
+              (60 * parseInt(selectedHour) + parseInt(selectedMinutes)) >
+              0
+          ) {
+            flag = true;
+          }
+          if (
+            60 * parseInt(selectedHour) +
+              parseInt(selectedMinutes) -
+              (60 * parseInt(aHour) + parseInt(aMinutes)) <
+              30 &&
+            60 * parseInt(selectedHour) +
+              parseInt(selectedMinutes) -
+              (60 * parseInt(aHour) + parseInt(aMinutes)) >
+              0
+          ) {
+            flag = true;
+          }
+        }
+      }
+    });
+    if (flag) {
+      alert('This slot is already taken by this admin!');
+      return;
+    }
     this.appointmentForCreation.adminsId = this.selectedAdmin.id;
     this.appointmentForCreation.dateTime = this.selectedDateTime;
     this.appointmentService
@@ -222,7 +284,6 @@ export class CompanyCalendarComponent implements OnInit {
       .subscribe({
         next: (result: Appointment) => {
           console.log(result);
-          this.selectedAdmin.id = 0;
           this.LoadAppointments();
         },
       });
@@ -232,29 +293,27 @@ export class CompanyCalendarComponent implements OnInit {
     this.appointmentService.getAllAppointments(this.idFromUrl).subscribe({
       next: (result: Appointment[]) => {
         this.dataSource.data = result;
-        console.log(this.dataSource.data);
-  
-      //////
+        this.appointmentsAll = result;
+
         this.eventsList = [];
 
         for (const appointment of this.dataSource.data) {
           const startDateTime = new Date(appointment.dateTime);
-          
-  
+
           const eventItem = {
             title: `${appointment.adminName} (${appointment.duration} min)`,
             start: startDateTime.toISOString(),
             duration: appointment.duration,
             color: 'green',
             description: `Discuss details for appointment ID: ${appointment.id}`,
-            id: `id-${appointment.id}`
+            id: `id-${appointment.id}`,
           };
-  
+
           this.eventsList.push(eventItem);
         }
-  
+
         console.log('Events List:', this.eventsList); // Log the eventsList after construction
-        this.calendarOptions.events = this.eventsList
+        this.calendarOptions.events = this.eventsList;
       },
       error: (err) => {
         console.error('Error fetching appointments:', err);
@@ -262,17 +321,15 @@ export class CompanyCalendarComponent implements OnInit {
       },
       complete: () => {
         // Handle completion here if needed
-      }
+      },
     });
   }
 
   loadParams(): void {
-    this.route.params.subscribe(params => {
+    this.route.params.subscribe((params) => {
       this.idFromUrl = parseInt(params['id'], 10);
       console.log(this.idFromUrl);
-      console.log("ID FETCHED");
+      console.log('ID FETCHED');
     });
   }
-
-
 }

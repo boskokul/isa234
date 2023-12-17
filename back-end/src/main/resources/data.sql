@@ -4,9 +4,9 @@ INSERT INTO isa.ROLE(id, name) VALUES (2, 'ROLE_COMPANY_ADMIN');
 INSERT INTO isa.ROLE(id, name) VALUES (3, 'ROLE_SYSTEM_ADMIN');
 --kompanije
 INSERT INTO isa.companies(id, country, city, average_grade, description, name, start_time, end_time, lat, lon, street, house_number)
-	VALUES (-1, 'Srbija', 'BG', 3, 'opis1', 'kompanija 1', '08:00:00', '15:00:00', 15.78, 45.66, 'Mise Dime', 12);
+	VALUES (-1, 'Serbia', 'Belgrade', 3, 'opis1', 'kompanija 1', '08:00:00', '15:00:00', 44.798466, 20.471237, 'Mutapova', 19);
 INSERT INTO isa.companies(id, country, city, average_grade, description, name, start_time, end_time, lat, lon, street, house_number)
-	VALUES (-2, 'Hrvatska',  'ZG', 5, 'opis2', 'kompanija 2', '09:00:00', '16:00:00', 15.78, 45.66, 'Mise Dime', 12);
+	VALUES (-2, 'Serbia',  'Novi Sad', 5, 'opis2', 'kompanija 2', '09:00:00', '16:00:00', 45.244743, 19.836466, 'Alekse Santica', 3);
 --oprema
 INSERT INTO isa.equipments(
 	id, description, name, type, company_id, free_amount, reserved_amount)
@@ -38,7 +38,7 @@ INSERT INTO isa.base_users(
 VALUES (-5, 'zr', 'srb', 'admin@gmail.com', 'nemanja', 'matic', '$2a$12$ztIwerX104rJ41MYLl7GDeaKMsK3ENPxFdqnwgLk2GjqEz2Re/qsW', '061324567', true);
 INSERT INTO isa.base_users(
     id, city, country, username, first_name, last_name, password, phone, verified)
-VALUES (-6, 'bg', 'srb', 'sysadmin@gmail.com', 'nemanja', 'nikolic', '$2a$12$ztIwerX104rJ41MYLl7GDeaKMsK3ENPxFdqnwgLk2GjqEz2Re/qsW', '061324567', true);
+VALUES (-6, 'bg', 'srb', 'sysadmin@gmail.com', 'nemanja', 'nikolic', '$2a$12$ztIwerX104rJ41MYLl7GDeaKMsK3ENPxFdqnwgLk2GjqEz2Re/qsW', '061324567', false);
 
 INSERT INTO isa.system_admins(
     id)

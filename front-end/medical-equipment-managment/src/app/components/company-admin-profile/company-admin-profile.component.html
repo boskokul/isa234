@@ -47,10 +47,13 @@
         >
           Other admins
         </button>
-      
-        <button class="icon-button" style="margin-left: 5%" mat-raised-button [routerLink]="['/calendar', company.id || 'defaultID']">
-          
-        </button>
+
+        <button
+          class="icon-button"
+          style="margin-left: 5%"
+          mat-raised-button
+          [routerLink]="['/calendar', company.id || 'defaultID']"
+        ></button>
       </div>
       <br />
     </div>
@@ -101,7 +104,7 @@
             <p>Type: {{ item.type }}</p>
           </div>
           <div>
-            <p>Amount left: {{ item.amount }}</p>
+            <p>Amount left: {{ item.freeAmount }}</p>
           </div>
           <div>
             <button
@@ -115,7 +118,7 @@
             <button
               mat-raised-button
               style="margin-left: 2%"
-              (click)="deleteEquipment(item.id)"
+              (click)="deleteEquipment(item)"
               class="mat-button-large"
             >
               Delete

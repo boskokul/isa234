@@ -129,7 +129,7 @@ export class CompanyAdminProfileComponent implements OnInit, OnDestroy {
     const dialogRef = this.dialog.open(CompanyEditComponent, {
       data: this.company,
       width: '680px',
-      height: '450px',
+      height: '250px',
       panelClass: 'custom-dialog',
     });
     dialogRef.afterClosed().subscribe((item) => {
@@ -140,7 +140,7 @@ export class CompanyAdminProfileComponent implements OnInit, OnDestroy {
   showMap() {
     const dialogRef = this.dialog.open(CompanyMapComponent, {
       data: this.company,
-      width: '650px',
+      width: '700px',
       height: '450px',
       panelClass: 'custom-dialog',
     });
@@ -246,8 +246,12 @@ export class CompanyAdminProfileComponent implements OnInit, OnDestroy {
     });
   }
 
-  deleteEquipment(itemId: number) {
-    this.equipmentService.deleteEquipment(itemId).subscribe({
+  deleteEquipment(e: Equipment) {
+    if (e.reservedAmount > 0) {
+      alert('You can not delete this item, it has been reserved');
+      return;
+    }
+    this.equipmentService.deleteEquipment(e.id).subscribe({
       next: (result: Equipment) => {
         this.loadItems();
       },

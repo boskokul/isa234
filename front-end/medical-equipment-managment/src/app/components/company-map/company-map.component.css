@@ -2,3 +2,14 @@
   height: 400px; /* Adjust height as needed */
   width: 500px;
 }
+
+.form-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.form-field {
+  padding-left: 3%;
+  display: flex;
+}
