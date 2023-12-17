@@ -1,5 +1,6 @@
 package ftn.isa.controller;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -15,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 
 import antlr.debug.Event;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ftn.isa.dto.CompanyResponseDTO;
 import ftn.isa.dto.EquipmentDTO;
@@ -67,7 +69,7 @@ public class CompanyController {
 
         return new ResponseEntity<>(companyResponseDTO, HttpStatus.OK);
     }
-
+    @PreAuthorize("hasRole('SYSTEM_ADMIN')")
     @PostMapping(consumes = "application/json")
     public ResponseEntity<CompanyResponseDTO> save(@RequestBody CompanyCreateDTO companyDTO){
         Company company = new Company();
@@ -76,7 +78,12 @@ public class CompanyController {
         company.setName(companyDTO.getName());
         company.setDescription(companyDTO.getDescription());
         company.setAverageGrade(companyDTO.getAverageGrade());
-
+        company.setStartTime(LocalTime.of(companyDTO.getStartHour(), companyDTO.getStartMinute()));
+        company.setEndTime(LocalTime.of(companyDTO.getEndHour(), companyDTO.getEndMinute()));
+        company.setLat(companyDTO.getLat());
+        company.setLon(companyDTO.getLon());
+        company.setStreet(companyDTO.getStreet());
+        company.setHouseNumber(companyDTO.getHouseNumber());
         company = companyService.save(company);
 
 
@@ -89,7 +96,10 @@ public class CompanyController {
 	public ResponseEntity<List<EquipmentDTO>> getCompanyEquipment(@PathVariable Integer companyId) {
 		
 		Company company = companyService.findOneWithEquipment(companyId);
-		
+		if(company == null) {
+			List<EquipmentDTO> equipmentDTOs = new ArrayList<>();
+			return new ResponseEntity<>(equipmentDTOs, HttpStatus.OK);
+		}
 		Set<Equipment> equipment = company.getEquipment();
 		List<EquipmentDTO> equipmentDTOs = new ArrayList<>();
 
@@ -115,7 +125,6 @@ public class CompanyController {
         }
         return new ResponseEntity<>(responseDTOS, HttpStatus.OK);
     }
-    
     @PutMapping(consumes = "application/json")
     public ResponseEntity<CompanyResponseDTO> update(@RequestBody CompanyResponseDTO companyUpdateDTO){
         Company c = companyService.findOne(companyUpdateDTO.getId());
@@ -128,6 +137,10 @@ public class CompanyController {
         c.setDescription(companyUpdateDTO.getDescription());
         c.setCity(companyUpdateDTO.getCity());
         c.setCountry(companyUpdateDTO.getCountry());
+        c.setLat(companyUpdateDTO.getLat());
+        c.setLon(companyUpdateDTO.getLon());
+        c.setStreet(companyUpdateDTO.getStreet());
+        c.setHouseNumber(companyUpdateDTO.getHouseNumber());
 
         c = companyService.save(c);
         return new ResponseEntity<>(new CompanyResponseDTO(c), HttpStatus.OK);

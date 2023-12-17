@@ -1,9 +1,11 @@
 package ftn.isa.domain;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@Table(name="reservations", schema = "isa")
+@Table(name="reservation", schema = "isa")
 public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,6 +19,11 @@ public class Reservation {
     private RegisteredUser registeredUser;
     @Column(name = "status", nullable = false)
     private ReservationStatus status;
+    @OneToMany(mappedBy = "reservation", fetch = FetchType.LAZY)
+    private Set<ReservationItem> reservationItems = new HashSet<ReservationItem>();
+
+
+    public Reservation(){}
 
     public Reservation(Integer id, Appointment appointment, ReservationStatus status) {
         this.id = id;
@@ -24,7 +31,17 @@ public class Reservation {
         this.status = status;
     }
 
-    public Integer getId() {
+    public Reservation(Integer id, Appointment appointment, RegisteredUser registeredUser, ReservationStatus status) {
+		super();
+		this.id = id;
+		this.appointment = appointment;
+		this.registeredUser = registeredUser;
+		this.status = status;
+	}
+
+
+
+	public Integer getId() {
         return id;
     }
 
@@ -39,12 +56,20 @@ public class Reservation {
     public void setAppointment(Appointment appointment) {
         this.appointment = appointment;
     }
+    
+    public RegisteredUser getRegisteredUser() {
+		return registeredUser;
+	}
 
-    public ReservationStatus getStatus() {
+	public void setRegisteredUser(RegisteredUser registeredUser) {
+		this.registeredUser = registeredUser;
+	}
+
+	public ReservationStatus getStatus() {
         return status;
     }
 
     public void setStatus(ReservationStatus status) {
-        status = status;
+        this.status = status;
     }
 }

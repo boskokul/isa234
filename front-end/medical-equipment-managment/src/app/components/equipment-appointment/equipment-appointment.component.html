@@ -1,0 +1,146 @@
+<div class="container">
+  <div class="column">
+    <div>
+      <h3 style="margin-left: 10px">Equipment you choose:</h3>
+      <ul
+        class="row"
+        style="width: 90%"
+        *ngFor="let equipment of equipments; index as i"
+      >
+        <li style="padding-right: 30px">{{ equipment.name }}</li>
+        <li style="list-style-type: none">{{ quantities[i] }}</li>
+      </ul>
+      <hr />
+    </div>
+    <div class="row">
+      <h3 style="margin-left: 10px">Available appointments:</h3>
+      <button
+        style="margin: 10px; margin-left: auto; margin-bottom: 0px"
+        (click)="ToggleExtraordinaryAppointmentForm()"
+      >
+        <p *ngIf="showForm">Select ordinary appointment</p>
+        <p *ngIf="!showForm">Create extraorinary appointment</p>
+      </button>
+    </div>
+    <hr />
+  </div>
+
+  <!--Select ordinary appointment-->
+  <div *ngIf="!showForm">
+    <div *ngIf="availableAppointments.data.length > 0">
+      <table
+        mat-table
+        [dataSource]="availableAppointments"
+        class="mat-elevation-z8"
+        matSort
+      >
+        <!-- Date Column -->
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
+          <td mat-cell *matCellDef="let element">
+            {{ datePipe.transform(element.dateTime, "dd-MM-YYYY HH:mm") }}
+          </td>
+        </ng-container>
+        <!-- Duration Column -->
+        <ng-container matColumnDef="duration">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            Duration(in minutes)
+          </th>
+          <td mat-cell *matCellDef="let element">{{ element.duration }}</td>
+        </ng-container>
+        <!-- Country Column -->
+        <ng-container matColumnDef="adminName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Admin Name</th>
+          <td mat-cell *matCellDef="let element">{{ element.adminName }}</td>
+        </ng-container>
+        <!-- Button Column -->
+        <ng-container matColumnDef="button">
+          <th mat-header-cell *matHeaderCellDef>Reserve</th>
+          <td mat-cell *matCellDef="let element">
+            <button (click)="ReserveAppointment(element)">Reserve</button>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+    <div *ngIf="!availableAppointments.data.length">
+      <p>Sorry there are no available appointments</p>
+    </div>
+  </div>
+
+  <!--Create extraordinary appointment-->
+  <div *ngIf="showForm">
+    <p>Create your extraordinary appointment</p>
+    <div class="row">
+      <label style="margin-right: 10px; margin-top: 10px">Select date: </label>
+      <input type="date" [(ngModel)]="selectedDate" />
+    </div>
+    <p>Showing results for: {{ selectedDate }}</p>
+
+    <div>
+      <p>Please select some of the available dates</p>
+      <div
+        *ngIf="
+          availableAppointments.data.length > 0 && dateSelected && validDate
+        "
+      >
+        <table
+          mat-table
+          [dataSource]="availableTimes"
+          class="mat-elevation-z8"
+          matSort
+        >
+          <!-- Date Column -->
+          <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
+            <td mat-cell *matCellDef="let element">
+              {{ datePipe.transform(element.dateTime, "dd-MM-yyyy HH:mm") }}
+            </td>
+          </ng-container>
+          <!-- Duration Column -->
+          <ng-container matColumnDef="duration">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              Duration(in minutes)
+            </th>
+            <td mat-cell *matCellDef="let element">{{ element.duration }}</td>
+          </ng-container>
+          <!-- Country Column -->
+          <ng-container matColumnDef="adminName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>
+              Admin Name
+            </th>
+            <td mat-cell *matCellDef="let element">{{ element.adminName }}</td>
+          </ng-container>
+          <!-- Button Column -->
+          <ng-container matColumnDef="button">
+            <th mat-header-cell *matHeaderCellDef>Reserve</th>
+            <td mat-cell *matCellDef="let element">
+              <button
+                (click)="SelectExtraordinaryAppointment(element)"
+                mat-dialog-close
+              >
+                Select this date
+              </button>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      </div>
+      <div
+        *ngIf="
+          !(availableAppointments.data.length > 0) && dateSelected && validDate
+        "
+      >
+        <p>Sorry there are no available times at the selected date</p>
+      </div>
+      <div *ngIf="!dateSelected">
+        <p>Please select date</p>
+      </div>
+      <div *ngIf="dateSelected && !validDate">
+        <p>Please select date that is valid</p>
+      </div>
+    </div>
+  </div>
+</div>

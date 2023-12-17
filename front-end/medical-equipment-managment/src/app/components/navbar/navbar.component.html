@@ -4,23 +4,25 @@
   </span>
   <div class="spacer"></div>
   <a mat-button [routerLink]="['/companies']" class="mat-button">Companies</a>
-  <a mat-button [routerLink]="['/company/create']" class="mat-button"
+  <a *ngIf="user && user.role == 'ROLE_SYSTEM_ADMIN'" mat-button [routerLink]="['/sys-register']" class="mat-button">Add Admin</a>
+  <a *ngIf="user && user.role == 'ROLE_SYSTEM_ADMIN'" mat-button [routerLink]="['/company/create']" class="mat-button"
     >Create Company</a
   >
   <a mat-button [routerLink]="['/equipment/list']" class="mat-button"
     >Equipment</a
   >
-  <div class="dropdown">
+  <div *ngIf="user" class="dropdown">
     <button mat-button class="mat-button">Profile</button>
     <div class="dropdown-content">
-      <a mat-button [routerLink]="['/userProfile']" class="mat-button"
+      <a *ngIf="user.role == 'ROLE_REGISTERED_USER'" mat-button [routerLink]="['/userProfile']" class="mat-button"
         >User profile</a
       >
-      <a mat-button [routerLink]="['/companyAdminProfile']" class="mat-button"
+      <a *ngIf="user.role == 'ROLE_COMPANY_ADMIN'" mat-button [routerLink]="['/companyAdminProfile']" class="mat-button"
         >Company admin profile</a
       >
     </div>
   </div>
-  <a mat-button [routerLink]="['/register']" class="mat-button">Register</a>
-  <a mat-button class="mat-button-soft">Log in</a>
+  <a *ngIf="!user" mat-button [routerLink]="['/register']" class="mat-button">Register</a>
+  <a *ngIf="!user" mat-button [routerLink]="['/login']" class="mat-button-soft">Log in</a>
+  <a *ngIf="user" mat-button [routerLink]="['/login']" class="mat-button-soft" (click)="logout()">Log out</a>
 </mat-toolbar>

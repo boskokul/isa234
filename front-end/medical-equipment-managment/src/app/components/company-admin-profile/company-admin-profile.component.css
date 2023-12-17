@@ -1,10 +1,10 @@
 p {
-  font-size: 20pt;
+  font-size: 16pt;
   font-family: "Rhodium Libre";
 }
 
 h1 {
-  font-size: 26pt;
+  font-size: 25pt;
   font-family: "Rhodium Libre";
 }
 
@@ -18,10 +18,10 @@ h1 {
   text-align: center;
   color: white;
   background-color: #800e13ff;
-  margin-top: 50px;
+  margin-top: 40px;
   margin-left: auto;
   margin-right: auto;
-  max-width: 900px;
+  max-width: 1000px;
   padding: 20px;
   border-radius: 100px;
 }
@@ -29,13 +29,19 @@ h1 {
 .purple-card {
   width: 300px !important; /* Set a fixed width */
   height: 200px; /* Set a fixed height */
-  background-color: #640d14ff;
-  border-radius: 100; /* Remove the default border-radius */
+  background-color: rgb(128, 14, 75);
   padding: 15px; /* Add padding to create a rectangular appearance */
-  margin: 0 0 0 17%; /* Add margin to push the card away from the screen edges */
+  margin: 35px; /* Add margin to push the card away from the screen edges */
   font-family: "Rhodium Libre";
-  font-size: 18px;
+  font-size: 14px;
   color: white;
+}
+
+.icon-button {
+  background-image: url("calendar.ico");
+  background-size: 60px 50px;
+  height: 50px;
+  width: 40px;
 }
 
 .basic-container {
@@ -45,4 +51,32 @@ h1 {
   padding: 6px;
   box-sizing: border-box;
   flex-wrap: wrap;
+}
+
+.rotate-icon .mat-icon {
+  transform: rotate(90deg); /* Adjust the rotation angle as needed */
+}
+
+.search-button {
+  background-color: rgb(123, 138, 8);
+  font-family: "Rhodium Libre";
+  color: white;
+  font-size: 18px;
+}
+
+.add-button {
+  background-color: rgb(90, 32, 215);
+  font-family: "Rhodium Libre";
+  color: white;
+  font-size: 17px;
+  width: 100px;
+  padding: 5%;
+  margin-top: 75px;
+  margin-left: 60px;
+}
+
+.calendar-container {
+  height: 400px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
 }

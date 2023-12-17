@@ -1,0 +1,12 @@
+
+  
+  :host ::ng-deep .fc-button-primary {
+    background-color: darkred; /* Change button color on hover */
+    border-color: darkred; /* Change border color on hover */
+  }
+
+  :host ::ng-deep .fc-button-primary:hover {
+    background-color: #ad2831ff; /* Change button color on hover */
+    border-color: darkred; /* Change border color on hover */
+  }
+

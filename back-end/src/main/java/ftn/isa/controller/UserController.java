@@ -1,19 +1,25 @@
 package ftn.isa.controller;
 
+import ftn.isa.domain.BaseUser;
 import ftn.isa.domain.RegisteredUser;
 import ftn.isa.domain.Role;
+import ftn.isa.domain.SecureToken;
 import ftn.isa.dto.UserCreateDTO;
 import ftn.isa.dto.UserResponseDTO;
 import ftn.isa.dto.UserUpdateDTO;
+import ftn.isa.dto.UserVerificationDTO;
 import ftn.isa.service.EmailService;
 import ftn.isa.service.RegisteredUserService;
+import ftn.isa.service.SecureTokenService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,9 +29,7 @@ import java.util.List;
 public class UserController {
     @Autowired
     private RegisteredUserService userService;
-    @Autowired
-    private EmailService emailService;
-    private Logger logger = LoggerFactory.getLogger(UserController.class);
+
     @GetMapping(value = "/all")
     public ResponseEntity<List<UserResponseDTO>> getAllUsers(){
         List<RegisteredUser> users = userService.findAll();
@@ -35,33 +39,8 @@ public class UserController {
         }
         return new ResponseEntity<>(userDTOs, HttpStatus.OK);
     }
-    @PostMapping(consumes = "application/json")
-    public ResponseEntity<UserResponseDTO> save(@RequestBody UserCreateDTO userDTO){
-        RegisteredUser userWithMail = userService.findByEmail(userDTO.getEmail());
-        if(userWithMail != null){
-            return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
-        }
-        RegisteredUser user = new RegisteredUser();
-        user.setEmail(userDTO.getEmail());
-        user.setFirstName(userDTO.getFirstName());
-        user.setLastName(userDTO.getLastName());
-        user.setCity(userDTO.getCity());
-        user.setCountry(userDTO.getCountry());
-        user.setPassword(userDTO.getPassword());
-        user.setCompanyInformation(userDTO.getCompanyInformation());
-        user.setProfession(userDTO.getProfession());
-        user.setPhoneNumber(userDTO.getPhoneNumber());
-        user.setRole(Role.RegisteredUser);
-        user = userService.save(user);
-        try{
-            emailService.sendVerificationMail(user);
-        }catch (Exception e){
-            logger.info("Greska prilikom slanja emaila: " + e.getMessage());
-        }
-        UserResponseDTO userResponseDTO = new UserResponseDTO(user);
-        return new ResponseEntity<>(userResponseDTO, HttpStatus.OK);
-    }
 
+    @PreAuthorize("hasRole('REGISTERED_USER')")
     @PutMapping(consumes = "application/json")
     public ResponseEntity<UserResponseDTO> update(@RequestBody UserUpdateDTO userUpdateDTO){
         RegisteredUser user = userService.findOne(userUpdateDTO.getId());
@@ -78,7 +57,7 @@ public class UserController {
         user.setProfession(userUpdateDTO.getProfession());
         user.setCompanyInformation(userUpdateDTO.getCompanyInformation());
 
-        user = userService.save(user);
+        user = userService.update(user);
         return new ResponseEntity<>(new UserResponseDTO(user), HttpStatus.OK);
     }
 
@@ -90,4 +69,5 @@ public class UserController {
         }
         return new ResponseEntity<>(new UserResponseDTO(user), HttpStatus.OK);
     }
+
 }

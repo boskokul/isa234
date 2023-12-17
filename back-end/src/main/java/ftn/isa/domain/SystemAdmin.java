@@ -9,9 +9,9 @@ import java.util.Set;
 public class SystemAdmin extends BaseUser{
     @OneToMany(mappedBy = "systemAdmin", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Complaint> complaints = new HashSet<Complaint>();
-
-    public SystemAdmin(Integer id, String firstName, String lastName, String email, String city, String country, String phoneNumber, String password, Role role) {
-        super(id, firstName, lastName, email, city, country, phoneNumber, password, role);
+    public SystemAdmin(){super();}
+    public SystemAdmin(Integer id, String firstName, String lastName, String email, String city, String country, String phoneNumber, String password, Role role, boolean verified) {
+        super(id, firstName, lastName, email, city, country, phoneNumber, password, role, verified);
     }
 
     public Set<Complaint> getComplaints() {
