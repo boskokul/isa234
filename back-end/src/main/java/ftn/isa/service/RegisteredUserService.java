@@ -1,7 +1,6 @@
 package ftn.isa.service;
 
 import ftn.isa.domain.RegisteredUser;
-import ftn.isa.domain.Student;
 import ftn.isa.repository.RegisteredUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
