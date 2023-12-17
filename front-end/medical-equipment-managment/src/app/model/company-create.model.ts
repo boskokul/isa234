@@ -11,4 +11,8 @@ export interface CompanyCreate {
   startMinute?: number;
   endHour?: number;
   endMinute?: number;
+  lat: number;
+  lon: number;
+  street: string;
+  houseNumber: number;
 }

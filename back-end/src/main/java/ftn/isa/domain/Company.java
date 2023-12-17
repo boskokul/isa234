@@ -40,7 +40,15 @@ public class Company {
 	private String country;
 	@Column(name = "city", nullable = false)
 	private String city;
-	
+	@Column(name = "lat", nullable = false)
+	private float lat;
+	@Column(name = "lon", nullable = false)
+	private float lon;
+	@Column(name = "street", nullable = false)
+	private String street;
+	@Column(name = "houseNumber", nullable = false)
+	private Integer houseNumber;
+
 	@OneToMany(mappedBy = "company", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<CompanyAdmin> companyAdmins = new HashSet<CompanyAdmin>();
 	@OneToMany(mappedBy = "company", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -67,6 +75,93 @@ public class Company {
 		this.equipment = equipment;
 	}
 
+	public Company(Integer id, String name, String description, double averageGrade, LocalTime startTime,
+				   LocalTime endTime, String country, String city, float lat, float lon,
+				   String street, Integer houseNumber, Set<CompanyAdmin> companyAdmins,
+				   Set<Rating> ratings, Set<Equipment> equipment) {
+		this.id = id;
+		this.name = name;
+		this.description = description;
+		this.averageGrade = averageGrade;
+		this.startTime = startTime;
+		this.endTime = endTime;
+		this.country = country;
+		this.city = city;
+		this.lat = lat;
+		this.lon = lon;
+		this.street = street;
+		this.houseNumber = houseNumber;
+		this.companyAdmins = companyAdmins;
+		this.ratings = ratings;
+		this.equipment = equipment;
+	}
+
+	public Company(Integer id, String name, String description, double averageGrade, LocalTime startTime,
+				   LocalTime endTime, String country, String city, float lat, float lon, String street,
+				   Integer houseNumber, Set<CompanyAdmin> companyAdmins, Set<Equipment> equipment) {
+		this.id = id;
+		this.name = name;
+		this.description = description;
+		this.averageGrade = averageGrade;
+		this.startTime = startTime;
+		this.endTime = endTime;
+		this.country = country;
+		this.city = city;
+		this.lat = lat;
+		this.lon = lon;
+		this.street = street;
+		this.houseNumber = houseNumber;
+		this.companyAdmins = companyAdmins;
+		this.equipment = equipment;
+	}
+
+	public Company(Integer id, String name, String description, double averageGrade, LocalTime startTime, LocalTime endTime,
+				   String country, String city, float lat, float lon, String street, Integer houseNumber) {
+		this.id = id;
+		this.name = name;
+		this.description = description;
+		this.averageGrade = averageGrade;
+		this.startTime = startTime;
+		this.endTime = endTime;
+		this.country = country;
+		this.city = city;
+		this.lat = lat;
+		this.lon = lon;
+		this.street = street;
+		this.houseNumber = houseNumber;
+	}
+
+	public float getLat() {
+		return lat;
+	}
+
+	public void setLat(float lat) {
+		this.lat = lat;
+	}
+
+	public float getLon() {
+		return lon;
+	}
+
+	public void setLon(float lon) {
+		this.lon = lon;
+	}
+
+	public String getStreet() {
+		return street;
+	}
+
+	public void setStreet(String street) {
+		this.street = street;
+	}
+
+	public Integer getHouseNumber() {
+		return houseNumber;
+	}
+
+	public void setHouseNumber(Integer houseNumber) {
+		this.houseNumber = houseNumber;
+	}
 
 	public Company(Integer id, String name, String description, double averageGrade, String country, String city) {
 		super();

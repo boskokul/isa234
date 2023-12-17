@@ -1,13 +1,19 @@
 package ftn.isa.service;
 
-import ftn.isa.domain.Equipment;
-import ftn.isa.domain.Reservation;
-import ftn.isa.domain.ReservationItem;
-import ftn.isa.domain.ReservationStatus;
+import ftn.isa.domain.*;
+import ftn.isa.dto.ExtraordinaryAppointmentDTO;
 import ftn.isa.dto.ReservationCreateDTO;
 import ftn.isa.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ReservationService {
@@ -21,6 +27,7 @@ public class ReservationService {
     EquipmentRepository equipmentRepository;
     @Autowired
     ReservationItemRepository reservationItemRepository;
+
     public Reservation makeReservation(ReservationCreateDTO reservationDTO){
         Reservation reservation = new Reservation();
         reservation.setStatus(ReservationStatus.NotFinalized);

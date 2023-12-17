@@ -15,6 +15,8 @@ import { AppointmentService } from 'src/app/services/appointment.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { Time } from '@angular/common';
 import { DatePipe } from '@angular/common';
+import { MatTableDataSource } from '@angular/material/table';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-company-calendar',
@@ -23,6 +25,12 @@ import { DatePipe } from '@angular/common';
   providers: [DatePipe],
 })
 export class CompanyCalendarComponent implements OnInit {
+
+  idFromUrl: number;
+
+  dataSource: any;
+  eventsList: any[] = [];
+
   user: CurrentUser | undefined;
   subscription: Subscription;
   company: Company = {
@@ -34,6 +42,10 @@ export class CompanyCalendarComponent implements OnInit {
     name: '',
     startTime: { hours: 10, minutes: 10 },
     endTime: { hours: 10, minutes: 10 },
+    lat: 0,
+    lon: 0,
+    street: '',
+    houseNumber: 0,
   };
   admin: CompanyAdmin = {
     id: 0,
@@ -84,8 +96,10 @@ export class CompanyCalendarComponent implements OnInit {
     private authService: AuthService,
     private adminService: AdminService,
     private appointmentService: AppointmentService,
-    public datePipe: DatePipe
-  ) {}
+    public datePipe: DatePipe,
+    private route: ActivatedRoute,
+    
+  ) {this.dataSource = new MatTableDataSource<Appointment>();}
 
   ngOnInit(): void {
     this.subscription = this.authService.currentUser.subscribe((user) => {
@@ -97,35 +111,16 @@ export class CompanyCalendarComponent implements OnInit {
     setTimeout(() => {
       this.loadAdmin();
     }, 100);
-    const eventsList: any[] = [
-      {
-        title: 'Meeting with Client',
-        start: '2023-12-01T08:00:00',
-        end: '2023-12-01T09:30:00',
-        color: 'green',
-        description: 'Discuss project details',
-        id: 'hehe',
-      },
-      {
-        title: 'Meeting with Client 2',
-        start: '2023-12-01T10:30:00',
-        end: '2023-12-01T12:00:00',
-        color: 'green',
-        description: 'Discuss project details',
-        id: 'hehe',
-      },
-      {
-        title: 'Team Lunch',
-        start: '2023-12-05T10:00:00',
-        end: '2023-12-05T10:00:00',
-        color: 'red',
-        description: 'Bonding session',
-        id: 'hehe',
-      },
-    ];
+    this.loadParams();
+    this.LoadAppointments();
+    //console.log(this.dataSource.data);
+
+    
+    console.log(this.eventsList); // Your transformed data in the desired format
 
     // Assign the eventsList to calendarOptions.events
-    this.calendarOptions.events = eventsList;
+    this.calendarOptions.events = this.eventsList;
+
   }
   handleEventClick(clickInfo: any): void {
     const eventTitle = clickInfo.event.title || 'No title';
@@ -133,15 +128,15 @@ export class CompanyCalendarComponent implements OnInit {
       clickInfo.event.extendedProps.description || 'No description';
     const eventId = clickInfo.event.extendedProps.id || 'No id';
 
+    /*
     alert(
       `Event clicked:\nTitle: ${eventTitle}\nDescription: ${eventDescription}\nEventId: ${eventId}`
     );
-    // For example, open a modal, navigate to a different page, etc.
-
+  
     alert(
       `Event clicked:\nTitle: ${eventTitle}\nDescription: ${eventDescription}`
     );
-    // For example, open a modal, navigate to a different page, etc.
+     */
   }
 
   loadAdmin() {
@@ -228,7 +223,56 @@ export class CompanyCalendarComponent implements OnInit {
         next: (result: Appointment) => {
           console.log(result);
           this.selectedAdmin.id = 0;
+          this.LoadAppointments();
         },
       });
   }
+
+  LoadAppointments() {
+    this.appointmentService.getAllAppointments(this.idFromUrl).subscribe({
+      next: (result: Appointment[]) => {
+        this.dataSource.data = result;
+        console.log(this.dataSource.data);
+  
+      //////
+        this.eventsList = [];
+
+        for (const appointment of this.dataSource.data) {
+          const startDateTime = new Date(appointment.dateTime);
+          
+  
+          const eventItem = {
+            title: `${appointment.adminName} (${appointment.duration} min)`,
+            start: startDateTime.toISOString(),
+            duration: appointment.duration,
+            color: 'green',
+            description: `Discuss details for appointment ID: ${appointment.id}`,
+            id: `id-${appointment.id}`
+          };
+  
+          this.eventsList.push(eventItem);
+        }
+  
+        console.log('Events List:', this.eventsList); // Log the eventsList after construction
+        this.calendarOptions.events = this.eventsList
+      },
+      error: (err) => {
+        console.error('Error fetching appointments:', err);
+        // Handle errors here if needed
+      },
+      complete: () => {
+        // Handle completion here if needed
+      }
+    });
+  }
+
+  loadParams(): void {
+    this.route.params.subscribe(params => {
+      this.idFromUrl = parseInt(params['id'], 10);
+      console.log(this.idFromUrl);
+      console.log("ID FETCHED");
+    });
+  }
+
+
 }
