@@ -22,11 +22,11 @@ INSERT INTO isa.equipments(
     VALUES (-4, 'slusni aparati', 'oprema4', 1, -2, 45, 0);
 --useri
 INSERT INTO isa.base_users(
-	id, city, country, username, first_name, last_name, password, phone, verified)
-	VALUES (-1, 'ns', 'srb', 'bfd@gmail.com', 'marko', 'nikic', '$2a$12$ztIwerX104rJ41MYLl7GDeaKMsK3ENPxFdqnwgLk2GjqEz2Re/qsW', '06314222', true);
+    id, city, country, username, first_name, last_name, password, phone, verified)
+VALUES (-1, 'ns', 'srb', 'bfd@gmail.com', 'marko', 'nikic', '$2a$12$ztIwerX104rJ41MYLl7GDeaKMsK3ENPxFdqnwgLk2GjqEz2Re/qsW', '06314222', true);
 INSERT INTO isa.base_users(
 	id, city, country, username, first_name, last_name, password, phone, verified)
-	VALUES (-2, 'bg', 'srb', 'aad@gmail.com', 'nemanja', 'zigic', '$2a$12$ztIwerX104rJ41MYLl7GDeaKMsK3ENPxFdqnwgLk2GjqEz2Re/qsW', '064324562', true);
+	VALUES (-2, 'bg', 'srb', 'aad@gmail.com', 'nemanja', 'zigic', '$2a$12$ztIwerX104rJ41MYLl7GDeaKMsK3ENPxFdqnwgLk2GjqEz2Re/qsW', '064324562', false);
 INSERT INTO isa.base_users(
     id, city, country, username, first_name, last_name, password, phone, verified)
 VALUES (-3, 'nis', 'srb', 'huj@gmail.com', 'nika', 'nikic', '$2a$12$ztIwerX104rJ41MYLl7GDeaKMsK3ENPxFdqnwgLk2GjqEz2Re/qsW', '06303222', true);

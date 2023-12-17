@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../env/environment';
 import { Company } from '../model/company';
+import { CompanyCreate } from '../model/company-create.model';
 import { Appointment } from '../model/appointment.model';
 
 @Injectable({
@@ -18,7 +19,7 @@ export class CompanyService {
     return this.http.get<any>(environment.apiHost + 'companies/' + id);
   }
 
-  registerCompany(company: Company): Observable<any> {
+  registerCompany(company: CompanyCreate): Observable<any> {
     return this.http.post<any>(environment.apiHost + 'companies', company);
   }
 

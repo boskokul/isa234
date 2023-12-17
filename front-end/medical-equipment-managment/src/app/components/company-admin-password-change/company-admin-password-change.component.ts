@@ -9,7 +9,6 @@ import { AdminService } from 'src/app/services/admin.service';
   styleUrls: ['./company-admin-password-change.component.css'],
 })
 export class CompanyAdminPasswordChangeComponent {
-  password: string = '';
   passwordNew: string = '';
   passwordRepeat: string = '';
   constructor(
@@ -41,7 +40,7 @@ export class CompanyAdminPasswordChangeComponent {
       phoneNumber: this.admin.phoneNumber,
       companyId: this.admin.companyId,
     };
-    this.adminService.updateAdmin(adminForUpdate).subscribe({
+    this.adminService.updateAdminPassword(adminForUpdate).subscribe({
       next: (result: CompanyAdmin) => {
         this.dialog.closeAll();
       },

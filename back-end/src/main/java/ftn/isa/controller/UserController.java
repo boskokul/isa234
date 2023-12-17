@@ -7,6 +7,7 @@ import ftn.isa.domain.SecureToken;
 import ftn.isa.dto.UserCreateDTO;
 import ftn.isa.dto.UserResponseDTO;
 import ftn.isa.dto.UserUpdateDTO;
+import ftn.isa.dto.UserVerificationDTO;
 import ftn.isa.service.EmailService;
 import ftn.isa.service.RegisteredUserService;
 import ftn.isa.service.SecureTokenService;

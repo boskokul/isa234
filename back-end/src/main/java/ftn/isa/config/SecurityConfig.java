@@ -55,7 +55,6 @@ public class SecurityConfig {
         authProvider.setPasswordEncoder(passwordEncoder());
         return authProvider;
     }
-
     @Autowired
     private RestAuthenticationEntryPoint restAuthenticationEntryPoint;
 

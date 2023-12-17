@@ -1,101 +1,171 @@
-<div class="form-container">
+<div>
+  <p>Choose on map:</p>
+  <div class="map-div">
+    <xp-map (mapClick)="onMapClick($event)"></xp-map>
+  </div>
+  <div class="form-container">
     <div class="flex-container">
       <div class="form-container">
         <form [formGroup]="gigaChadForm">
-            <mat-form-field>
-              <mat-label>Name</mat-label>
-              <input matInput formControlName="name">
-            </mat-form-field>
-            <br>
-            <mat-form-field>
-              <mat-label>Description</mat-label>
-              <input matInput formControlName="description">
-            </mat-form-field>
-            <br>
-            <mat-form-field>
-              <mat-label>Country</mat-label>
-              <input matInput formControlName="companyCountry">
-            </mat-form-field>
-            <mat-form-field>
-              <mat-label>City</mat-label>
-              <input matInput formControlName="companyCity">
-            </mat-form-field>
-            <div class="ngx-timepicker-field-example">
-              <h3><b>Start work time: </b></h3>
-              <ngx-timepicker-field [format]="24" [defaultTime]="'08:00'" (timeChanged)="onChangeStartTime($event)"></ngx-timepicker-field>
-            </div>
-              <hr>
-            <div class="ngx-timepicker-field-example">
-              <h3><b>End work time: </b></h3>
-              <ngx-timepicker-field [format]="24" [defaultTime]="'16:00'" (timeChanged)="onChangeEndTime($event)"></ngx-timepicker-field>
-            </div>
-            <br>
-            <button mat-flat-button class="register-button" (click)="RegisterCompany()">Create</button>
-          </form>
-    
-      </div>
-      <div class="form-container">
-        <form [formGroup]="registerForm">
-            <mat-form-field>
-              <mat-label>First name</mat-label>
-              <input matInput formControlName="firstName">
-            </mat-form-field>
-            <br>
-            <mat-form-field>
-                <mat-label>Last name</mat-label>
-                <input matInput formControlName="lastName">
-            </mat-form-field>
-            <br>
-            <mat-form-field>
-                <mat-label>Enter your email</mat-label>
-                <input matInput placeholder="pat@example.com" formControlName="email">
-            </mat-form-field>
-            <br>
-            <mat-form-field>
-                <mat-label>Phone number</mat-label>
-                <input matInput formControlName="phoneNumber">
-            </mat-form-field>
-            <br>
-            <mat-form-field>
-                <mat-label>Country</mat-label>
-                <input matInput formControlName="country">
-            </mat-form-field>
-            <br>
-            <mat-form-field>
-                <mat-label>City</mat-label>
-                <input matInput formControlName="city">
-            </mat-form-field>
-            <br>
-            <mat-form-field>
-                <mat-label>Profession</mat-label>
-                <input matInput formControlName="profession">
-            </mat-form-field>
-            <br>
-            <mat-form-field>
-                <mat-label>Password</mat-label>
-                <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
-                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                </button>
-            </mat-form-field>
-            <br>
-            <mat-form-field>
-                <mat-label>Repeat password</mat-label>
-                <input matInput [type]="hide ? 'password' : 'text'" formControlName="repeatPassword">
-                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                </button>
-            </mat-form-field>
-            <br>
-            <button mat-flat-button (click)="RegisterUser()" class="register-button" >Register Admin</button>
+          <mat-form-field>
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name" />
+          </mat-form-field>
+          <br />
+          <mat-form-field>
+            <mat-label>Description</mat-label>
+            <input matInput formControlName="description" />
+          </mat-form-field>
+          <br />
+
+          <mat-form-field>
+            <mat-label>Country</mat-label>
+            <input matInput formControlName="companyCountry" />
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>City</mat-label>
+            <input matInput formControlName="companyCity" />
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Street name</mat-label>
+            <input matInput formControlName="companyCountry" />
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Street number</mat-label>
+            <input matInput formControlName="companyCity" />
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Longitude:</mat-label>
+            <input matInput type="number" formControlName="longitude" />
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Latitude:</mat-label>
+            <input matInput type="number" formControlName="latitude" />
+          </mat-form-field>
+
+          <div class="ngx-timepicker-field-example">
+            <h3><b>Start work time: </b></h3>
+            <ngx-timepicker-field
+              [format]="24"
+              [defaultTime]="'08:00'"
+              (timeChanged)="onChangeStartTime($event)"
+            ></ngx-timepicker-field>
+          </div>
+          <hr />
+          <div class="ngx-timepicker-field-example">
+            <h3><b>End work time: </b></h3>
+            <ngx-timepicker-field
+              [format]="24"
+              [defaultTime]="'16:00'"
+              (timeChanged)="onChangeEndTime($event)"
+            ></ngx-timepicker-field>
+          </div>
+          <br />
+          <button
+            mat-flat-button
+            class="register-button"
+            (click)="RegisterCompany()"
+          >
+            Create
+          </button>
         </form>
-        <p class="admin-para-x" *ngIf="adminNames.length === 0">Register at least one administrator!</p>
+      </div>
+      <div class="form-container2">
+        <form [formGroup]="registerForm">
+          <mat-form-field>
+            <mat-label>First name</mat-label>
+            <input matInput formControlName="firstName" />
+          </mat-form-field>
+          <br />
+          <mat-form-field>
+            <mat-label>Last name</mat-label>
+            <input matInput formControlName="lastName" />
+          </mat-form-field>
+          <br />
+          <mat-form-field>
+            <mat-label>Enter your email</mat-label>
+            <input
+              matInput
+              placeholder="pat@example.com"
+              formControlName="email"
+            />
+          </mat-form-field>
+          <br />
+          <mat-form-field>
+            <mat-label>Phone number</mat-label>
+            <input matInput formControlName="phoneNumber" />
+          </mat-form-field>
+          <br />
+          <mat-form-field>
+            <mat-label>Country</mat-label>
+            <input matInput formControlName="country" />
+          </mat-form-field>
+          <br />
+          <mat-form-field>
+            <mat-label>City</mat-label>
+            <input matInput formControlName="city" />
+          </mat-form-field>
+          <br />
+          <mat-form-field>
+            <mat-label>Profession</mat-label>
+            <input matInput formControlName="profession" />
+          </mat-form-field>
+          <br />
+          <mat-form-field>
+            <mat-label>Password</mat-label>
+            <input
+              matInput
+              [type]="hide ? 'password' : 'text'"
+              formControlName="password"
+            />
+            <button
+              mat-icon-button
+              matSuffix
+              (click)="hide = !hide"
+              [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide"
+            >
+              <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+            </button>
+          </mat-form-field>
+          <br />
+          <mat-form-field>
+            <mat-label>Repeat password</mat-label>
+            <input
+              matInput
+              [type]="hide ? 'password' : 'text'"
+              formControlName="repeatPassword"
+            />
+            <button
+              mat-icon-button
+              matSuffix
+              (click)="hide = !hide"
+              [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide"
+            >
+              <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+            </button>
+          </mat-form-field>
+          <br />
+          <button
+            mat-flat-button
+            (click)="RegisterUser()"
+            class="register-button"
+          >
+            Register Admin
+          </button>
+        </form>
+        <p class="admin-para-x" *ngIf="adminNames.length === 0">
+          Register at least one administrator!
+        </p>
       </div>
       <div class="list-container">
         <p class="admin-para">ADMIN LIST</p>
         <ol class="admin-ol">
           <li *ngFor="let str of adminNames">{{ str }}</li>
-        </ol>     
+        </ol>
       </div>
     </div>
   </div>
+</div>
