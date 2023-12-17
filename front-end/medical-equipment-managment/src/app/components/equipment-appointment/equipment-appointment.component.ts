@@ -111,7 +111,7 @@ export class EquipmentAppointmentComponent implements OnInit {
     console.log(this.reservation) 
     this.reservationService.MakeReservation(this.reservation).subscribe({
       next: (result: any) => {
-        alert('Reservation made')
+        alert('Reservation made, QR code with reservation info is sent to your mail.')
         this.dialog.close()
       },
       error:(data)=>{
