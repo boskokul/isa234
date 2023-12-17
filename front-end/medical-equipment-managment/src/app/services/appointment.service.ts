@@ -25,4 +25,7 @@ export class AppointmentService {
       appointment
     );
   }
+  getAppointmentsForUser(userId: number): Observable<Appointment[]>{
+    return this.http.get<Appointment[]>(environment.apiHost + 'appointments/futureappointments/'+userId);
+  }
 }

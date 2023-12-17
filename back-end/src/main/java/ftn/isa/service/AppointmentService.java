@@ -1,5 +1,6 @@
 package ftn.isa.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,5 +28,7 @@ public class AppointmentService {
     public List<Appointment> findByCompanyId(Integer companyId){
         return aRepository.findAppointmentByCompany(companyId);
     }
-
+    public List<Appointment> findByUserId(Integer userId){
+        return aRepository.findAppointmentByUserId(userId);
+    }
 }

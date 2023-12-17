@@ -40,7 +40,8 @@ public class ReservationController {
         responseDTO.setStatus(reservation.getStatus());
         responseDTO.setAppointmentId(reservation.getAppointment().getId());
         responseDTO.setUserId(reservation.getRegisteredUser().getId());
-        String data = "Time: "+reservation.getAppointment().getDateTime()+", equipment amount: " +totalAmount+", company admin: "+reservation.getAppointment().getAdmin().getFirstName()+" "+reservation.getAppointment().getAdmin().getLastName();
+        String data = "Time: "+reservation.getAppointment().getDateTime()+", equipment amount: " +totalAmount+", receiver: "+reservation.getRegisteredUser().getFirstName()+" "+reservation.getRegisteredUser().getLastName()+
+                ",\n company: "+reservation.getAppointment().getAdmin().getCompany().getName()+", company admin: "+reservation.getAppointment().getAdmin().getFirstName()+" "+reservation.getAppointment().getAdmin().getLastName();
         emailService.sendReservationConfirmationQR(data, reservation.getRegisteredUser().getEmail());
         return new ResponseEntity<>(responseDTO, HttpStatus.OK);
     }

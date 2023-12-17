@@ -49,6 +49,7 @@ import { AuthGuardService } from './ActivateGuard/AuthGuardService';
 import { ReservationService } from './services/reservation-service';
 import { SysAdminFormComponent } from './components/sys-admin-form/sys-admin-form.component';
 import { SharedModule } from "./shared/maps/shared.module";
+import { AppointmentService } from './services/appointment.service';
 
 @NgModule({
   declarations: [
@@ -110,7 +111,8 @@ import { SharedModule } from "./shared/maps/shared.module";
     EquipmentService,
     UserServiceService,
     ReservationService,
-    AuthGuardService
+    AuthGuardService,
+    AppointmentService
   ],
   bootstrap: [AppComponent],
 })
