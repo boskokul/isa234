@@ -118,6 +118,7 @@ export class CompaniesComponent implements OnInit, OnDestroy {
     this.companyService.getCompanies().subscribe({
       next: (result: Company[]) => {
         this.dataSource.data = result;
+        console.log(this.dataSource.data)
       },
     });
   }

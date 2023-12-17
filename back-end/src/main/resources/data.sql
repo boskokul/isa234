@@ -3,10 +3,10 @@ INSERT INTO isa.ROLE(id, name) VALUES (1, 'ROLE_REGISTERED_USER');
 INSERT INTO isa.ROLE(id, name) VALUES (2, 'ROLE_COMPANY_ADMIN');
 INSERT INTO isa.ROLE(id, name) VALUES (3, 'ROLE_SYSTEM_ADMIN');
 --kompanije
-INSERT INTO isa.companies(id, country, city, average_grade, description, name, start_time, end_time)
-	VALUES (-1, 'Srbija', 'BG', 3, 'opis1', 'kompanija 1', '08:00:00', '15:00:00');
-INSERT INTO isa.companies(id, country, city, average_grade, description, name, start_time, end_time)
-	VALUES (-2, 'Hrvatska',  'ZG', 5, 'opis2', 'kompanija 2', '09:00:00', '16:00:00');
+INSERT INTO isa.companies(id, country, city, average_grade, description, name, start_time, end_time, lat, lon, street, house_number)
+	VALUES (-1, 'Srbija', 'BG', 3, 'opis1', 'kompanija 1', '08:00:00', '15:00:00', 15.78, 45.66, 'Mise Dime', 12);
+INSERT INTO isa.companies(id, country, city, average_grade, description, name, start_time, end_time, lat, lon, street, house_number)
+	VALUES (-2, 'Hrvatska',  'ZG', 5, 'opis2', 'kompanija 2', '09:00:00', '16:00:00', 15.78, 45.66, 'Mise Dime', 12);
 --oprema
 INSERT INTO isa.equipments(
 	id, description, name, type, company_id, free_amount, reserved_amount)
@@ -63,14 +63,23 @@ INSERT INTO isa.user_role(user_id, role_id) VALUES (-6, 3);
 INSERT INTO isa.appointments(
 	id, date_time, duration, company_admin_id)
 	VALUES (-1, '2023-12-17T15:18:12', 30, -5);
+
 INSERT INTO isa.appointments(
     id, date_time, duration, company_admin_id)
-VALUES (-2, '2023-12-17T11:18:12', 30, -2);
+VALUES (-2, '2023-12-17T16:48:12', 30, -5);
+
 INSERT INTO isa.appointments(
     id, date_time, duration, company_admin_id)
-VALUES (-3, '2024-1-17T15:18:12', 30, -5);
+VALUES (-3, '2023-12-18T15:18:12', 30, -5);
+
 INSERT INTO isa.appointments(
     id, date_time, duration, company_admin_id)
-VALUES (-4, '2024-1-17T15:18:12', 30, -2);
+VALUES (-4, '2023-12-17T11:18:12', 30, -2);
+INSERT INTO isa.appointments(
+    id, date_time, duration, company_admin_id)
+VALUES (-5, '2024-1-17T15:18:12', 30, -5);
+INSERT INTO isa.appointments(
+    id, date_time, duration, company_admin_id)
+VALUES (-6, '2024-1-17T15:18:12', 30, -2);
 --rezervacije (one koriste te predefinisane termine u sebi)
 	

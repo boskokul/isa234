@@ -49,6 +49,7 @@ import { ReservationService } from './services/reservation-service';
 import { AppointmentService } from './services/appointment.service';
 import { SysAdminFormComponent } from './components/sys-admin-form/sys-admin-form.component';
 import { SharedModule } from "./shared/maps/shared.module";
+import { CompanyMapComponent } from './components/company-map/company-map.component';
 
 @NgModule({
   declarations: [
@@ -73,6 +74,7 @@ import { SharedModule } from "./shared/maps/shared.module";
     EquipmentAppointmentComponent,
     CompanyCalendarComponent,
     SysAdminFormComponent,
+    CompanyMapComponent,
 
   ],
   imports: [

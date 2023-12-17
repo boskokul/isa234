@@ -9,4 +9,8 @@ export interface Company {
   city: string;
   startTime: Time;
   endTime: Time;
+  lat: number;
+  lon: number;
+  street: string;
+  houseNumber: number;
 }
