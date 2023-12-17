@@ -16,6 +16,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { Time } from '@angular/common';
 import { DatePipe } from '@angular/common';
 import { MatTableDataSource } from '@angular/material/table';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-company-calendar',
@@ -24,6 +25,8 @@ import { MatTableDataSource } from '@angular/material/table';
   providers: [DatePipe],
 })
 export class CompanyCalendarComponent implements OnInit {
+
+  idFromUrl: number;
 
   dataSource: any;
   eventsList: any[] = [];
@@ -94,6 +97,7 @@ export class CompanyCalendarComponent implements OnInit {
     private adminService: AdminService,
     private appointmentService: AppointmentService,
     public datePipe: DatePipe,
+    private route: ActivatedRoute,
     
   ) {this.dataSource = new MatTableDataSource<Appointment>();}
 
@@ -107,6 +111,7 @@ export class CompanyCalendarComponent implements OnInit {
     setTimeout(() => {
       this.loadAdmin();
     }, 100);
+    this.loadParams();
     this.LoadAppointments();
     //console.log(this.dataSource.data);
 
@@ -224,7 +229,7 @@ export class CompanyCalendarComponent implements OnInit {
   }
 
   LoadAppointments() {
-    this.appointmentService.getAllAppointments(-1).subscribe({
+    this.appointmentService.getAllAppointments(this.idFromUrl).subscribe({
       next: (result: Appointment[]) => {
         this.dataSource.data = result;
         console.log(this.dataSource.data);
@@ -260,4 +265,14 @@ export class CompanyCalendarComponent implements OnInit {
       }
     });
   }
+
+  loadParams(): void {
+    this.route.params.subscribe(params => {
+      this.idFromUrl = parseInt(params['id'], 10);
+      console.log(this.idFromUrl);
+      console.log("ID FETCHED");
+    });
+  }
+
+
 }

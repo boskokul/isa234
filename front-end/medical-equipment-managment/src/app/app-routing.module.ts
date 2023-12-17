@@ -24,7 +24,7 @@ const routes: Routes = [
   { path: 'verification', component: VerificationComponent, canActivate: [AuthGuardService] },
   { path: 'companyAdminProfile', component: CompanyAdminProfileComponent, canActivate: [AuthGuardService] },
   { path: 'login', component: LoginComponent, canActivate: [AuthGuardService] },
-  { path: 'calendar', component: CompanyCalendarComponent, canActivate: [AuthGuardService] },
+  { path: 'calendar/:id', component: CompanyCalendarComponent, canActivate: [AuthGuardService] },
   { path: 'sys-register', component: SysAdminFormComponent, canActivate: [AuthGuardService]  },
 ];
 

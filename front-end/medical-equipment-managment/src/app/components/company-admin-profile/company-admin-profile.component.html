@@ -47,14 +47,10 @@
         >
           Other admins
         </button>
-
-        <button
-          class="icon-button"
-          style="margin-left: 5%"
-          [routerLink]="['/calendar']"
-          mat-raised-button
-          (click)="openCalendar()"
-        ></button>
+      
+        <button class="icon-button" style="margin-left: 5%" mat-raised-button [routerLink]="['/calendar', company.id || 'defaultID']">
+          
+        </button>
       </div>
       <br />
     </div>
