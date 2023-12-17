@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import ftn.isa.domain.CompanyAdmin;
-import ftn.isa.repository.CompanyAdminRepository;
 
 @Service
 public class SysAdminService {

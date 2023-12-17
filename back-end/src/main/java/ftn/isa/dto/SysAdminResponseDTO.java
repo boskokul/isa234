@@ -12,9 +12,7 @@ public class SysAdminResponseDTO {
     private String city;
     private String country;
     private String phoneNumber;
-    private String profession;
-    private String companyInformation;
-
+    private Boolean verified;
     public String getFirstName() {
         return firstName;
     }
@@ -79,22 +77,7 @@ public class SysAdminResponseDTO {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getProfession() {
-        return profession;
-    }
-
-    public void setProfession(String profession) {
-        this.profession = profession;
-    }
-
-    public String getCompanyInformation() {
-        return companyInformation;
-    }
-
-    public void setCompanyInformation(String companyInformation) {
-        this.companyInformation = companyInformation;
-    }
-
+    public SysAdminResponseDTO() {}
     public SysAdminResponseDTO(SystemAdmin cA) {
         super();
         this.id = cA.getId();

@@ -39,6 +39,7 @@ VALUES (-5, 'zr', 'srb', 'admin@gmail.com', 'nemanja', 'matic', '$2a$12$ztIwerX1
 INSERT INTO isa.base_users(
     id, city, country, username, first_name, last_name, password, phone, verified)
 VALUES (-6, 'bg', 'srb', 'sysadmin@gmail.com', 'nemanja', 'nikolic', '$2a$12$ztIwerX104rJ41MYLl7GDeaKMsK3ENPxFdqnwgLk2GjqEz2Re/qsW', '061324567', true);
+
 INSERT INTO isa.system_admins(
     id)
 VALUES (-6);
@@ -81,5 +82,6 @@ VALUES (-5, '2024-1-17T15:18:12', 30, -5);
 INSERT INTO isa.appointments(
     id, date_time, duration, company_admin_id)
 VALUES (-6, '2024-1-17T15:18:12', 30, -2);
+
 --rezervacije (one koriste te predefinisane termine u sebi)
 	
