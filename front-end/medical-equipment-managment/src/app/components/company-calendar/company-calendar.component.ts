@@ -17,6 +17,8 @@ import { Time } from '@angular/common';
 import { DatePipe } from '@angular/common';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
+import { ResApp } from 'src/app/model/resApp.model';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-company-calendar',
@@ -92,6 +94,8 @@ export class CompanyCalendarComponent implements OnInit {
     },
   };
   //eventClick: (clickInfo: any) => this.handleEventClick(clickInfo);
+  nesto: string;
+  ids: number[] = [];
 
   constructor(
     private authService: AuthService,
@@ -114,7 +118,10 @@ export class CompanyCalendarComponent implements OnInit {
       this.loadAdmin();
     }, 100);
     this.loadParams();
-    this.LoadAppointments();
+    this.LoadIds();
+    setTimeout(() => {
+      this.LoadAppointments();
+    }, 1000);
     //console.log(this.dataSource.data);
 
     console.log(this.eventsList); // Your transformed data in the desired format
@@ -289,6 +296,27 @@ export class CompanyCalendarComponent implements OnInit {
       });
   }
 
+  LoadIds() {
+    this.appointmentService.getAllAppointments(this.idFromUrl).subscribe({
+      next: (result: Appointment[]) => {
+        this.dataSource.data = result;
+        for (const appointment of this.dataSource.data) {
+          this.appointmentService
+            .getReservationUserByAppointmentId(appointment.id)
+            .subscribe({
+              next: (result: ResApp) => {
+                this.nesto = result.fullName;
+                console.log(this.nesto);
+                if (this.nesto != '') {
+                  this.ids.push(appointment.id);
+                }
+              },
+            });
+        }
+      },
+    });
+  }
+
   LoadAppointments() {
     this.appointmentService.getAllAppointments(this.idFromUrl).subscribe({
       next: (result: Appointment[]) => {
@@ -297,17 +325,29 @@ export class CompanyCalendarComponent implements OnInit {
 
         this.eventsList = [];
 
+        console.log('DWWWWW' + this.ids);
         for (const appointment of this.dataSource.data) {
           const startDateTime = new Date(appointment.dateTime);
-
-          const eventItem = {
-            title: `${appointment.adminName} (${appointment.duration} min)`,
-            start: startDateTime.toISOString(),
-            duration: appointment.duration,
-            color: 'green',
-            description: `Discuss details for appointment ID: ${appointment.id}`,
-            id: `id-${appointment.id}`,
-          };
+          let eventItem;
+          if (this.ids.includes(appointment.id)) {
+            eventItem = {
+              title: `${appointment.adminName} (${appointment.duration} min)`,
+              start: startDateTime.toISOString(),
+              duration: appointment.duration,
+              color: 'red',
+              description: `Discuss details for appointment ID: ${appointment.id}`,
+              id: `id-${appointment.id}`,
+            };
+          } else {
+            eventItem = {
+              title: `${appointment.adminName} (${appointment.duration} min)`,
+              start: startDateTime.toISOString(),
+              duration: appointment.duration,
+              color: 'green',
+              description: `Discuss details for appointment ID: ${appointment.id}`,
+              id: `id-${appointment.id}`,
+            };
+          }
 
           this.eventsList.push(eventItem);
         }

@@ -8,25 +8,41 @@ import { ReservationCreate } from '../model/reservation-create';
 import { Equipment } from '../model/equipment';
 import { EquipmentCreate } from '../model/equipment-create.model';
 import { AppointmentCreate } from '../model/appointment-create.model';
+import { ResApp } from '../model/resApp.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AppointmentService {
+  constructor(private http: HttpClient) {}
 
-  constructor(private http: HttpClient) { }
-
-  GetAvailableTime(date: string, companyId: number): Observable<ExtraordinaryAppointment[]>{
-    return this.http.get<ExtraordinaryAppointment[]>(environment.apiHost + 'appointments/extraordinaryAppointments?date=' + date + '&companyId=' + companyId);
+  GetAvailableTime(
+    date: string,
+    companyId: number
+  ): Observable<ExtraordinaryAppointment[]> {
+    return this.http.get<ExtraordinaryAppointment[]>(
+      environment.apiHost +
+        'appointments/extraordinaryAppointments?date=' +
+        date +
+        '&companyId=' +
+        companyId
+    );
   }
 
-  CreateExtraordinaryAppointment(eoAppoitnment: ExtraordinaryAppointment, reservation: ReservationCreate, companyId: number): Observable<Appointment>{
+  CreateExtraordinaryAppointment(
+    eoAppoitnment: ExtraordinaryAppointment,
+    reservation: ReservationCreate,
+    companyId: number
+  ): Observable<Appointment> {
     let createDto = {
-      'extraordinaryAppointmentDTO': eoAppoitnment,
-      'reservationCreateDTO': reservation,
-      'companyId': companyId,
-    }
-    return this.http.post<Appointment>(environment.apiHost + 'appointments/selectExtraordinaryAppointment', createDto);
+      extraordinaryAppointmentDTO: eoAppoitnment,
+      reservationCreateDTO: reservation,
+      companyId: companyId,
+    };
+    return this.http.post<Appointment>(
+      environment.apiHost + 'appointments/selectExtraordinaryAppointment',
+      createDto
+    );
   }
 
   getEquipmentCompanies(id: number): Observable<any[]> {
@@ -41,14 +57,21 @@ export class AppointmentService {
       appointment
     );
   }
-  getAppointmentsForUser(userId: number): Observable<Appointment[]>{
-    return this.http.get<Appointment[]>(environment.apiHost + 'appointments/futureappointments/'+userId);
+  getAppointmentsForUser(userId: number): Observable<Appointment[]> {
+    return this.http.get<Appointment[]>(
+      environment.apiHost + 'appointments/futureappointments/' + userId
+    );
   }
 
   getAllAppointments(id: number): Observable<any[]> {
     return this.http.get<any>(
-      environment.apiHost + 'appointments/company/full/' + id 
+      environment.apiHost + 'appointments/company/full/' + id
     );
   }
 
+  getReservationUserByAppointmentId(id: number): Observable<ResApp> {
+    return this.http.get<ResApp>(
+      environment.apiHost + 'appointments/reservationUser/' + id
+    );
+  }
 }

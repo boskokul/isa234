@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import ftn.isa.domain.RegisteredUser;
 import ftn.isa.domain.Reservation;
 import ftn.isa.dto.*;
 import ftn.isa.service.EmailService;
@@ -151,5 +152,20 @@ public class AppointmentController {
             aResponseDTOs.add(new AppointmentResponseDTO(c));
         }
         return new ResponseEntity<>(aResponseDTOs, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/reservationUser/{id}")
+    public ResponseEntity<ResAppDTO> getReservationUserByAppointmentId(@PathVariable Integer id) {
+        Appointment a = appointmentService.getById(id);
+        ResAppDTO resAppDTO = new ResAppDTO();
+        String ret = "";
+        if(a.getReservation() == null){
+            ret = "";
+        } else{
+            RegisteredUser user = a.getReservation().getRegisteredUser();
+            ret = user.getFirstName() + " " + user.getLastName();
+        }
+        resAppDTO.setFullName(ret);
+        return new ResponseEntity<>(resAppDTO, HttpStatus.OK);
     }
 }
