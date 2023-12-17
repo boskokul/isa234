@@ -15,14 +15,12 @@ import ftn.isa.service.SecureTokenService;
 import ftn.isa.util.TokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponentsBuilder;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
@@ -82,6 +80,9 @@ public class RegistrationController {
 
         // Kreiraj token za tog korisnika
         BaseUser user = (BaseUser) authentication.getPrincipal();
+        if(!user.isVerified() && user.getRoles().get(0).getName().equals("ROLE_REGISTERED_USER")){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+        }
         String jwt = tokenUtils.generateToken(user.getUsername(), user.getRoles().get(0).getName(), user.getId());
         int expiresIn = tokenUtils.getExpiredIn();
 
@@ -97,7 +98,7 @@ public class RegistrationController {
         }
         RegisteredUser user = secureToken.getUser();
         user.setVerified(true);
-        userService.save(user);
+        userService.update(user);
         tokenService.removeToken(secureToken);
         return "redirect: http://localhost:4200/verification";
     }
@@ -112,5 +113,4 @@ public class RegistrationController {
             e.printStackTrace();
         }
     }
-
 }

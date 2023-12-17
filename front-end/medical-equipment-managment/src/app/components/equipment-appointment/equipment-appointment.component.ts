@@ -1,13 +1,13 @@
 import { DatePipe } from '@angular/common';
-import { Component, Inject, ViewChild, OnInit, SimpleChanges, Input, ChangeDetectorRef } from '@angular/core';
+import { Component, Inject, ViewChild, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Subscription } from 'rxjs';
 import { Appointment } from 'src/app/model/appointment.model';
-import { Company } from 'src/app/model/company';
 import { Equipment } from 'src/app/model/equipment';
+import { ExtraordinaryAppointment } from 'src/app/model/extraordinary-appointment.model';
 import { ReservationCreate } from 'src/app/model/reservation-create';
+import { AppointmentService } from 'src/app/services/appointment.service';
 import { CompanyService } from 'src/app/services/company.service';
 import { ReservationService } from 'src/app/services/reservation-service';
 
@@ -15,7 +15,6 @@ import { ReservationService } from 'src/app/services/reservation-service';
 export interface ModalData {
   equipments: Equipment[],
   quantities: number[],
-  company: Company,
   companyId: number,
   userId: number
 }
@@ -28,24 +27,26 @@ export interface ModalData {
 export class EquipmentAppointmentComponent implements OnInit {
   equipments: Equipment[];
   quantities: number[];
-  companyId: number
+  companyId: number;
   availableAppointments: any;
   showForm: boolean = false;
   reservation: ReservationCreate = {amounts:[], equipmentIds:[], userId:0, appointmentId:0};
   //Extraordinary dates
-  private _selectedDate: Date;
-  get selectedDate(): Date {
+  private _selectedDate: string;
+  get selectedDate(): string {
     return this._selectedDate;
   }
-  set selectedDate(value: Date) {
+  set selectedDate(value: string) {
+    this.dateSelected = true;
     if(new Date(value) <= new Date()){
       alert('Select valid date!');
-      this._selectedDate = this._selectedDate;
+      this.validDate = false;
     }
     else{
       this._selectedDate = value;
+      this.validDate = true;
     }
-    this.LoadAvailableAppointments();
+    this.GetAvailableTimes();
   }
   
   dateSelected: boolean = false;
@@ -61,6 +62,7 @@ export class EquipmentAppointmentComponent implements OnInit {
 
   constructor(
     private companyService: CompanyService,
+    private appointmentService: AppointmentService,
     private reservationService: ReservationService,
     @Inject(MAT_DIALOG_DATA) public data: ModalData,
     public datePipe: DatePipe,
@@ -70,7 +72,7 @@ export class EquipmentAppointmentComponent implements OnInit {
     this.quantities = data.quantities;
     this.companyId = data.companyId;
     this.availableAppointments = new MatTableDataSource<Appointment>([]);
-    this.availableTimes = new MatTableDataSource([]);
+    this.availableTimes = new MatTableDataSource<ExtraordinaryAppointment>([]);
   }
   
   ngOnInit(): void {
@@ -111,7 +113,7 @@ export class EquipmentAppointmentComponent implements OnInit {
     console.log(this.reservation) 
     this.reservationService.MakeReservation(this.reservation).subscribe({
       next: (result: any) => {
-        alert('Reservation made')
+        alert('Reservation made, QR code with reservation info is sent to your mail.')
         this.dialog.close()
       },
       error:(data)=>{
@@ -121,16 +123,38 @@ export class EquipmentAppointmentComponent implements OnInit {
     });
   }
 
-  CheckIfValidDate() {
-    let tommorow = new Date();
-    tommorow.setDate(tommorow.getDate() + 1);
-    if(this.selectedDate < tommorow){
-      alert('Select valid date!');
+  SelectExtraordinaryAppointment(eoAppoitnment: ExtraordinaryAppointment): void{
+    this.reservation.amounts = []
+    this.reservation.equipmentIds = []
+    for(let i = 0; i < this.quantities.length; i++){
+      if(this.quantities[i] > this.equipments[i].freeAmount){
+        alert('There is no enough equipment')
+        return;
+      }
     }
+    this.reservation.amounts = this.quantities;
+    for(let i = 0; i < this.equipments.length; i++){
+      this.reservation.equipmentIds.push(this.equipments[i].id)
+    }
+    this.reservation.userId = this.data.userId;
+    this.appointmentService.CreateExtraordinaryAppointment(eoAppoitnment, this.reservation, this.data.companyId).subscribe({
+      next: (result: any) => {
+        alert('Appointment succesfully created!');
+      },
+      error:(data) => {
+        console.log(data);
+        alert('Error occured!');
+      }
+    });
   }
 
-  SelectExtraordinaryAppointment(): void{
-    //TODO
+  GetAvailableTimes(): void{
+    this.appointmentService.GetAvailableTime(this.selectedDate, this.companyId).subscribe({
+      next: (result: ExtraordinaryAppointment[]) =>{
+        this.availableTimes = new MatTableDataSource<ExtraordinaryAppointment>(result);
+      }
+    })
+    console.log(this.availableTimes);
   }
 
 }
