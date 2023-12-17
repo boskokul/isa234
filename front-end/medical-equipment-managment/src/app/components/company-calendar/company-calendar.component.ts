@@ -19,6 +19,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
 import { ResApp } from 'src/app/model/resApp.model';
 import { forkJoin } from 'rxjs';
+import { ResNameId } from 'src/app/model/resNameId.model';
 
 @Component({
   selector: 'app-company-calendar',
@@ -96,6 +97,8 @@ export class CompanyCalendarComponent implements OnInit {
   //eventClick: (clickInfo: any) => this.handleEventClick(clickInfo);
   nesto: string;
   ids: number[] = [];
+  namesRes: ResNameId[] = [];
+  pomocna: ResNameId = { fullName: '', idApp: 0 };
 
   constructor(
     private authService: AuthService,
@@ -108,6 +111,7 @@ export class CompanyCalendarComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.namesRes);
     this.subscription = this.authService.currentUser.subscribe((user) => {
       this.user = user;
       console.log(this.user.id);
@@ -297,6 +301,7 @@ export class CompanyCalendarComponent implements OnInit {
   }
 
   LoadIds() {
+    this.ids = [];
     this.appointmentService.getAllAppointments(this.idFromUrl).subscribe({
       next: (result: Appointment[]) => {
         this.dataSource.data = result;
@@ -309,6 +314,9 @@ export class CompanyCalendarComponent implements OnInit {
                 console.log(this.nesto);
                 if (this.nesto != '') {
                   this.ids.push(appointment.id);
+                  this.pomocna.fullName = this.nesto;
+                  this.pomocna.idApp = appointment.id;
+                  this.namesRes.push(this.pomocna);
                 }
               },
             });
@@ -329,9 +337,18 @@ export class CompanyCalendarComponent implements OnInit {
         for (const appointment of this.dataSource.data) {
           const startDateTime = new Date(appointment.dateTime);
           let eventItem;
+          // console.log(this.namesRes);
+          // console.log(appointment.id);
           if (this.ids.includes(appointment.id)) {
+            let x = '';
+            for (const a of this.namesRes) {
+              if (a.idApp == appointment.id) {
+                x = a.fullName;
+              }
+            }
+            console.log(x);
             eventItem = {
-              title: `${appointment.adminName} (${appointment.duration} min)`,
+              title: `${appointment.adminName} - ${x} ${appointment.duration}min`,
               start: startDateTime.toISOString(),
               duration: appointment.duration,
               color: 'red',
