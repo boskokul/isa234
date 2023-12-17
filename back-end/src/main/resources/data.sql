@@ -39,6 +39,7 @@ VALUES (-5, 'zr', 'srb', 'admin@gmail.com', 'nemanja', 'matic', '$2a$12$ztIwerX1
 INSERT INTO isa.base_users(
     id, city, country, username, first_name, last_name, password, phone, verified)
 VALUES (-6, 'bg', 'srb', 'sysadmin@gmail.com', 'nemanja', 'nikolic', '$2a$12$ztIwerX104rJ41MYLl7GDeaKMsK3ENPxFdqnwgLk2GjqEz2Re/qsW', '061324567', true);
+
 INSERT INTO isa.system_admins(
     id)
 VALUES (-6);

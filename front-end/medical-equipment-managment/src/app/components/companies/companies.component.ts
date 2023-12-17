@@ -14,6 +14,9 @@ import { CompanyAdminPasswordChangeComponent } from '../company-admin-password-c
 import { MatDialog } from '@angular/material/dialog';
 import { UserVerify } from 'src/app/model/user-verify.model';
 import { faL } from '@fortawesome/free-solid-svg-icons';
+import { SysAdminService } from 'src/app/services/sys-admin.service';
+import { SystemAdmin } from 'src/app/model/sys-admin.model';
+import { SysPassChangeComponent } from '../sys-pass-change/sys-pass-change.component';
 
 @Component({
   selector: 'app-companies',
@@ -41,6 +44,17 @@ export class CompaniesComponent implements OnInit, OnDestroy {
     companyId: 0,
   };
 
+  sysAdmin: SystemAdmin = {
+    id: 0,
+    firstName: '',
+    lastName: '',
+    password: '',
+    email: '',
+    city: '',
+    country: '',
+    phoneNumber: '',
+  };
+
   adminVerify: UserVerify;
 
   @ViewChild(MatSort) sort: MatSort;
@@ -50,6 +64,7 @@ export class CompaniesComponent implements OnInit, OnDestroy {
     private router: Router,
     private authService: AuthService,
     private adminService: AdminService,
+    private sysAdminService: SysAdminService,
     public dialog: MatDialog
   ) {
     this.dataSource = new MatTableDataSource<Company>();
@@ -68,6 +83,12 @@ export class CompaniesComponent implements OnInit, OnDestroy {
         this.verifieIfNot();
       }, 100);
     }
+
+    if (this.loggedInUserData?.role == 'ROLE_SYSTEM_ADMIN') {
+      setTimeout(() => {
+        this.verifieIfNotSys();
+      }, 100);
+    }
   }
 
   verifieIfNot() {
@@ -83,10 +104,34 @@ export class CompaniesComponent implements OnInit, OnDestroy {
       },
     });
   }
+
+  verifieIfNotSys() {
+    this.sysAdminService.getIsVerified(this.loggedInUserData?.id || 0).subscribe({
+      next: (result: UserVerify) => {
+        console.log(result);
+        if (result.verified == false) {
+          this.loadSysAdmin();
+          setTimeout(() => {
+            this.editPasswordSys();
+          }, 100);
+        }
+      },
+    });
+  }
+
   loadAdmin() {
     this.adminService.getAdmin(this.loggedInUserData!.id || 0).subscribe({
       next: (result: CompanyAdmin) => {
         this.admin = result;
+      },
+    });
+  }
+
+  loadSysAdmin() {
+    this.sysAdminService.getAdmin(this.loggedInUserData!.id || 0).subscribe({
+      next: (result: SystemAdmin) => {
+        this.sysAdmin = result;
+        console.log(this.sysAdmin)
       },
     });
   }
@@ -102,6 +147,16 @@ export class CompaniesComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe((item) => {});
   }
 
+  editPasswordSys() {
+    const dialogRef = this.dialog.open(SysPassChangeComponent, {
+      data: this.sysAdmin,
+      width: '400px',
+      height: '450px',
+      panelClass: 'custom-dialog',
+      disableClose: true,
+    });
+    dialogRef.afterClosed().subscribe((item) => {});
+  }
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }

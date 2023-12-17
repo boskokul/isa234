@@ -50,6 +50,7 @@ import { ReservationService } from './services/reservation-service';
 import { SysAdminFormComponent } from './components/sys-admin-form/sys-admin-form.component';
 import { SharedModule } from "./shared/maps/shared.module";
 import { CompanyMapComponent } from './components/company-map/company-map.component';
+import { SysPassChangeComponent } from './components/sys-pass-change/sys-pass-change.component';
 
 @NgModule({
   declarations: [
@@ -75,6 +76,7 @@ import { CompanyMapComponent } from './components/company-map/company-map.compon
     CompanyCalendarComponent,
     SysAdminFormComponent,
     CompanyMapComponent,
+    SysPassChangeComponent,
 
   ],
   imports: [
