@@ -9,6 +9,9 @@ import { User } from 'src/app/model/user.model';
 import { AppointmentService } from 'src/app/services/appointment.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserServiceService } from 'src/app/services/user-service.service';
+import { ReservationCancel } from '../../model/reservation-cancel';
+import { ReservationService } from 'src/app/services/reservation-service';
+
 
 @Component({
   selector: 'app-user-profile',
@@ -19,14 +22,16 @@ import { UserServiceService } from 'src/app/services/user-service.service';
 export class UserProfileComponent implements OnInit, OnDestroy {
   user: User;
   userBackup: User;
+  reservation: ReservationCancel = {appointmentId:-100, userId: -100};
   editable: boolean;
   loggedInUserData: CurrentUser | undefined
   subscription: Subscription
-  displayedColumns: string[] = ['date', 'duration', 'adminName'];
+  displayedColumns: string[] = ['date', 'duration', 'adminName', 'cancelReservation'];
   reservedAppointments: any;
   constructor(private service: UserServiceService, 
     private authService: AuthService,
     private appointmentService: AppointmentService, 
+    private reservationService: ReservationService,
     public datePipe: DatePipe)
     {
       this.reservedAppointments = new MatTableDataSource<Appointment>([]);
@@ -91,4 +96,16 @@ export class UserProfileComponent implements OnInit, OnDestroy {
       },
     });
   }
+  cancelAppointment(appointmentId: any){
+      this.reservation.userId = this.user.id;
+      this.reservation.appointmentId = appointmentId;
+      this.reservationService.CancelReservation(this.reservation).subscribe({
+        next: (result: any) => {
+          this.reservedAppointments.data = this.reservedAppointments.data.filter((a:any) => a.id != appointmentId);
+          // napraviti nesto za potvrdu da hoce da obrise
+          alert('Appointment successfully cancelled but you got penal points')
+        },
+      });
+  }
 }
+ 

@@ -1,5 +1,6 @@
 package ftn.isa.dto;
 
+import ftn.isa.domain.Reservation;
 import ftn.isa.domain.ReservationStatus;
 
 public class ReservationResponseDTO {
@@ -8,7 +9,13 @@ public class ReservationResponseDTO {
     private int appointmentId;
     private int userId;
     public ReservationResponseDTO(){}
-
+    public ReservationResponseDTO(Reservation reservation)
+    {
+        id = reservation.getId();
+        status = reservation.getStatus();
+        appointmentId = reservation.getAppointment().getId();
+        userId = reservation.getRegisteredUser().getId();
+    }
     public int getId() {
         return id;
     }

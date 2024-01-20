@@ -84,7 +84,7 @@ export class EquipmentAppointmentComponent implements OnInit {
   }
   
   LoadAvailableAppointments(): void {
-    this.companyService.getAppointmentsForCompany(this.companyId).subscribe({
+    this.companyService.getAppointmentsForCompany(this.companyId, this.data.userId).subscribe({
       next: (result: Appointment[]) => {
         this.availableAppointments.data = result;
       },
