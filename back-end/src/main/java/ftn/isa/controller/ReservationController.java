@@ -2,9 +2,7 @@ package ftn.isa.controller;
 
 import ftn.isa.domain.Appointment;
 import ftn.isa.domain.Reservation;
-import ftn.isa.dto.AppointmentResponseDTO;
-import ftn.isa.dto.ReservationCreateDTO;
-import ftn.isa.dto.ReservationResponseDTO;
+import ftn.isa.dto.*;
 import ftn.isa.service.EmailService;
 import ftn.isa.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +12,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,4 +44,12 @@ public class ReservationController {
         emailService.sendReservationConfirmationQR(data, reservation.getRegisteredUser().getEmail());
         return new ResponseEntity<>(responseDTO, HttpStatus.OK);
     }
+
+    @PutMapping(value = "/cancelReservation")
+    public ResponseEntity<ReservationResponseDTO> getAppointmentsByCompanyId(@RequestBody ReservationCancelDTO cancelDTO) {
+        Reservation reservation = reservationService.cancelReservation(cancelDTO);
+        ReservationResponseDTO responseDTO = new ReservationResponseDTO(reservation);
+        return new ResponseEntity<>(responseDTO, HttpStatus.OK);
+    }
+
 }

@@ -5,8 +5,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import ftn.isa.domain.RegisteredUser;
-import ftn.isa.domain.Reservation;
+import ftn.isa.domain.*;
 import ftn.isa.dto.*;
 import ftn.isa.service.EmailService;
 import ftn.isa.service.ReservationService;
@@ -16,8 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import ftn.isa.domain.Appointment;
-import ftn.isa.domain.Company;
 import ftn.isa.service.AppointmentService;
 import ftn.isa.service.CompanyAdminService;
 
@@ -72,15 +69,15 @@ public class AppointmentController {
         return new ResponseEntity<>(aResponseDTO, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/company/{id}")
-    public ResponseEntity<List<AppointmentResponseDTO>> getAppointmentsByCompanyId(@PathVariable Integer id) {
+    @GetMapping(value = "/company/{id}/{userId}")
+    public ResponseEntity<List<AppointmentResponseDTO>> getAppointmentsByCompanyId(@PathVariable Integer id,@PathVariable Integer userId) {
         List<Appointment> appointments = appointmentService.findByCompanyId(id);
         List<AppointmentResponseDTO> aResponseDTOs = new ArrayList<>();
         for (Appointment c : appointments) {
             if(c.getDateTime().isBefore(LocalDateTime.now())){
                 continue;
             }
-            else if(c.getReservation() != null){
+            else if(!reservationService.isAvailable(c.getId(), userId)){
                 continue;
             }
             aResponseDTOs.add(new AppointmentResponseDTO(c));
@@ -93,6 +90,9 @@ public class AppointmentController {
         List<AppointmentResponseDTO> aResponseDTOs = new ArrayList<>();
         for(Appointment a : appointments){
             if(a.getDateTime().isBefore(LocalDateTime.now())){
+                continue;
+            }
+            if(a.getReservation().getStatus() == ReservationStatus.Cancelled){
                 continue;
             }
             aResponseDTOs.add(new AppointmentResponseDTO(a));
@@ -156,7 +156,7 @@ public class AppointmentController {
 
     @GetMapping(value = "/reservationUser/{id}")
     public ResponseEntity<ResAppDTO> getReservationUserByAppointmentId(@PathVariable Integer id) {
-        Appointment a = appointmentService.getById(id);
+        /*Appointment a = appointmentService.getById(id);
         ResAppDTO resAppDTO = new ResAppDTO();
         String ret = "";
         if(a.getReservation() == null){
@@ -165,7 +165,24 @@ public class AppointmentController {
             RegisteredUser user = a.getReservation().getRegisteredUser();
             ret = user.getFirstName() + " " + user.getLastName();
         }
+        resAppDTO.setFullName(ret);*/
+        String ret = "";
+        ResAppDTO resAppDTO = new ResAppDTO();
+        List<Reservation> reservations = reservationService.getReservationsByAppointmentId(id);
+        if(reservations.isEmpty()){
+            ret = "";
+        }
+        else{
+            for(Reservation r: reservations){
+                if(r.getStatus() != ReservationStatus.Cancelled){
+                    RegisteredUser user = r.getRegisteredUser();
+                    ret = user.getFirstName() + " " + user.getLastName();
+                    break;
+                }
+            }
+        }
         resAppDTO.setFullName(ret);
         return new ResponseEntity<>(resAppDTO, HttpStatus.OK);
     }
+
 }

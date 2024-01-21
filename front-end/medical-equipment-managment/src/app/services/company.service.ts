@@ -49,7 +49,7 @@ export class CompanyService {
         city
     );
   }
-  getAppointmentsForCompany(companyId: number): Observable<Appointment[]>{
-    return this.http.get<Appointment[]>(environment.apiHost + 'appointments/company/'+companyId);
+  getAppointmentsForCompany(companyId: number, userId: number): Observable<Appointment[]>{
+    return this.http.get<Appointment[]>(environment.apiHost + 'appointments/company/'+companyId+'/'+userId);
   }
 }
