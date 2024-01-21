@@ -62,7 +62,17 @@ public class ReservationService {
             user.setPenalPoints(user.getPenalPoints()+1);
         }
         registeredUserRepository.save(user);
+        updateEquipmentAmount(reservation.getId());
         return reservation;
+    }
+    private void updateEquipmentAmount(Integer reservationId){
+        List<ReservationItem> reservationItems =  reservationItemRepository.findByReservationId(reservationId);
+        for(ReservationItem item: reservationItems){
+            Equipment equipment = item.getEquipment();
+            equipment.setReservedAmount(equipment.getReservedAmount() - item.getAmount());
+            equipment.setFreeAmount(equipment.getFreeAmount() + item.getAmount());
+            equipmentRepository.save(equipment);
+        }
     }
     private long calculateHoursDifference(LocalDateTime currentDateTime, LocalDateTime appointmentDateTime) {
         Duration duration = Duration.between(appointmentDateTime, currentDateTime);
