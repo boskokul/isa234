@@ -1,13 +1,13 @@
 .register-container {
     display: flex;
     justify-content: center;
-    align-items: flex-start; /* Align form to the upper border */
-    height: 90vh; /* Adjust the height as needed */
-    margin-top: 5vh; /* Move the form more to the upper border */
+    align-items: flex-start; 
+    height: 100vh; 
+    margin-top: 5vh; 
   }
   
   .form-content {
-    max-width: 400px; /* Set a maximum width for the form */
+    max-width: 400px; 
     width: 100%;
     padding: 5px;
     box-sizing: border-box;
@@ -16,10 +16,16 @@
   .register-button {
     display: flex;
     justify-content: center;
-    margin-top: 1px; /* Adjust the top margin of the button */
+    margin-top: 1px; 
     background-color: #800e13ff!important;
     font-family: "Rhodium Libre"!important;
     color: white;
     font-size: 18px;
     
+    transition:  transform, 0.3s;
+  }
+  .register-button:hover{
+    transform: translateY(-5px);
+    background-color: white!important;
+    color:#800e13ff!important;
   }

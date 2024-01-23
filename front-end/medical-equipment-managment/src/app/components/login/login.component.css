@@ -1,0 +1,49 @@
+:host-context(.app-background) {
+    background-image: url('src\assets\med2.jpeg');
+    background-size: cover;
+    background-position: center;
+    padding: 0;
+    margin:0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.register-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align form to the upper border */
+    margin-top: 5vh; /* Move the form more to the upper border */
+    min-height:100vh;
+}
+
+.form-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Adjust the height as needed */
+}
+
+.register-button {
+    display: flex;
+    justify-content: center;
+    margin-top: 1px; /* Adjust the top margin of the button */
+    background-color: #800e13ff!important;
+    font-family: "Rhodium Libre"!important;
+    color: white;
+    font-size: 22px;
+
+    /* transition-property: transform;
+    transition-duration: 0.3s;
+    transition-timing-function: ease;
+    transition-delay: 0s;*/
+
+    transition:  transform, 0.3s;
+  }
+
+  .register-button:hover{
+    transform: translateY(-5px);
+    background-color: white!important;
+    color:#800e13ff!important;
+  }
+  

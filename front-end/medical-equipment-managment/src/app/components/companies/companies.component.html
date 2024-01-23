@@ -1,19 +1,19 @@
-<h1>Companies</h1>
+
 <div class="rating">
   
   <!--Search-->
   <div class="search">
-    <input [(ngModel)]="nameSearch"/>
-    <label>Company name</label>
+    <input [(ngModel)]="nameSearch" placeholder="Search by name" class="search-field"/>
+
     
-    <input [(ngModel)]="countrySearch"/>
-    <label>Company country</label>
+    <input [(ngModel)]="countrySearch" placeholder="Search by country" class="search-field"/>
+
     
-    <input [(ngModel)]="citySearch"/>
-    <label>Company city</label>
+    <input [(ngModel)]="citySearch" placeholder="Search by city" class="search-field"/>
+
   
-    <button mat-button (click)="SearchCompanies()">Search</button>
-    <button mat-button (click)="ResetSearch()">Reset</button>
+    <button class="mat-button-large" mat-button (click)="SearchCompanies()">Search</button>
+    <button class="mat-button-large" mat-button (click)="ResetSearch()">Reset</button>
   </div>
 
 

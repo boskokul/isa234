@@ -18,11 +18,11 @@
         >User profile</a
       >
       <a *ngIf="user.role == 'ROLE_COMPANY_ADMIN'" mat-button [routerLink]="['/companyAdminProfile']" class="mat-button"
-        >Company admin profile</a
+        >C Admin Profile</a
       >
     </div>
   </div>
   <a *ngIf="!user" mat-button [routerLink]="['/register']" class="mat-button">Register</a>
-  <a *ngIf="!user" mat-button [routerLink]="['/login']" class="mat-button-soft">Log in</a>
+  <a *ngIf="!user" mat-button [routerLink]="['/login']" class="mat-button-soft">Sign in</a>
   <a *ngIf="user" mat-button [routerLink]="['/login']" class="mat-button-soft" (click)="logout()">Log out</a>
 </mat-toolbar>
