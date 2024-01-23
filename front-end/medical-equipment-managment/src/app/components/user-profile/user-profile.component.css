@@ -6,7 +6,25 @@
     justify-content: space-between;
     margin: 1rem;
     padding: 1rem;
+    background-color: #800e13ff;
+    border-radius: 5%;
 }
+
+.centerer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color:white;
+}
+
+.icon {
+    margin-left: 300px; 
+    margin-bottom: 140px;
+    width: 160px; 
+    height: auto; 
+    position: absolute;
+  }
 
 .form-row {
     display: flex;
@@ -16,10 +34,12 @@
 
 .form-field {
     display: flex;
+    color:white;
 }
 
 .info input {
     margin-right: 5px;
+    color:black;
 }
 
 
@@ -28,3 +48,26 @@ input[readonly]
 {
     background-color:lightgray;
 }
+
+.lmao{
+    font-family: "Rhodium Libre" !important;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.mat-button-large{
+    margin-right: 5px;
+    margin-left: 5px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    
+    font-size: 18px;
+    background-color: white;
+    z-index: 2;
+    transition:  transform, 0.3s;
+  }
+  .mat-button-large:hover{
+    transform: translateY(-2px);
+    background-color: white!important;
+    color:#800e13ff!important;
+  }

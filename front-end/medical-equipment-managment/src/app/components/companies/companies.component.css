@@ -1,15 +1,22 @@
 p {
     font-size: 20pt;
     font-family: "Rhodium Libre";
+    color:#ad2831ff;
+    font-weight:bold;
   }
   
   h1{font-size: 26pt;
     font-family: "Rhodium Libre";
+    color:#ad2831ff;
+    font-weight:bold;
   }
 
   .rating{
     font-size:14pt;
     font-family: "Rhodium Libre";
+    color:#ad2831ff;
+    font-weight:bold;
+    padding:auto;
   }
 
   .matija-button{
@@ -25,5 +32,37 @@ p {
   th{
     background-color: #ad2831ff;
   }
+
+
+  .mat-button-large{
+    margin-right: 5px;
+    margin-left: 5px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    color: white;
+    font-size: 18px;
+    background-color: #800e13ff;
+    z-index: 2;
+    font-family: "Rhodium Libre";
+    transition:  transform, 0.3s;
+  }
+  .mat-button-large:hover{
+    transform: translateY(-5px);
+    background-color: white!important;
+    color:#800e13ff!important;
+  }
+
+  .search-field{
+    margin-right: 5px;
+    margin-left: 5px;
+    margin-top: 3px;
+    border-radius: 10px;
+    font-size:14pt;
+  }
+
+.mat-elevation-z8{
+padding:auto;
+}
+
   
 

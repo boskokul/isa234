@@ -51,11 +51,18 @@
   font-family: "Rhodium Libre" !important;
   color: white;
   font-size: 18px;
+  transition:  transform, 0.3s;
+}
+.register-button:hover{
+  transform: translateY(-5px);
+  background-color: white!important;
+  color:#800e13ff!important;
 }
 
 .admin-para {
   font-family: "Rhodium Libre" !important;
   font-size: 28px;
+  font-weight: bold;
 }
 
 .admin-para-x {
@@ -77,3 +84,10 @@ mat-form-field {
   height: 400px; /* Adjust height as needed */
   width: 500px;
 }
+
+.pipi {
+  font-weight: bolder;
+  font-size: 18px;
+  color: red;
+}
+

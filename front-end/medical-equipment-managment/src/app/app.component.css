@@ -1,15 +1,10 @@
 .app-background {
-    /*background-image: url('https://cdn.wallpapersafari.com/22/13/Fl9GS4.png');
+    background-image: url(src\assets\med5.jpg);
     background-size: cover;
-    margin: 0;
+    background-position: center;
     padding: 0;
-    background-position: center;
-    background-repeat: no-repeat;
-    min-height: 200vh
-    */
-    /*
-    background-color:  #ad2831ff;
-    background-position: center;
-    min-height: 200vh
-    */
+    margin:0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }

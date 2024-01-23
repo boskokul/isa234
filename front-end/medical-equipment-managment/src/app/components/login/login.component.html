@@ -1,4 +1,5 @@
 <div class="register-container" style="margin-top: 40px;">
+    <div class="form-div"></div>
     <form [formGroup]="registerForm">
     <mat-form-field>
         <mat-label>Enter your email</mat-label>
@@ -13,7 +14,7 @@
         </button>
     </mat-form-field>
     <br>
-    <button mat-flat-button  (click)="LoginUser()" class="register-button">Login</button>
+    <button mat-flat-button  (click)="LoginUser()" class="register-button">Sign in</button>
     <br><br>
     <h1 style="color: red; font-weight: bold;">{{errorDescription}}</h1>
 </form>
