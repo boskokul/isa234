@@ -1,0 +1,47 @@
+.register-container {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    min-height:100vh;
+}
+
+.upper-div{
+    display: flex;
+    flex-direction: column;
+    height:70%;
+    width: 25%;
+    align-items: center;
+    justify-content: space-between;
+    margin-top:20px;
+    background-color: #800e13ff;
+    color: white;
+    border-radius: 15px;
+    margin:auto;
+    margin-top: 30px;
+}
+
+.imageUpload{
+    margin-left: 100px;
+}
+
+.image-preview{
+    max-width: 1px; /* Set the maximum width */
+    max-height: 1px; /* Set the maximum height */
+    margin-top: 10px; /* Add some top margin for spacing */
+}
+
+
+.lower-div{
+    display: flex;
+    flex-direction: column;
+    height: 70%;
+    width: 35%;
+    align-items: center;
+    justify-content: space-between;
+    margin-top:150px;
+    background-color: #800e13ff;
+    color: white;
+    border-radius: 5%;
+    margin:auto;
+    margin-top:30px;
+}

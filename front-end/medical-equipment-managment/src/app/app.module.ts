@@ -51,6 +51,7 @@ import { SharedModule } from "./shared/maps/shared.module";
 import { AppointmentService } from './services/appointment.service';
 import { CompanyMapComponent } from './components/company-map/company-map.component';
 import { SysPassChangeComponent } from './components/sys-pass-change/sys-pass-change.component';
+import { ReservedEquipmentComponent } from './components/reserved-equipment/reserved-equipment.component';
 
 @NgModule({
   declarations: [
@@ -77,6 +78,7 @@ import { SysPassChangeComponent } from './components/sys-pass-change/sys-pass-ch
     SysAdminFormComponent,
     CompanyMapComponent,
     SysPassChangeComponent,
+    ReservedEquipmentComponent,
 
   ],
   imports: [

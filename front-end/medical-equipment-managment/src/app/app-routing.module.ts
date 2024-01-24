@@ -12,6 +12,7 @@ import { LoginComponent } from './components/login/login.component';
 import { CompanyCalendarComponent } from './components/company-calendar/company-calendar.component';
 import { AuthGuardService } from './ActivateGuard/AuthGuardService';
 import { SysAdminFormComponent } from './components/sys-admin-form/sys-admin-form.component';
+import { ReservedEquipmentComponent } from './components/reserved-equipment/reserved-equipment.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'register', pathMatch: 'full' },
@@ -26,6 +27,8 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [AuthGuardService] },
   { path: 'calendar/:id', component: CompanyCalendarComponent, canActivate: [AuthGuardService] },
   { path: 'sys-register', component: SysAdminFormComponent, canActivate: [AuthGuardService]  },
+  { path: 'reserved-equipment', component: ReservedEquipmentComponent, canActivate: [AuthGuardService]  },
+
 ];
 
 @NgModule({

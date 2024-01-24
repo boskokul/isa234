@@ -11,6 +11,10 @@
   <a mat-button [routerLink]="['/equipment/list']" class="mat-button"
     >Equipment</a
   >
+
+  <a *ngIf="user && user.role == 'ROLE_COMPANY_ADMIN'" mat-button [routerLink]="['/reserved-equipment']" class="mat-button"
+  >Reservations</a
+>
   <div *ngIf="user" class="dropdown">
     <button mat-button class="mat-button">Profile</button>
     <div class="dropdown-content">
