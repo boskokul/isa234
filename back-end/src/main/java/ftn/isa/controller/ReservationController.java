@@ -52,4 +52,13 @@ public class ReservationController {
         return new ResponseEntity<>(responseDTO, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('COMPANY_ADMIN')")
+    @PutMapping(value = "/pickupReservation")
+    public ResponseEntity<ReservationResponseDTO> pickupReservation(@RequestBody ReservationCancelDTO cancelDTO) {
+;       Reservation reservation = reservationService.cancelReservation(cancelDTO);
+        ReservationResponseDTO responseDTO = new ReservationResponseDTO(reservation);
+        return new ResponseEntity<>(responseDTO, HttpStatus.OK);
+    }
+
+
 }
