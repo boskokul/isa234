@@ -1,6 +1,7 @@
 package ftn.isa.controller;
 
 import ftn.isa.domain.Appointment;
+import ftn.isa.domain.RegisteredUser;
 import ftn.isa.domain.Reservation;
 import ftn.isa.dto.*;
 import ftn.isa.service.EmailService;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.mail.MessagingException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*")
@@ -60,5 +62,15 @@ public class ReservationController {
         return new ResponseEntity<>(responseDTO, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('COMPANY_ADMIN')")
+    @GetMapping(value = "/users/{companyId}")
+    public ResponseEntity<List<UserResponseDTO>> getUsersWithReservationsInCompany(@PathVariable Integer companyId) {
+        HashSet<RegisteredUser> reservations = reservationService.getUsersWithReservationsInCompany(companyId);
+        List<UserResponseDTO> res = new ArrayList<>();
+        for (RegisteredUser c : reservations) {
+            res.add(new UserResponseDTO(c));
+        }
+        return new ResponseEntity<>(res, HttpStatus.OK);
+    }
 
 }

@@ -12,10 +12,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class ReservationService {
@@ -81,6 +78,14 @@ public class ReservationService {
     }
     public List<Reservation> getReservationsByAppointmentId(int id){
         return reservationRepository.findByAppointmentId(id);
+    }
+
+    public HashSet<RegisteredUser> getUsersWithReservationsInCompany(int id){
+        HashSet<RegisteredUser> res = new HashSet<>();
+        for(Reservation r : reservationRepository.findAllByCompany(id)){
+            res.add(r.getRegisteredUser());
+        }
+        return res;
     }
     public boolean isAvailable(int appointmentId, int userId){
         List<Reservation> reservations = reservationRepository.findByAppointmentId(appointmentId);

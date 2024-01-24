@@ -12,9 +12,20 @@ export class ReservationService {
   constructor(private http: HttpClient) {}
 
   MakeReservation(reservation: ReservationCreate): Observable<any[]> {
-    return this.http.post<any>(environment.apiHost + 'reservation', reservation);
+    return this.http.post<any>(
+      environment.apiHost + 'reservation',
+      reservation
+    );
   }
   CancelReservation(reservation: ReservationCancel): Observable<any[]> {
-    return this.http.put<any>(environment.apiHost + 'reservation/cancelReservation', reservation);
+    return this.http.put<any>(
+      environment.apiHost + 'reservation/cancelReservation',
+      reservation
+    );
+  }
+  getAllUsersWithResInCompany(companyId: number): Observable<any[]> {
+    return this.http.get<any>(
+      environment.apiHost + 'reservation/users/' + companyId
+    );
   }
 }

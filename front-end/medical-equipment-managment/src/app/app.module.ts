@@ -52,6 +52,8 @@ import { AppointmentService } from './services/appointment.service';
 import { CompanyMapComponent } from './components/company-map/company-map.component';
 import { SysPassChangeComponent } from './components/sys-pass-change/sys-pass-change.component';
 import { ReservedEquipmentComponent } from './components/reserved-equipment/reserved-equipment.component';
+import { CompanyAdminHomePageComponent } from './components/company-admin-home-page/company-admin-home-page.component';
+import { UsersWithReservationsComponent } from './components/users-with-reservations/users-with-reservations.component';
 
 @NgModule({
   declarations: [
@@ -79,6 +81,8 @@ import { ReservedEquipmentComponent } from './components/reserved-equipment/rese
     CompanyMapComponent,
     SysPassChangeComponent,
     ReservedEquipmentComponent,
+    CompanyAdminHomePageComponent,
+    UsersWithReservationsComponent,
 
   ],
   imports: [
