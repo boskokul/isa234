@@ -43,6 +43,7 @@ export class ReservedEquipmentComponent implements OnInit {
     'cancelReservation',
   ];
   theStatus: string = 'NotFinalized';
+  dataQR: number;
   constructor(
     private authService: AuthService,
     private adminService: AdminService,
@@ -120,7 +121,19 @@ export class ReservedEquipmentComponent implements OnInit {
 
         if (code) {
           this.decodedData = code.data;
+          console.log("Decoded id is " + this.decodedData)
           console.log('Found QR code', code);
+
+          this.dataQR = parseInt(this.decodedData, 10);
+          const foundReservation = this.findById(this.dataQR);
+          if(foundReservation){
+            alert("Reservation scanned!!!");
+            this.setReservationDone(foundReservation);
+          }
+          else{
+            alert("Reservation is expired or does not exist!")
+          }
+
         } else {
           console.log("No QR code found or couldn't decode.");
         }
@@ -133,4 +146,11 @@ export class ReservedEquipmentComponent implements OnInit {
       img.src = this.imageDataUrl;
     }
   }
+
+  findById(id: number): Reservation | undefined {
+      const foundReservation = this.reservedAppointments.data.find((reservation: Reservation) => reservation.id === id);
+      return foundReservation;
+  }
+
+
 }

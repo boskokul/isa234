@@ -129,7 +129,8 @@ public class AppointmentController {
         appointment.setReservation(reservation);
         appointment = appointmentService.save(appointment);
 
-        String data = "You created appointment at time: "+appointment.getDateTime()+", equipment amount: " +totalAmount+", company admin: "+appointment.getAdmin().getFirstName()+" "+reservation.getAppointment().getAdmin().getLastName();
+        //String data = "You created appointment at time: "+appointment.getDateTime()+", equipment amount: " +totalAmount+", company admin: "+appointment.getAdmin().getFirstName()+" "+reservation.getAppointment().getAdmin().getLastName();
+        String data = reservation.getId().toString();
         emailService.sendReservationConfirmationQR(data, reservation.getRegisteredUser().getEmail());
 
         AppointmentResponseDTO responseDTO = new AppointmentResponseDTO(
