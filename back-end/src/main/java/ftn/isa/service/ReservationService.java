@@ -87,6 +87,10 @@ public class ReservationService {
         }
         return res;
     }
+
+    public List<Reservation> getReservationsForAdmin(int id){
+        return reservationRepository.findAllByAdminsId(id);
+    }
     public boolean isAvailable(int appointmentId, int userId){
         List<Reservation> reservations = reservationRepository.findByAppointmentId(appointmentId);
         if(reservations.isEmpty())
@@ -96,5 +100,26 @@ public class ReservationService {
                 return false;
         }
         return reservationRepository.findByAppointmentIdAndRegisteredUserId(appointmentId, userId).isEmpty();
+    }
+
+    public Reservation setReservationDone(Integer resId){
+        Optional<Reservation> reservation = reservationRepository.findById(resId);
+        if(reservation.isPresent()){
+            reservation.get().setStatus(ReservationStatus.Finalized);
+            reservationRepository.save(reservation.get());
+            Appointment appointment = appointmentRepository.getReferenceById(reservation.get().getAppointment().getId());
+            RegisteredUser user = registeredUserRepository.getReferenceById(reservation.get().getRegisteredUser().getId());
+            updateEquipmentAfterDone(reservation.get().getId());
+            return reservation.get();
+        } else
+            return null;
+    }
+    private void updateEquipmentAfterDone(Integer reservationId){
+        List<ReservationItem> reservationItems =  reservationItemRepository.findByReservationId(reservationId);
+        for(ReservationItem item: reservationItems){
+            Equipment equipment = item.getEquipment();
+            equipment.setReservedAmount(equipment.getReservedAmount() - item.getAmount());
+            equipmentRepository.save(equipment);
+        }
     }
 }

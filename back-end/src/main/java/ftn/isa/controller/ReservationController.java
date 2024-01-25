@@ -3,6 +3,7 @@ package ftn.isa.controller;
 import ftn.isa.domain.Appointment;
 import ftn.isa.domain.RegisteredUser;
 import ftn.isa.domain.Reservation;
+import ftn.isa.domain.ReservationStatus;
 import ftn.isa.dto.*;
 import ftn.isa.service.EmailService;
 import ftn.isa.service.ReservationService;
@@ -72,5 +73,27 @@ public class ReservationController {
         }
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
+
+    @PreAuthorize("hasRole('COMPANY_ADMIN')")
+    @GetMapping(value = "/futureReservations/{adminsId}")
+    public ResponseEntity<List<ReservationDTO>> getFutureReservationsForAdmin(@PathVariable Integer adminsId) {
+        List<Reservation> reservations = reservationService.getReservationsForAdmin(adminsId);
+        List<ReservationDTO> res = new ArrayList<>();
+        for (Reservation r : reservations) {
+            if(r.getAppointment().getDateTime().isAfter(LocalDateTime.now()) && r.getStatus() != ReservationStatus.Cancelled){
+                res.add(new ReservationDTO(r));
+            }
+        }
+        return new ResponseEntity<>(res, HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasRole('COMPANY_ADMIN')")
+    @PutMapping(value = "/setReservationDone")
+    public ResponseEntity<ReservationResponseDTO> setReservationDone(@RequestBody ReservationDTO resDTO) {
+        Reservation reservation = reservationService.setReservationDone(resDTO.getId());
+        ReservationResponseDTO responseDTO = new ReservationResponseDTO(reservation);
+        return new ResponseEntity<>(responseDTO, HttpStatus.OK);
+    }
+
 
 }

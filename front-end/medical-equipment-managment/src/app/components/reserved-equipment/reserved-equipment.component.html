@@ -1,14 +1,66 @@
 <div class="large-container">
-    <div class="upper-div">
-      <br>
-      <h2>Pick up equipment with QR Code</h2>
-      <label for="imageUpload"></label>
-      <input type="file" class="imageUpload" (change)="onFileSelected($event)">
-      <br>
-      <button (click)="decodeImage()">Decode Image</button>
-    </div>
-    <div class="lower-div">
-      BOSKO LISTA REZERVACIJA
-                :3
-    </div>
+  <div class="upper-div">
+    <br />
+    <h2>Pick up equipment with QR Code</h2>
+    <label for="imageUpload"></label>
+    <input type="file" class="imageUpload" (change)="onFileSelected($event)" />
+    <br />
+    <button (click)="decodeImage()">Decode Image</button>
+  </div>
+  <div class="lower-div">
+    BOSKO LISTA REZERVACIJA :3
+    <h1>Reserved appointments:</h1>
+    <table
+      mat-table
+      [dataSource]="reservedAppointments"
+      *ngIf="reservedAppointments.data.length != 0; else elseBlock"
+      class="mat-elevation-z8"
+      matSort
+    >
+      <ng-container matColumnDef="date and time">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
+        <td mat-cell *matCellDef="let element">
+          {{ datePipe.transform(element.dateTime, "dd-MM-YYYY HH:mm") }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="Users name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Users name</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.usersName }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="Users email">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Users email</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.usersEmail }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="Status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.status }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="cancelReservation">
+        <th mat-header-cell *matHeaderCellDef>Take over</th>
+        <td mat-cell *matCellDef="let element">
+          <button
+            *ngIf="element.status == theStatus"
+            mat-stroked-button
+            color="primary"
+            (click)="setReservationDone(element)"
+          >
+            Check as done! <mat-icon>done</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+    <ng-template #elseBlock>
+      <h2 style="margin-left: 50px; margin-top: 20px">
+        You dont have any appointments!
+      </h2>
+    </ng-template>
+  </div>
 </div>
