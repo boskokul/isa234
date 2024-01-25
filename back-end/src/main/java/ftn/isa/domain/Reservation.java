@@ -39,7 +39,13 @@ public class Reservation {
 		this.status = status;
 	}
 
+    public Set<ReservationItem> getReservationItems() {
+        return reservationItems;
+    }
 
+    public void setReservationItems(Set<ReservationItem> reservationItems) {
+        this.reservationItems = reservationItems;
+    }
 
 	public Integer getId() {
         return id;

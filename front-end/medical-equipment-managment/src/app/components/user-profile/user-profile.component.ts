@@ -12,38 +12,43 @@ import { UserServiceService } from 'src/app/services/user-service.service';
 import { ReservationCancel } from '../../model/reservation-cancel';
 import { ReservationService } from 'src/app/services/reservation-service';
 
-
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.css'],
-  providers: [DatePipe]
+  providers: [DatePipe],
 })
 export class UserProfileComponent implements OnInit, OnDestroy {
   user: User;
   userBackup: User;
-  reservation: ReservationCancel = {appointmentId:-100, userId: -100};
+  reservation: ReservationCancel = { appointmentId: -100, userId: -100 };
   editable: boolean;
-  loggedInUserData: CurrentUser | undefined
-  subscription: Subscription
-  displayedColumns: string[] = ['date', 'duration', 'adminName', 'cancelReservation'];
+  loggedInUserData: CurrentUser | undefined;
+  subscription: Subscription;
+  displayedColumns: string[] = [
+    'date',
+    'duration',
+    'adminName',
+    'cancelReservation',
+  ];
   reservedAppointments: any;
-  constructor(private service: UserServiceService, 
+  constructor(
+    private service: UserServiceService,
     private authService: AuthService,
-    private appointmentService: AppointmentService, 
+    private appointmentService: AppointmentService,
     private reservationService: ReservationService,
-    public datePipe: DatePipe)
-    {
-      this.reservedAppointments = new MatTableDataSource<Appointment>([]);
-    }
+    public datePipe: DatePipe
+  ) {
+    this.reservedAppointments = new MatTableDataSource<Appointment>([]);
+  }
 
-  ngOnInit(): void{
+  ngOnInit(): void {
     this.loadUser();
     this.LoadUserAppointments();
   }
 
-  loadUser(){
-    this.subscription = this.authService.currentUser.subscribe(user => {
+  loadUser() {
+    this.subscription = this.authService.currentUser.subscribe((user) => {
       this.loggedInUserData = user;
     });
     setTimeout(() => {
@@ -54,15 +59,15 @@ export class UserProfileComponent implements OnInit, OnDestroy {
         },
         error: (err: any) => {
           console.log(err);
-        }
+        },
       });
     }, 100);
   }
   ngOnDestroy() {
-    this.subscription.unsubscribe()
+    this.subscription.unsubscribe();
   }
-  updateUser(){
-    let userUpdate : UserUpdate = {
+  updateUser() {
+    let userUpdate: UserUpdate = {
       id: this.user.id,
       firstName: this.user.firstName,
       lastName: this.user.lastName,
@@ -71,7 +76,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
       phoneNumber: this.user.phoneNumber,
       profession: this.user.profession,
       companyInformation: this.user.companyInformation,
-    }
+    };
     this.service.updateUser(userUpdate).subscribe({
       next: (result: User) => {
         this.userBackup = result;
@@ -79,33 +84,36 @@ export class UserProfileComponent implements OnInit, OnDestroy {
       },
       error: (err: any) => {
         console.log(err);
-      }
+      },
     });
   }
 
-  toggleEdit(): void{
-    if(this.editable){
+  toggleEdit(): void {
+    if (this.editable) {
       this.user = Object.assign({}, this.userBackup);
     }
     this.editable = !this.editable;
   }
   LoadUserAppointments(): void {
-    this.appointmentService.getAppointmentsForUser(this.loggedInUserData!.id).subscribe({
-      next: (result: Appointment[]) => {
-        this.reservedAppointments.data = result;
-      },
-    });
-  }
-  cancelAppointment(appointmentId: any){
-      this.reservation.userId = this.user.id;
-      this.reservation.appointmentId = appointmentId;
-      this.reservationService.CancelReservation(this.reservation).subscribe({
-        next: (result: any) => {
-          this.reservedAppointments.data = this.reservedAppointments.data.filter((a:any) => a.id != appointmentId);
-          // napraviti nesto za potvrdu da hoce da obrise
-          alert('Appointment successfully cancelled but you got penal points')
+    this.appointmentService
+      .getAppointmentsForUser(this.loggedInUserData!.id)
+      .subscribe({
+        next: (result: Appointment[]) => {
+          this.reservedAppointments.data = result;
         },
       });
   }
+  cancelAppointment(appointmentId: any) {
+    this.reservation.userId = this.user.id;
+    this.reservation.appointmentId = appointmentId;
+    this.reservationService.CancelReservation(this.reservation).subscribe({
+      next: (result: any) => {
+        this.reservedAppointments.data = this.reservedAppointments.data.filter(
+          (a: any) => a.id != appointmentId
+        );
+        // napraviti nesto za potvrdu da hoce da obrise
+        alert('Appointment successfully cancelled but you got penal points');
+      },
+    });
+  }
 }
- 

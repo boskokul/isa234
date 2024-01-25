@@ -12,5 +12,8 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
     @Query("select r from Reservation r join fetch r.appointment a join fetch a.admin ca where ca.company.id=?1")
     public List<Reservation> findAllByCompany(Integer companyId);
 
+    @Query("select r from Reservation r join fetch r.appointment a join fetch a.admin ca where ca.id=?1")
+    public List<Reservation> findAllByAdminsId(Integer adminsId);
+
     public List<Reservation> findByAppointmentIdAndRegisteredUserId(int appointmentId, int userId);
 }
