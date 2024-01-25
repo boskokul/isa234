@@ -42,8 +42,9 @@ public class ReservationController {
         responseDTO.setStatus(reservation.getStatus());
         responseDTO.setAppointmentId(reservation.getAppointment().getId());
         responseDTO.setUserId(reservation.getRegisteredUser().getId());
-        String data = "Time: "+reservation.getAppointment().getDateTime()+", equipment amount: " +totalAmount+", receiver: "+reservation.getRegisteredUser().getFirstName()+" "+reservation.getRegisteredUser().getLastName()+
-                ",\n company: "+reservation.getAppointment().getAdmin().getCompany().getName()+", company admin: "+reservation.getAppointment().getAdmin().getFirstName()+" "+reservation.getAppointment().getAdmin().getLastName();
+        //String data = "Time: "+reservation.getAppointment().getDateTime()+", equipment amount: " +totalAmount+", receiver: "+reservation.getRegisteredUser().getFirstName()+" "+reservation.getRegisteredUser().getLastName()+
+        //        ",\n company: "+reservation.getAppointment().getAdmin().getCompany().getName()+", company admin: "+reservation.getAppointment().getAdmin().getFirstName()+" "+reservation.getAppointment().getAdmin().getLastName();
+        String data = reservation.getId().toString();
         emailService.sendReservationConfirmationQR(data, reservation.getRegisteredUser().getEmail());
         return new ResponseEntity<>(responseDTO, HttpStatus.OK);
     }
@@ -89,9 +90,11 @@ public class ReservationController {
 
     @PreAuthorize("hasRole('COMPANY_ADMIN')")
     @PutMapping(value = "/setReservationDone")
-    public ResponseEntity<ReservationResponseDTO> setReservationDone(@RequestBody ReservationDTO resDTO) {
+    public ResponseEntity<ReservationResponseDTO> setReservationDone(@RequestBody ReservationDTO resDTO) throws InterruptedException {
         Reservation reservation = reservationService.setReservationDone(resDTO.getId());
         ReservationResponseDTO responseDTO = new ReservationResponseDTO(reservation);
+        String data = "Congratulations, your reservation was picked up by "+reservation.getAppointment().getAdmin().getFirstName()+" "+reservation.getAppointment().getAdmin().getLastName() +"!";
+        emailService.sendPickupConfirmationMail(reservation.getRegisteredUser(), data);
         return new ResponseEntity<>(responseDTO, HttpStatus.OK);
     }
 

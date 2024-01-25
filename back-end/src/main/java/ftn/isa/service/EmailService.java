@@ -58,4 +58,14 @@ public class EmailService {
         String qrcode = Base64.getEncoder().encodeToString(image);
         return qrcode;
     }
+
+    public void sendPickupConfirmationMail(RegisteredUser user, String token) throws MailException, InterruptedException {
+        SimpleMailMessage mail = new SimpleMailMessage();
+        mail.setTo(user.getEmail());
+        mail.setFrom(env.getProperty("spring.mail.username"));
+        mail.setSubject("Pickup confirmation");
+        mail.setText(token+"\n");
+        javaMailSender.send(mail);
+    }
+
 }
