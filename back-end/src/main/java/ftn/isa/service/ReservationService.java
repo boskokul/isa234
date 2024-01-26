@@ -107,8 +107,6 @@ public class ReservationService {
         if(reservation.isPresent()){
             reservation.get().setStatus(ReservationStatus.Finalized);
             reservationRepository.save(reservation.get());
-            Appointment appointment = appointmentRepository.getReferenceById(reservation.get().getAppointment().getId());
-            RegisteredUser user = registeredUserRepository.getReferenceById(reservation.get().getRegisteredUser().getId());
             updateEquipmentAfterDone(reservation.get().getId());
             return reservation.get();
         } else
