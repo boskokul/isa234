@@ -7,6 +7,7 @@ import ftn.isa.dto.ReservationCreateDTO;
 import ftn.isa.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Duration;
 import java.time.LocalDate;
@@ -102,15 +103,13 @@ public class ReservationService {
         return reservationRepository.findByAppointmentIdAndRegisteredUserId(appointmentId, userId).isEmpty();
     }
 
+    @Transactional
     public Reservation setReservationDone(Integer resId){
-        Optional<Reservation> reservation = reservationRepository.findById(resId);
-        if(reservation.isPresent()){
-            reservation.get().setStatus(ReservationStatus.Finalized);
-            reservationRepository.save(reservation.get());
-            updateEquipmentAfterDone(reservation.get().getId());
-            return reservation.get();
-        } else
-            return null;
+        Reservation reservation = reservationRepository.getReferenceById(resId);
+        reservation.setStatus(ReservationStatus.Finalized);
+        reservationRepository.save(reservation);
+        updateEquipmentAfterDone(reservation.getId());
+        return reservation;
     }
     private void updateEquipmentAfterDone(Integer reservationId){
         List<ReservationItem> reservationItems =  reservationItemRepository.findByReservationId(reservationId);
