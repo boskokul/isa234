@@ -139,6 +139,8 @@ public class AppointmentController {
                 appointment.getDateTime(),
                 appointment.getDuration()
         );
+        reservation.setQrcode(data);
+        reservationService.update(reservation);
         return new ResponseEntity<>(responseDTO, HttpStatus.OK);
     }
 

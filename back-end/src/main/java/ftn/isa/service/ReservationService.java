@@ -120,4 +120,8 @@ public class ReservationService {
             equipmentRepository.save(equipment);
         }
     }
+
+    public Reservation update(Reservation updateReservation){
+        return reservationRepository.save(updateReservation);
+    }
 }
