@@ -9,9 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Lock;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.persistence.LockModeType;
-import org.springframework.transaction.annotation.Transactional;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -52,7 +49,7 @@ public class ReservationService {
         return reservationRepository.save(reservation);
     }
     @Transactional(readOnly = false)
-    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    //@Lock(LockModeType.PESSIMISTIC_WRITE) - napraviti poseban save koji ce imati lock na obican save
     public ReservationItem makeReservationItem(int reservationId, int equipmentId, int amount){
         ReservationItem reservationItem = new ReservationItem();
         reservationItem.setAmount(amount);
@@ -134,7 +131,7 @@ public class ReservationService {
         for(ReservationItem item: reservationItems){
             Equipment equipment = item.getEquipment();
             equipment.setReservedAmount(equipment.getReservedAmount() - item.getAmount());
-            equipmentRepository.save(equipment);
+            equipmentRepository.save(equipment); // promeniti save
         }
     }
 }

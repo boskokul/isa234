@@ -53,10 +53,10 @@ public class AppointmentController {
         a.setDateTime(aDTO.getDateTime());
         a.setDuration(aDTO.getDuration());
         a.setAdmin(cAdminService.findOne(aDTO.getAdminsId()));
-        
         a = appointmentService.save(a);
-
-
+        if(a == null){
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
         AppointmentResponseDTO aResponseDTO = new AppointmentResponseDTO(a);
         return new ResponseEntity<>(aResponseDTO, HttpStatus.OK);
     }
