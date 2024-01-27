@@ -120,6 +120,9 @@ public class AppointmentController {
         }
         reservationDTO.setAppointmentId(appointment.getId());
         Reservation reservation = reservationService.makeReservation(reservationDTO);
+        if(reservation == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
         int numberOfEquipments = reservationDTO.getEquipmentIds().size();
         int totalAmount = 0;
         for(int i=0; i<numberOfEquipments; i++){
