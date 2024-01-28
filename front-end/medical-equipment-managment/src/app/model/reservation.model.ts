@@ -8,4 +8,5 @@ export interface Reservation {
   dateTime: DateTime;
   usersName: string;
   usersEmail: string;
+  qrcode: string;
 }

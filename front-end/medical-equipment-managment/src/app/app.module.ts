@@ -56,6 +56,8 @@ import { CompanyAdminHomePageComponent } from './components/company-admin-home-p
 import { UsersWithReservationsComponent } from './components/users-with-reservations/users-with-reservations.component';
 import { UserHomepageComponent } from './components/user-homepage/user-homepage.component';
 import { UserAppointmentHistoryComponent } from './components/user-appointment-history/user-appointment-history.component';
+import { QRcodeComponent } from './components/qrcode/qrcode.component';
+import { QRCodeModule } from 'angularx-qrcode';
 
 @NgModule({
   declarations: [
@@ -87,7 +89,7 @@ import { UserAppointmentHistoryComponent } from './components/user-appointment-h
     UsersWithReservationsComponent,
     UserHomepageComponent,
     UserAppointmentHistoryComponent,
-
+    QRcodeComponent,
   ],
   imports: [
     BrowserModule,
@@ -111,7 +113,8 @@ import { UserAppointmentHistoryComponent } from './components/user-appointment-h
     MatSortModule,
     FullCalendarModule,
     NgxMaterialTimepickerModule,
-    SharedModule
+    SharedModule,
+    QRCodeModule,
   ],
   providers: [
     {

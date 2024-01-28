@@ -85,9 +85,9 @@ public class AppointmentController {
         return new ResponseEntity<>(aResponseDTOs, HttpStatus.OK);
     }
     @GetMapping(value = "/futureappointments/{id}")
-    public ResponseEntity<List<AppointmentResponseDTO>> getFutureAppointments(@PathVariable Integer id) {
+    public ResponseEntity<List<AppointmentInfoDTO>> getFutureAppointments(@PathVariable Integer id) {
         List<Appointment> appointments = appointmentService.findByUserId(id);
-        List<AppointmentResponseDTO> aResponseDTOs = new ArrayList<>();
+        List<AppointmentInfoDTO> aResponseDTOs = new ArrayList<>();
         for(Appointment a : appointments){
             if(a.getDateTime().isBefore(LocalDateTime.now())){
                 continue;
@@ -95,7 +95,7 @@ public class AppointmentController {
             if(a.getReservation().getStatus() == ReservationStatus.Cancelled){
                 continue;
             }
-            aResponseDTOs.add(new AppointmentResponseDTO(a));
+            aResponseDTOs.add(new AppointmentInfoDTO(a));
         }
         return new ResponseEntity<>(aResponseDTOs, HttpStatus.OK);
     }

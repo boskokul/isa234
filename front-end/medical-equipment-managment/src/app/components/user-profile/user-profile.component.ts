@@ -11,6 +11,9 @@ import { AuthService } from 'src/app/services/auth.service';
 import { UserServiceService } from 'src/app/services/user-service.service';
 import { ReservationCancel } from '../../model/reservation-cancel';
 import { ReservationService } from 'src/app/services/reservation-service';
+import { AppointmentInfo } from 'src/app/model/appointment-info.model';
+import { MatDialog } from '@angular/material/dialog';
+import { QRcodeComponent } from '../qrcode/qrcode.component';
 
 @Component({
   selector: 'app-user-profile',
@@ -29,7 +32,9 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     'date',
     'duration',
     'adminName',
+    'reservationStatus',
     'cancelReservation',
+    'reservationQrcode',
   ];
   reservedAppointments: any;
   constructor(
@@ -37,9 +42,10 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private appointmentService: AppointmentService,
     private reservationService: ReservationService,
-    public datePipe: DatePipe
+    public datePipe: DatePipe,
+    public dialog: MatDialog,
   ) {
-    this.reservedAppointments = new MatTableDataSource<Appointment>([]);
+    this.reservedAppointments = new MatTableDataSource<AppointmentInfo>([]);
   }
 
   ngOnInit(): void {
@@ -115,5 +121,15 @@ export class UserProfileComponent implements OnInit, OnDestroy {
         alert('Appointment successfully cancelled but you got penal points');
       },
     });
+  }
+  showQrcode(qrcontent: string){
+    console.log(qrcontent);
+    const dialogRef = this.dialog.open(QRcodeComponent, {
+      data: qrcontent,
+      width: '300px',
+      height: '350px',
+      panelClass: 'custom-dialog',
+    });
+    dialogRef.afterClosed().subscribe((item) => {});
   }
 }

@@ -9,6 +9,7 @@ import { Equipment } from '../model/equipment';
 import { EquipmentCreate } from '../model/equipment-create.model';
 import { AppointmentCreate } from '../model/appointment-create.model';
 import { ResApp } from '../model/resApp.model';
+import { AppointmentInfo } from '../model/appointment-info.model';
 
 @Injectable({
   providedIn: 'root',
@@ -57,8 +58,8 @@ export class AppointmentService {
       appointment
     );
   }
-  getAppointmentsForUser(userId: number): Observable<Appointment[]> {
-    return this.http.get<Appointment[]>(
+  getAppointmentsForUser(userId: number): Observable<AppointmentInfo[]> {
+    return this.http.get<AppointmentInfo[]>(
       environment.apiHost + 'appointments/futureappointments/' + userId
     );
   }

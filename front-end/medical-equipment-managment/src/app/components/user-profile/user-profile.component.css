@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     height: 70%;
-    width: 35%;
+    width: 45%;
     justify-content: space-between;
     margin: 1rem;
     padding: 1rem;
@@ -71,3 +71,13 @@ input[readonly]
     background-color: white!important;
     color:#800e13ff!important;
   }
+
+.NotFinalized{
+    color: #8e7700;
+}
+.Finalized{
+    color: green;
+}
+.Rejected{
+    color: red;
+}
