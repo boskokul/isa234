@@ -16,6 +16,11 @@
       rel="stylesheet"
     />
   </head>
+  <script>
+    if (global === undefined) {
+      var global = window;
+    }
+  </script>
   <body class="mat-typography mat-app-background">
     <app-root></app-root>
   </body>

@@ -38,7 +38,8 @@ public class SecurityConfig {
             "/api/registration/**",
             "/api/companies/all",
             "/api/equipment",
-            "/api/positionsimulator/**"
+            "/api/positionsimulator/**",
+            "/socket/**"
             // other public endpoints of your API may be appended to this array
     };
     @Bean

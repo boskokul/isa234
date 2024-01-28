@@ -54,6 +54,7 @@ import { SysPassChangeComponent } from './components/sys-pass-change/sys-pass-ch
 import { ReservedEquipmentComponent } from './components/reserved-equipment/reserved-equipment.component';
 import { CompanyAdminHomePageComponent } from './components/company-admin-home-page/company-admin-home-page.component';
 import { UsersWithReservationsComponent } from './components/users-with-reservations/users-with-reservations.component';
+import { PositionSimulatorComponent } from './components/position-simulator/position-simulator.component';
 
 @NgModule({
   declarations: [
@@ -83,6 +84,7 @@ import { UsersWithReservationsComponent } from './components/users-with-reservat
     ReservedEquipmentComponent,
     CompanyAdminHomePageComponent,
     UsersWithReservationsComponent,
+    PositionSimulatorComponent,
 
   ],
   imports: [
