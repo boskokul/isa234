@@ -15,12 +15,13 @@ public class PenaltyChecker {
     private RegisteredUserRepository registeredUserRepository;
 
     @Transactional
-    @Scheduled(cron = "0 0 0 1 1/1 *")
+    @Scheduled(cron = "0 0 0 1 */1 ?")
     public void deleteAllPenalties(){
         for (RegisteredUser user:
              registeredUserRepository.findAllByPenalPointsGreaterThan(0)) {
                 user.setPenalPoints(0);
                 registeredUserRepository.save(user);
         }
+        System.out.println("All penalty points have been deleted");
     }
 }

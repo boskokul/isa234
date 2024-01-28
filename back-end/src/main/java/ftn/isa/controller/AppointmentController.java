@@ -100,6 +100,23 @@ public class AppointmentController {
         return new ResponseEntity<>(aResponseDTOs, HttpStatus.OK);
     }
 
+    @GetMapping(value = "/pastAppointments/{id}")
+    public ResponseEntity<List<AppointmentResponseDTO>> getPastAppointments(@PathVariable Integer id) {
+        List<Appointment> appointments = appointmentService.findByUserId(id);
+        List<AppointmentResponseDTO> aResponseDTOs = new ArrayList<>();
+        for(Appointment a : appointments){
+            if(a.getDateTime().isAfter(LocalDateTime.now())){
+                continue;
+            }
+            if(a.getReservation().getStatus() == ReservationStatus.Cancelled){
+                continue;
+            }
+            aResponseDTOs.add(new AppointmentResponseDTO(a));
+        }
+        return new ResponseEntity<>(aResponseDTOs, HttpStatus.OK);
+    }
+
+
     @PreAuthorize("hasRole('REGISTERED_USER')")
     @GetMapping(value = "/extraordinaryAppointments")
     public ResponseEntity<List<ExtraordinaryAppointmentDTO>> getExtraordinaryAppointments(@RequestParam("date") String date, @RequestParam("companyId") int companyId){

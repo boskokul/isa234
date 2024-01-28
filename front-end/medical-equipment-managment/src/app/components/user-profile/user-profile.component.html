@@ -107,7 +107,7 @@
     <ng-container matColumnDef="cancelReservation">
       <th mat-header-cell *matHeaderCellDef>Cancel reservation</th>
       <td mat-cell *matCellDef="let element">
-        <button mat-stroked-button color="warn" (click)="cancelAppointment(element.id)">Cancel <mat-icon>close</mat-icon></button>
+        <button mat-stroked-button color="warn" (click)="cancelAppointment(element.id)" [disabled]="element.reservationStatus != 'NotFinalized'">Cancel <mat-icon>close</mat-icon></button>
       </td>
     </ng-container>
     <ng-container matColumnDef="reservationQrcode">

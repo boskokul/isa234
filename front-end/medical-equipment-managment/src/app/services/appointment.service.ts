@@ -75,4 +75,10 @@ export class AppointmentService {
       environment.apiHost + 'appointments/reservationUser/' + id
     );
   }
+
+  getAllPastAppointments(userId: number): Observable<Appointment[]> {
+    return this.http.get<Appointment[]>(
+      environment.apiHost + 'appointments/pastAppointments/' + userId
+    );
+  }
 }

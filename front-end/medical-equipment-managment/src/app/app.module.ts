@@ -58,6 +58,7 @@ import { UserHomepageComponent } from './components/user-homepage/user-homepage.
 import { UserAppointmentHistoryComponent } from './components/user-appointment-history/user-appointment-history.component';
 import { QRcodeComponent } from './components/qrcode/qrcode.component';
 import { QRCodeModule } from 'angularx-qrcode';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -128,7 +129,8 @@ import { QRCodeModule } from 'angularx-qrcode';
     UserServiceService,
     ReservationService,
     AuthGuardService,
-    AppointmentService
+    AppointmentService,
+    DatePipe,
   ],
   bootstrap: [AppComponent],
 })
