@@ -50,18 +50,16 @@ public class ReservationController {
     }
 
     @PutMapping(value = "/cancelReservation")
-    public ResponseEntity<ReservationResponseDTO> getAppointmentsByCompanyId(@RequestBody ReservationCancelDTO cancelDTO) {
-        Reservation reservation = reservationService.cancelReservation(cancelDTO);
-        ReservationResponseDTO responseDTO = new ReservationResponseDTO(reservation);
-        return new ResponseEntity<>(responseDTO, HttpStatus.OK);
+    public ResponseEntity<Integer> cancelReservation(@RequestBody ReservationCancelDTO cancelDTO) {
+        int penalPoints = reservationService.cancelReservation(cancelDTO);
+        return new ResponseEntity<>(penalPoints, HttpStatus.OK);
     }
 
     @PreAuthorize("hasRole('COMPANY_ADMIN')")
     @PutMapping(value = "/pickupReservation")
-    public ResponseEntity<ReservationResponseDTO> pickupReservation(@RequestBody ReservationCancelDTO cancelDTO) {
-;       Reservation reservation = reservationService.cancelReservation(cancelDTO);
-        ReservationResponseDTO responseDTO = new ReservationResponseDTO(reservation);
-        return new ResponseEntity<>(responseDTO, HttpStatus.OK);
+    public ResponseEntity<Integer> pickupReservation(@RequestBody ReservationCancelDTO cancelDTO) {
+        int penalPoints = reservationService.cancelReservation(cancelDTO);
+        return new ResponseEntity<>(penalPoints, HttpStatus.OK);
     }
 
     @PreAuthorize("hasRole('COMPANY_ADMIN')")

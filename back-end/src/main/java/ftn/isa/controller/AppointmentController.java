@@ -92,7 +92,7 @@ public class AppointmentController {
             if(a.getDateTime().isBefore(LocalDateTime.now())){
                 continue;
             }
-            if(a.getReservation().getStatus() == ReservationStatus.Cancelled){
+            if(a.getReservation().getStatus() != ReservationStatus.NotFinalized){
                 continue;
             }
             aResponseDTOs.add(new AppointmentResponseDTO(a));

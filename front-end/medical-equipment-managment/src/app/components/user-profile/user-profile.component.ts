@@ -104,6 +104,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
       });
   }
   cancelAppointment(appointmentId: any) {
+    if(confirm("Are you sure you want to cancel this reservation")){
     this.reservation.userId = this.user.id;
     this.reservation.appointmentId = appointmentId;
     this.reservationService.CancelReservation(this.reservation).subscribe({
@@ -111,9 +112,10 @@ export class UserProfileComponent implements OnInit, OnDestroy {
         this.reservedAppointments.data = this.reservedAppointments.data.filter(
           (a: any) => a.id != appointmentId
         );
-        // napraviti nesto za potvrdu da hoce da obrise
+        this.user.penalPoints = result
         alert('Appointment successfully cancelled but you got penal points');
       },
     });
+  }
   }
 }

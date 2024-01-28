@@ -22,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
+@Transactional
 public class AppointmentService {
 	@Autowired
     AppointmentRepository aRepository;
@@ -47,13 +48,14 @@ public class AppointmentService {
     public Appointment getById(int id) {
 		return aRepository.getReferenceById(id);
 	}
+
     public List<Appointment> findByCompanyId(Integer companyId){
         return aRepository.findAppointmentByCompany(companyId);
     }
     public List<Appointment> findByUserId(Integer userId){
         return aRepository.findAppointmentByUserId(userId);
     }
-    @Transactional(readOnly = true)
+    @Transactional
     public List<ExtraordinaryAppointmentDTO> getExtraordinaryAppointments(LocalDate date, int companyId){
         List<ExtraordinaryAppointmentDTO> ret = getAllPosslibleExtraotdinaryAppointments(date, companyId);
         List<Appointment> scheduledAppointments = aRepository.findAppointmentByCompanyAndDate(companyId, LocalDateTime.of(date, LocalTime.MIN), LocalDateTime.of(date, LocalTime.MAX));

@@ -16,6 +16,7 @@ import java.time.LocalTime;
 import java.util.*;
 
 @Service
+@Transactional
 public class ReservationService {
     @Autowired
     RegisteredUserRepository registeredUserRepository;
@@ -61,7 +62,7 @@ public class ReservationService {
         reservationItem.setEquipment(equipment);
         return reservationItemRepository.save(reservationItem);
     }
-    public Reservation cancelReservation(ReservationCancelDTO cancelDTO){
+    public int cancelReservation(ReservationCancelDTO cancelDTO){
         //nemam validaciju da li je korisnik zaista rezervisao taj termin
         Reservation reservation = reservationRepository.findByAppointmentIdAndRegisteredUserId(cancelDTO.getAppointmentId(), cancelDTO.getUserId()).get(0);
         reservation.setStatus(ReservationStatus.Cancelled);
@@ -76,7 +77,7 @@ public class ReservationService {
         }
         registeredUserRepository.save(user);
         updateEquipmentAmount(reservation.getId());
-        return reservation;
+        return user.getPenalPoints();
     }
     private void updateEquipmentAmount(Integer reservationId){
         List<ReservationItem> reservationItems =  reservationItemRepository.findByReservationId(reservationId);
