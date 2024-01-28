@@ -6,9 +6,9 @@ import ftn.isa.dto.ReservationCancelDTO;
 import ftn.isa.dto.ReservationCreateDTO;
 import ftn.isa.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Lock;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -28,13 +28,28 @@ public class ReservationService {
     @Autowired
     ReservationItemRepository reservationItemRepository;
 
+    @Transactional(readOnly = false)
     public Reservation makeReservation(ReservationCreateDTO reservationDTO){
+        List<Reservation> reservations = reservationRepository.findByAppointmentId(reservationDTO.getAppointmentId());
+        for(Reservation r: reservations){
+            if(r.getStatus() == ReservationStatus.NotFinalized){
+                return null;
+            }
+        }
+        for(int i = 0; i < reservationDTO.getAmounts().size(); i++){
+            Equipment e = equipmentRepository.getReferenceById(reservationDTO.getEquipmentIds().get(i));
+            if(e.getFreeAmount() < reservationDTO.getAmounts().get(i)){
+                return null;
+            }
+        }
         Reservation reservation = new Reservation();
         reservation.setStatus(ReservationStatus.NotFinalized);
         reservation.setRegisteredUser(registeredUserRepository.getReferenceById(reservationDTO.getUserId()));
         reservation.setAppointment(appointmentRepository.getReferenceById(reservationDTO.getAppointmentId()));
         return reservationRepository.save(reservation);
     }
+    @Transactional(readOnly = false)
+    //@Lock(LockModeType.PESSIMISTIC_WRITE) - napraviti poseban save koji ce imati lock na obican save
     public ReservationItem makeReservationItem(int reservationId, int equipmentId, int amount){
         ReservationItem reservationItem = new ReservationItem();
         reservationItem.setAmount(amount);
@@ -116,7 +131,7 @@ public class ReservationService {
         for(ReservationItem item: reservationItems){
             Equipment equipment = item.getEquipment();
             equipment.setReservedAmount(equipment.getReservedAmount() - item.getAmount());
-            equipmentRepository.save(equipment);
+            equipmentRepository.save(equipment); // promeniti save
         }
     }
 }
