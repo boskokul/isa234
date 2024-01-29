@@ -29,6 +29,8 @@
     "@fullcalendar/interaction": "^6.1.10",
     "@fullcalendar/timegrid": "^6.1.10",
     "angularx-qrcode": "^16.0.2",
+    "@stomp/stompjs": "^7.0.0",
+    "@types/sockjs-client": "^1.5.4",
     "bcryptjs": "^2.4.3",
     "jsqr": "^1.4.0",
     "leaflet": "^1.9.4",
@@ -36,7 +38,10 @@
     "ngx-material-timepicker": "^13.1.1",
     "qrcode-reader": "^1.0.4",
     "rxjs": "~7.8.0",
+    "sockjs-client": "^1.6.1",
+    "stompjs": "^2.3.3",
     "tslib": "^2.3.0",
+    "ws": "^8.16.0",
     "zone.js": "~0.13.0"
   },
   "devDependencies": {

@@ -18,10 +18,11 @@ import org.springframework.stereotype.Service;
 
 import ftn.isa.domain.Appointment;
 import ftn.isa.repository.AppointmentRepository;
-
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
+@Transactional
 public class AppointmentService {
 	@Autowired
     AppointmentRepository aRepository;
@@ -33,18 +34,28 @@ public class AppointmentService {
 	public List<Appointment> findAll() {
         return aRepository.findAll();
     }
-    public Appointment save(Appointment a) {
-        return aRepository.save(a);
+    @Transactional(readOnly = false)
+    public Appointment save(Appointment appointment) {
+        for(Appointment a: aRepository.findAppointmentByCompany(appointment.getAdmin().getCompany().getId())){
+            if(a.getDateTime().isAfter(appointment.getDateTime()) && a.getDateTime().isBefore(appointment.getDateTime().plusMinutes(30))
+            || a.getDateTime().plusMinutes(30).isAfter(appointment.getDateTime()) && a.getDateTime().plusMinutes(30).isBefore(appointment.getDateTime().plusMinutes(30))
+            ){
+                return null;
+            }
+        }
+        return aRepository.save(appointment); // lock za save
     }
     public Appointment getById(int id) {
 		return aRepository.getReferenceById(id);
 	}
+
     public List<Appointment> findByCompanyId(Integer companyId){
         return aRepository.findAppointmentByCompany(companyId);
     }
     public List<Appointment> findByUserId(Integer userId){
         return aRepository.findAppointmentByUserId(userId);
     }
+    @Transactional
     public List<ExtraordinaryAppointmentDTO> getExtraordinaryAppointments(LocalDate date, int companyId){
         List<ExtraordinaryAppointmentDTO> ret = getAllPosslibleExtraotdinaryAppointments(date, companyId);
         List<Appointment> scheduledAppointments = aRepository.findAppointmentByCompanyAndDate(companyId, LocalDateTime.of(date, LocalTime.MIN), LocalDateTime.of(date, LocalTime.MAX));
@@ -79,6 +90,7 @@ public class AppointmentService {
         return ret;
     }
 
+    @Transactional
     public Appointment CreateExtraordinaryAppointment(ExtraordinaryAppointmentDTO eoAppointment, int compnayId){
         if(!IsExtraordinaryAppointmentValid(eoAppointment, compnayId)){
             return null;
@@ -88,7 +100,7 @@ public class AppointmentService {
         appointment.setDateTime(eoAppointment.getDateTime());
         appointment.setDuration(eoAppointment.getDuration());
         appointment.setAdmin(companyAdminRepository.getReferenceById(eoAppointment.getAdminsId()));
-        return aRepository.save(appointment);
+        return aRepository.save(appointment); // dodati lockSave
     }
 
     private List<ExtraordinaryAppointmentDTO> getAllPosslibleExtraotdinaryAppointments(LocalDate date, int companyId){
@@ -106,7 +118,8 @@ public class AppointmentService {
         return ret;
     }
 
-    private boolean IsExtraordinaryAppointmentValid(ExtraordinaryAppointmentDTO eoAppointment, int companyId){
+    @Transactional(readOnly = true)
+    public boolean IsExtraordinaryAppointmentValid(ExtraordinaryAppointmentDTO eoAppointment, int companyId){
         LocalDate date = eoAppointment.getDateTime().toLocalDate();
         List<Appointment> scheduledAppointments = aRepository.findAppointmentByCompanyAndDate(companyId, LocalDateTime.of(date, LocalTime.MIN), LocalDateTime.of(date, LocalTime.MAX));
         for(Appointment scheduled: scheduledAppointments){

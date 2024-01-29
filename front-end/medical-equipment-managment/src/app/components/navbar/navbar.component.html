@@ -7,6 +7,8 @@
     >Homepage</a
   >
   <a mat-button [routerLink]="['/companies']" class="mat-button">Companies</a>
+  <a *ngIf="user && user.role == 'ROLE_COMPANY_ADMIN'" mat-button [routerLink]="['/position-simulator']" class="mat-button"
+  >Simulator</a>
   <a *ngIf="user && user.role == 'ROLE_SYSTEM_ADMIN'" mat-button [routerLink]="['/sys-register']" class="mat-button">Add Admin</a>
   <a *ngIf="user && user.role == 'ROLE_SYSTEM_ADMIN'" mat-button [routerLink]="['/company/create']" class="mat-button"
     >Create Company</a

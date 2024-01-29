@@ -17,6 +17,7 @@ import { CompanyAdminHomePageComponent } from './components/company-admin-home-p
 import { UsersWithReservationsComponent } from './components/users-with-reservations/users-with-reservations.component';
 import { UserHomepageComponent } from './components/user-homepage/user-homepage.component';
 import { UserAppointmentHistoryComponent } from './components/user-appointment-history/user-appointment-history.component';
+import { PositionSimulatorComponent } from './components/position-simulator/position-simulator.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'register', pathMatch: 'full' },
@@ -94,6 +95,11 @@ const routes: Routes = [
   {
     path: 'users-with-reservations',
     component: UsersWithReservationsComponent,
+    canActivate: [AuthGuardService],
+  },
+  {
+    path: 'position-simulator',
+    component: PositionSimulatorComponent,
     canActivate: [AuthGuardService],
   },
 ];

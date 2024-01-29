@@ -6,8 +6,9 @@ import ftn.isa.dto.ReservationCancelDTO;
 import ftn.isa.dto.ReservationCreateDTO;
 import ftn.isa.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Lock;
 import org.springframework.stereotype.Service;
-
+import org.springframework.transaction.annotation.Transactional;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -15,6 +16,7 @@ import java.time.LocalTime;
 import java.util.*;
 
 @Service
+@Transactional
 public class ReservationService {
     @Autowired
     RegisteredUserRepository registeredUserRepository;
@@ -27,13 +29,28 @@ public class ReservationService {
     @Autowired
     ReservationItemRepository reservationItemRepository;
 
+    @Transactional(readOnly = false)
     public Reservation makeReservation(ReservationCreateDTO reservationDTO){
+        List<Reservation> reservations = reservationRepository.findByAppointmentId(reservationDTO.getAppointmentId());
+        for(Reservation r: reservations){
+            if(r.getStatus() == ReservationStatus.NotFinalized){
+                return null;
+            }
+        }
+        for(int i = 0; i < reservationDTO.getAmounts().size(); i++){
+            Equipment e = equipmentRepository.getReferenceById(reservationDTO.getEquipmentIds().get(i));
+            if(e.getFreeAmount() < reservationDTO.getAmounts().get(i)){
+                return null;
+            }
+        }
         Reservation reservation = new Reservation();
         reservation.setStatus(ReservationStatus.NotFinalized);
         reservation.setRegisteredUser(registeredUserRepository.getReferenceById(reservationDTO.getUserId()));
         reservation.setAppointment(appointmentRepository.getReferenceById(reservationDTO.getAppointmentId()));
         return reservationRepository.save(reservation);
     }
+    @Transactional(readOnly = false)
+    //@Lock(LockModeType.PESSIMISTIC_WRITE) - napraviti poseban save koji ce imati lock na obican save
     public ReservationItem makeReservationItem(int reservationId, int equipmentId, int amount){
         ReservationItem reservationItem = new ReservationItem();
         reservationItem.setAmount(amount);
@@ -45,7 +62,7 @@ public class ReservationService {
         reservationItem.setEquipment(equipment);
         return reservationItemRepository.save(reservationItem);
     }
-    public Reservation cancelReservation(ReservationCancelDTO cancelDTO){
+    public int cancelReservation(ReservationCancelDTO cancelDTO){
         //nemam validaciju da li je korisnik zaista rezervisao taj termin
         Reservation reservation = reservationRepository.findByAppointmentIdAndRegisteredUserId(cancelDTO.getAppointmentId(), cancelDTO.getUserId()).get(0);
         reservation.setStatus(ReservationStatus.Cancelled);
@@ -60,7 +77,7 @@ public class ReservationService {
         }
         registeredUserRepository.save(user);
         updateEquipmentAmount(reservation.getId());
-        return reservation;
+        return user.getPenalPoints();
     }
     private void updateEquipmentAmount(Integer reservationId){
         List<ReservationItem> reservationItems =  reservationItemRepository.findByReservationId(reservationId);
@@ -102,22 +119,20 @@ public class ReservationService {
         return reservationRepository.findByAppointmentIdAndRegisteredUserId(appointmentId, userId).isEmpty();
     }
 
+    @Transactional
     public Reservation setReservationDone(Integer resId){
-        Optional<Reservation> reservation = reservationRepository.findById(resId);
-        if(reservation.isPresent()){
-            reservation.get().setStatus(ReservationStatus.Finalized);
-            reservationRepository.save(reservation.get());
-            updateEquipmentAfterDone(reservation.get().getId());
-            return reservation.get();
-        } else
-            return null;
+        Reservation reservation = reservationRepository.getReferenceById(resId);
+        reservation.setStatus(ReservationStatus.Finalized);
+        reservationRepository.save(reservation);
+        updateEquipmentAfterDone(reservation.getId());
+        return reservation;
     }
     private void updateEquipmentAfterDone(Integer reservationId){
         List<ReservationItem> reservationItems =  reservationItemRepository.findByReservationId(reservationId);
         for(ReservationItem item: reservationItems){
             Equipment equipment = item.getEquipment();
             equipment.setReservedAmount(equipment.getReservedAmount() - item.getAmount());
-            equipmentRepository.save(equipment);
+            equipmentRepository.save(equipment); // promeniti save
         }
     }
 

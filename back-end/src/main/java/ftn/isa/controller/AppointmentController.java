@@ -53,10 +53,10 @@ public class AppointmentController {
         a.setDateTime(aDTO.getDateTime());
         a.setDuration(aDTO.getDuration());
         a.setAdmin(cAdminService.findOne(aDTO.getAdminsId()));
-        
         a = appointmentService.save(a);
-
-
+        if(a == null){
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
         AppointmentResponseDTO aResponseDTO = new AppointmentResponseDTO(a);
         return new ResponseEntity<>(aResponseDTO, HttpStatus.OK);
     }
@@ -108,7 +108,7 @@ public class AppointmentController {
             if(a.getDateTime().isAfter(LocalDateTime.now())){
                 continue;
             }
-            if(a.getReservation().getStatus() == ReservationStatus.Cancelled){
+            if(a.getReservation().getStatus() != ReservationStatus.NotFinalized){
                 continue;
             }
             aResponseDTOs.add(new AppointmentResponseDTO(a));
@@ -137,6 +137,9 @@ public class AppointmentController {
         }
         reservationDTO.setAppointmentId(appointment.getId());
         Reservation reservation = reservationService.makeReservation(reservationDTO);
+        if(reservation == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
         int numberOfEquipments = reservationDTO.getEquipmentIds().size();
         int totalAmount = 0;
         for(int i=0; i<numberOfEquipments; i++){

@@ -59,6 +59,7 @@ import { UserAppointmentHistoryComponent } from './components/user-appointment-h
 import { QRcodeComponent } from './components/qrcode/qrcode.component';
 import { QRCodeModule } from 'angularx-qrcode';
 import { DatePipe } from '@angular/common';
+import { PositionSimulatorComponent } from './components/position-simulator/position-simulator.component';
 
 @NgModule({
   declarations: [
@@ -91,6 +92,7 @@ import { DatePipe } from '@angular/common';
     UserHomepageComponent,
     UserAppointmentHistoryComponent,
     QRcodeComponent,
+    PositionSimulatorComponent,
   ],
   imports: [
     BrowserModule,
