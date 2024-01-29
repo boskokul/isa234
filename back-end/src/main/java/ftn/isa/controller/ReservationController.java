@@ -93,7 +93,7 @@ public class ReservationController {
     public ResponseEntity<ReservationResponseDTO> setReservationDone(@RequestBody ReservationDTO resDTO) throws InterruptedException {
         Reservation reservation = reservationService.setReservationDone(resDTO.getId());
         ReservationResponseDTO responseDTO = new ReservationResponseDTO(reservation);
-        String data = "Congratulations, your reservation was picked up by "+reservation.getAppointment().getAdmin().getFirstName()+" "+reservation.getAppointment().getAdmin().getLastName() +"!";
+        String data = "Congratulations, your reservation pickup was confirmed by "+reservation.getAppointment().getAdmin().getFirstName()+" "+reservation.getAppointment().getAdmin().getLastName() +"!";
         emailService.sendPickupConfirmationMail(reservation.getRegisteredUser(), data);
         return new ResponseEntity<>(responseDTO, HttpStatus.OK);
     }
