@@ -15,6 +15,8 @@ import { SysAdminFormComponent } from './components/sys-admin-form/sys-admin-for
 import { ReservedEquipmentComponent } from './components/reserved-equipment/reserved-equipment.component';
 import { CompanyAdminHomePageComponent } from './components/company-admin-home-page/company-admin-home-page.component';
 import { UsersWithReservationsComponent } from './components/users-with-reservations/users-with-reservations.component';
+import { UserHomepageComponent } from './components/user-homepage/user-homepage.component';
+import { UserAppointmentHistoryComponent } from './components/user-appointment-history/user-appointment-history.component';
 import { PositionSimulatorComponent } from './components/position-simulator/position-simulator.component';
 
 const routes: Routes = [
@@ -47,6 +49,16 @@ const routes: Routes = [
   {
     path: 'userProfile',
     component: UserProfileComponent,
+    canActivate: [AuthGuardService],
+  },
+  {
+    path: 'userHomepage',
+    component: UserHomepageComponent,
+    canActivate: [AuthGuardService],
+  },
+  {
+    path: 'userAppointmentHistory',
+    component: UserAppointmentHistoryComponent,
     canActivate: [AuthGuardService],
   },
   {

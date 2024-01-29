@@ -24,5 +24,9 @@ export class UserServiceService {
   updateUser(userUpdate: UserUpdate): Observable<User> {
     return this.http.put<User>(environment.apiHost + "users", userUpdate)
   }
+
+  isUserValidForBuying(userId: number): Observable<Boolean> {
+    return this.http.get<Boolean>(environment.apiHost + "users/isUserValidForBuying/" + userId);
+  }
   
 }

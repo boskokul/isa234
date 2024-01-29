@@ -19,6 +19,8 @@ public class Reservation {
     private RegisteredUser registeredUser;
     @Column(name = "status", nullable = false)
     private ReservationStatus status;
+    @Column(name = "qrcode", nullable = true)
+    private String qrcode;
     @OneToMany(mappedBy = "reservation", fetch = FetchType.LAZY)
     private Set<ReservationItem> reservationItems = new HashSet<ReservationItem>();
 
@@ -77,5 +79,13 @@ public class Reservation {
 
     public void setStatus(ReservationStatus status) {
         this.status = status;
+    }
+
+    public String getQrcode() {
+        return qrcode;
+    }
+
+    public void setQrcode(String qrcode) {
+        this.qrcode = qrcode;
     }
 }

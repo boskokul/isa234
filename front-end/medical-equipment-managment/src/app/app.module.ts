@@ -54,6 +54,11 @@ import { SysPassChangeComponent } from './components/sys-pass-change/sys-pass-ch
 import { ReservedEquipmentComponent } from './components/reserved-equipment/reserved-equipment.component';
 import { CompanyAdminHomePageComponent } from './components/company-admin-home-page/company-admin-home-page.component';
 import { UsersWithReservationsComponent } from './components/users-with-reservations/users-with-reservations.component';
+import { UserHomepageComponent } from './components/user-homepage/user-homepage.component';
+import { UserAppointmentHistoryComponent } from './components/user-appointment-history/user-appointment-history.component';
+import { QRcodeComponent } from './components/qrcode/qrcode.component';
+import { QRCodeModule } from 'angularx-qrcode';
+import { DatePipe } from '@angular/common';
 import { PositionSimulatorComponent } from './components/position-simulator/position-simulator.component';
 
 @NgModule({
@@ -84,8 +89,10 @@ import { PositionSimulatorComponent } from './components/position-simulator/posi
     ReservedEquipmentComponent,
     CompanyAdminHomePageComponent,
     UsersWithReservationsComponent,
+    UserHomepageComponent,
+    UserAppointmentHistoryComponent,
+    QRcodeComponent,
     PositionSimulatorComponent,
-
   ],
   imports: [
     BrowserModule,
@@ -109,7 +116,8 @@ import { PositionSimulatorComponent } from './components/position-simulator/posi
     MatSortModule,
     FullCalendarModule,
     NgxMaterialTimepickerModule,
-    SharedModule
+    SharedModule,
+    QRCodeModule,
   ],
   providers: [
     {
@@ -123,7 +131,8 @@ import { PositionSimulatorComponent } from './components/position-simulator/posi
     UserServiceService,
     ReservationService,
     AuthGuardService,
-    AppointmentService
+    AppointmentService,
+    DatePipe,
   ],
   bootstrap: [AppComponent],
 })

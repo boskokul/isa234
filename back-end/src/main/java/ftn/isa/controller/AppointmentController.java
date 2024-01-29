@@ -85,11 +85,27 @@ public class AppointmentController {
         return new ResponseEntity<>(aResponseDTOs, HttpStatus.OK);
     }
     @GetMapping(value = "/futureappointments/{id}")
-    public ResponseEntity<List<AppointmentResponseDTO>> getFutureAppointments(@PathVariable Integer id) {
+    public ResponseEntity<List<AppointmentInfoDTO>> getFutureAppointments(@PathVariable Integer id) {
+        List<Appointment> appointments = appointmentService.findByUserId(id);
+        List<AppointmentInfoDTO> aResponseDTOs = new ArrayList<>();
+        for(Appointment a : appointments){
+            if(a.getDateTime().isBefore(LocalDateTime.now())){
+                continue;
+            }
+            if(a.getReservation().getStatus() == ReservationStatus.Cancelled){
+                continue;
+            }
+            aResponseDTOs.add(new AppointmentInfoDTO(a));
+        }
+        return new ResponseEntity<>(aResponseDTOs, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/pastAppointments/{id}")
+    public ResponseEntity<List<AppointmentResponseDTO>> getPastAppointments(@PathVariable Integer id) {
         List<Appointment> appointments = appointmentService.findByUserId(id);
         List<AppointmentResponseDTO> aResponseDTOs = new ArrayList<>();
         for(Appointment a : appointments){
-            if(a.getDateTime().isBefore(LocalDateTime.now())){
+            if(a.getDateTime().isAfter(LocalDateTime.now())){
                 continue;
             }
             if(a.getReservation().getStatus() != ReservationStatus.NotFinalized){
@@ -99,6 +115,7 @@ public class AppointmentController {
         }
         return new ResponseEntity<>(aResponseDTOs, HttpStatus.OK);
     }
+
 
     @PreAuthorize("hasRole('REGISTERED_USER')")
     @GetMapping(value = "/extraordinaryAppointments")
@@ -142,6 +159,8 @@ public class AppointmentController {
                 appointment.getDateTime(),
                 appointment.getDuration()
         );
+        reservation.setQrcode(data);
+        reservationService.update(reservation);
         return new ResponseEntity<>(responseDTO, HttpStatus.OK);
     }
 

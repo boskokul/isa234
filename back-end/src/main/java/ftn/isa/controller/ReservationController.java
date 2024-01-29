@@ -46,6 +46,8 @@ public class ReservationController {
         //        ",\n company: "+reservation.getAppointment().getAdmin().getCompany().getName()+", company admin: "+reservation.getAppointment().getAdmin().getFirstName()+" "+reservation.getAppointment().getAdmin().getLastName();
         String data = reservation.getId().toString();
         emailService.sendReservationConfirmationQR(data, reservation.getRegisteredUser().getEmail());
+        reservation.setQrcode(data);
+        reservationService.update(reservation);
         return new ResponseEntity<>(responseDTO, HttpStatus.OK);
     }
 

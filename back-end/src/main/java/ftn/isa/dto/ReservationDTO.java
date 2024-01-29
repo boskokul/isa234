@@ -12,6 +12,7 @@ public class ReservationDTO {
     private int userId;
     private String usersName;
     private String usersEmail;
+    private String qrcode;
 
     private LocalDateTime dateTime;
 
@@ -25,6 +26,7 @@ public class ReservationDTO {
         userId = reservation.getRegisteredUser().getId();
         usersName = reservation.getRegisteredUser().getFirstName() + " " + reservation.getRegisteredUser().getLastName();
         usersEmail = reservation.getRegisteredUser().getEmail();
+        qrcode = reservation.getQrcode();
     }
 
     public String getUsersEmail() {
@@ -80,5 +82,13 @@ public class ReservationDTO {
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    public String getQrcode() {
+        return qrcode;
+    }
+
+    public void setQrcode(String qrcode) {
+        this.qrcode = qrcode;
     }
 }

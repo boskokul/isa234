@@ -3,6 +3,9 @@
     <span class="text-inside">Equipment Management</span>
   </span>
   <div class="spacer"></div>
+  <a *ngIf="user && user.role == 'ROLE_REGISTERED_USER'" mat-button [routerLink]="['/userHomepage']" class="mat-button"
+    >Homepage</a
+  >
   <a mat-button [routerLink]="['/companies']" class="mat-button">Companies</a>
   <a *ngIf="user && user.role == 'ROLE_COMPANY_ADMIN'" mat-button [routerLink]="['/position-simulator']" class="mat-button"
   >Simulator</a>
