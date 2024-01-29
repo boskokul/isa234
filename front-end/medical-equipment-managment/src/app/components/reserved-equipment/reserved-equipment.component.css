@@ -44,3 +44,20 @@
   margin: auto;
   margin-top: 30px;
 }
+
+.register-button {
+  display: flex;
+  justify-content: center;
+  margin-top: 1px; /* Adjust the top margin of the button */
+  background-color: #ad2831ff !important;
+  font-family: "Rhodium Libre" !important;
+  color: white;
+  font-size: 18px;
+  transition:  transform, 0.3s;
+}
+.register-button:hover{
+  transform: translateY(-5px);
+  background-color: white!important;
+  color:#800e13ff!important;
+}
+
