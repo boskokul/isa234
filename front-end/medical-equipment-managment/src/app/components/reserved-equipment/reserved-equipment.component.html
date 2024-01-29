@@ -5,10 +5,9 @@
     <label for="imageUpload"></label>
     <input type="file" class="imageUpload" (change)="onFileSelected($event)" />
     <br />
-    <button (click)="decodeImage()">Decode Image</button>
+    <button class="register-button" (click)="decodeImage()">Decode Image</button>
   </div>
   <div class="lower-div">
-    BOSKO LISTA REZERVACIJA :3
     <h1>Reserved appointments:</h1>
     <table
       mat-table

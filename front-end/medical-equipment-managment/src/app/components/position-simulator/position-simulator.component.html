@@ -1,1 +1,23 @@
-<p>position-simulator works!</p>
+<div class="large-container">
+    <div class="upper-div">
+      <br />
+      <label class="pickero" for="timePicker">Select Frequency:</label>
+      <br />
+      <select id="timePicker" class="timePicker" (change)="onTimeSelected($event)">
+        <option value="1">1s</option>
+        <option value="3">3s</option>
+        <option value="30">30s</option>
+        <option value="60">1min</option>
+        <option value="180">3min</option>
+      </select>
+      <br />
+      <button class="register-button" (click)="startSimulation()">Start Simulation</button>
+    </div>
+    <div class="lower-div">
+      <b>SIMULATION MAP</b>
+      <div class="map-div">
+        <xp-map></xp-map>
+      </div>
+      <br>
+    </div>
+  </div>
