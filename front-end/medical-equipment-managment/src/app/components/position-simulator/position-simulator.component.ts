@@ -16,7 +16,7 @@ export class PositionSimulatorComponent implements OnInit {
   isCustomSocketOpened = false;
 
   messages: string[] = [];
-
+  message: string = "";
   ngOnInit(): void {
     this.initializeWebSocketConnection()
   }
@@ -45,6 +45,7 @@ export class PositionSimulatorComponent implements OnInit {
       let messageResult: string = message.body;
       this.messages.push(messageResult);
       console.log(this.messages)
+      this.message = message.body;
     }
   }
 

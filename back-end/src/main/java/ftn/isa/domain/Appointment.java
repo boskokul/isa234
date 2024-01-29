@@ -19,7 +19,10 @@ public class Appointment {
     private LocalDateTime dateTime;
     @Column(name = "duration", nullable = false)
     private int duration;
-    
+
+    @Column(name = "isExtraordinary", nullable = true)
+    private Boolean isExtraordinary;
+
     public Appointment(){}
     public Appointment(Integer id, CompanyAdmin admin, LocalDateTime dateTime, int duration) {
         this.id = id;
@@ -68,6 +71,14 @@ public class Appointment {
 
     public void setDuration(int duration) {
         this.duration = duration;
+    }
+
+    public boolean isExtraordinary() {
+        return isExtraordinary;
+    }
+
+    public void setExtraordinary(boolean extraordinary) {
+        isExtraordinary = extraordinary;
     }
 
     public Reservation getReservation() {

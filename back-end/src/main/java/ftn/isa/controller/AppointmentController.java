@@ -92,7 +92,7 @@ public class AppointmentController {
             if(a.getDateTime().isBefore(LocalDateTime.now())){
                 continue;
             }
-            if(a.getReservation().getStatus() != ReservationStatus.NotFinalized){
+            if(a.getReservation().getStatus() == ReservationStatus.Cancelled){
                 continue;
             }
             aResponseDTOs.add(new AppointmentResponseDTO(a));
@@ -130,6 +130,7 @@ public class AppointmentController {
             totalAmount += reservationDTO.getAmounts().get(i);
         }
         appointment.setReservation(reservation);
+        appointment.setExtraordinary(true);
         appointment = appointmentService.save(appointment);
 
         //String data = "You created appointment at time: "+appointment.getDateTime()+", equipment amount: " +totalAmount+", company admin: "+appointment.getAdmin().getFirstName()+" "+reservation.getAppointment().getAdmin().getLastName();
