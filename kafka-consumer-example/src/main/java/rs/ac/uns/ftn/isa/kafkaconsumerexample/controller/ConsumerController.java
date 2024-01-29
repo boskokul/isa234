@@ -17,12 +17,13 @@ public class ConsumerController {
     @KafkaListener(topics = "test-topic", groupId = "kafka-sandbox")
     public void listen() {
         coordinates.clear();
-        coordinates.add("15.521, 34.5135");
-        coordinates.add("16.521, 35.5135");
-        coordinates.add("16.521, 36.5135");
+        //coordinates.add("15.521, 34.5135");
+        //coordinates.add("16.521, 35.5135");
+        //coordinates.add("16.521, 36.5135");
         for(String s: coordinates){
             produce(s);
         }
+        coordinates.clear();
     }
     public ConsumerController(Consumer myTopicConsumer, KafkaTemplate<String, String> template) {
         this.myTopicConsumer = myTopicConsumer;

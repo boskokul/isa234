@@ -30,7 +30,7 @@ export class PositionSimulatorComponent implements OnInit {
   
   isLoaded: boolean = false;
   isCustomSocketOpened = false;
-  selectedTime: number = 1;
+  selectedTime: number = 3;
 
   messages: string[] = [];
   message: string[] = [];
@@ -101,8 +101,11 @@ export class PositionSimulatorComponent implements OnInit {
   }
 
   activateSimulator(){
+    console.log(this.selectedTime.toString()+"!!!!!")
     this.service.activateSimulator(this.selectedTime.toString()).subscribe({
-      
+      error: (error) => {
+        console.error('Error:', error);
+      },
     })
   }
   private placeA(lat: number, lon: number) {
