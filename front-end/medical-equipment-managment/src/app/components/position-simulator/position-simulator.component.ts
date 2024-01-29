@@ -4,6 +4,7 @@ import { Stomp } from '@stomp/stompjs';
 import { environment } from 'src/app/env/environment';
 import { MapComponent } from 'src/app/shared/maps/map/map.component';
 import { Subscription, interval, take } from 'rxjs';
+import { AdminService } from 'src/app/services/admin.service';
 
 @Component({
   selector: 'app-position-simulator',
@@ -20,7 +21,8 @@ export class PositionSimulatorComponent implements OnInit {
   locationALon: number;
   locationBLat: number;
   locationBLon: number;
-
+  longitude: number;
+  latitude: number;
   private intervalSubscription: Subscription;
 
   private serverUrl = 'http://localhost:8084/socket'
@@ -31,7 +33,9 @@ export class PositionSimulatorComponent implements OnInit {
   selectedTime: number = 1;
 
   messages: string[] = [];
-  message: string = "";
+  message: string[] = [];
+
+  constructor(private service: AdminService){}
   ngOnInit(): void {
     this.initializeWebSocketConnection();
     this.locationALat = 45.24803507374321;
@@ -66,7 +70,8 @@ export class PositionSimulatorComponent implements OnInit {
       let messageResult: string = message.body;
       this.messages.push(messageResult);
       console.log(this.messages)
-      this.message = message.body;
+      this.message = message.body.split(',');
+      this.placeCar(parseFloat(this.message[0]), parseFloat(this.message[1]))
     }
   }
 
@@ -95,9 +100,11 @@ export class PositionSimulatorComponent implements OnInit {
     console.log('Selected Time:', this.selectedTime);
   }
 
-
-
-
+  activateSimulator(){
+    this.service.activateSimulator(this.selectedTime.toString()).subscribe({
+      
+    })
+  }
   private placeA(lat: number, lon: number) {
     this.mapComponent.reverseSearchA(lat, lon).subscribe({
       error: (error) => {

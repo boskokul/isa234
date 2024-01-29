@@ -45,7 +45,7 @@ public class PositionSimulatorController {
     //aktivira simulator
     @PostMapping("/send")
     public void produce(@RequestBody String message) {
-        template.send("test-topic", "Aktiviraj simulator");
+        template.send("test-topic", message);
     }
 
 }

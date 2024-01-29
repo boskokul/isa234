@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Component
 public class Consumer {
@@ -21,16 +22,22 @@ public class Consumer {
         this.template = template;
     }
     @KafkaListener(topics = "test-topic", groupId = "kafka-sandbox")
-    public void listen(String message) {
+    public void listen(String message) throws InterruptedException {
         coordinates.clear();
-        coordinates.add("15.521, 34.5135");
-        coordinates.add("16.521, 35.5135");
-        coordinates.add("16.521, 36.5135");
+        coordinates.add("45.24803507374321,19.83929253133869");
+        calculateIntermediaryPositions(6);
+        coordinates.add("45.23984389699702,19.843656098804175");
         for(String s: coordinates){
             produce(s);
+            TimeUnit.SECONDS.sleep(Integer.parseInt(message));
         }
-        synchronized (messages) {
-            messages.add(message);
+    }
+    private void calculateIntermediaryPositions(double count){
+        for (int i = 1; i <= count; i++) {
+            double t = i / count;
+            double latitude = (1 - t) * 45.24803507374321 + t * 45.23984389699702;
+            double longitude = (1 - t) * 19.83929253133869 + t * 19.843656098804175;
+            coordinates.add(Double.toString(latitude)+","+Double.toString(longitude));
         }
     }
     public void produce(String message) {

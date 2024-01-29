@@ -108,8 +108,6 @@ export class MapComponent implements AfterViewInit {
     return this.mapService.reverseSearch(lat, lon).pipe(
       map((result) => result),
       tap((location) => {
-        console.log('Location:', location);
-  
         const customIcon = L.icon({
           iconUrl: 'https://cdn-icons-png.flaticon.com/512/4736/4736213.png',
           iconSize: [32, 32],
