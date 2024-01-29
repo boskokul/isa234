@@ -8,6 +8,7 @@ import { EquipmentService } from 'src/app/services/equipment.service';
 import { EquipmentAppointmentComponent } from '../equipment-appointment/equipment-appointment.component';
 import { AuthService } from 'src/app/services/auth.service';
 import { CurrentUser } from 'src/app/model/current-user';
+import { UserServiceService } from 'src/app/services/user-service.service';
 
 @Component({
   selector: 'app-company-profile',
@@ -30,6 +31,7 @@ export class CompanyProfileComponent implements OnInit {
     private equipmentService: EquipmentService,
     private authService: AuthService,
     public dialog: MatDialog,
+    public userService: UserServiceService,
   ) {}
 
   ngOnInit(): void {
@@ -63,24 +65,42 @@ export class CompanyProfileComponent implements OnInit {
       alert('Please select equipment you want to buy');
     }
     else{
-      let selectedEquipments: Equipment[] = [];
-      let selectedQuantities: number[] = [];
-      for(let i = 0; i < this.items.length; i++){
-        if(this.quantities[i] > 0){
-          selectedEquipments.push(this.items[i]);
-          selectedQuantities.push(this.quantities[i]);
-        }
+      if(this.user != null){
+        this.userService.isUserValidForBuying(this.user.id).subscribe({
+          next: (result: Boolean) => {
+            if(result){
+              this.openEquipmentAppointmentDialog();
+            }
+            else{
+              alert("You can not buy equipment because you have more than 3 penalty points");
+            }
+          }
+        })
       }
-      const dialog = this.dialog.open(EquipmentAppointmentComponent, {
-        data: {
-          equipments: selectedEquipments,
-          quantities: selectedQuantities,
-          companyId: this.companyId,
-          userId: this.user!.id
-        },
-        width: '800px',
-        height: '600px'
-      })
+      else{
+        alert("You can not buy equipment because you have more than 3 penalty points");
+      }
     }
+  }
+
+  openEquipmentAppointmentDialog(){
+    let selectedEquipments: Equipment[] = [];
+    let selectedQuantities: number[] = [];
+    for(let i = 0; i < this.items.length; i++){
+      if(this.quantities[i] > 0){
+        selectedEquipments.push(this.items[i]);
+        selectedQuantities.push(this.quantities[i]);
+      }
+    }
+    const dialog = this.dialog.open(EquipmentAppointmentComponent, {
+      data: {
+        equipments: selectedEquipments,
+        quantities: selectedQuantities,
+        companyId: this.companyId,
+        userId: this.user!.id
+      },
+      width: '800px',
+      height: '600px'
+    })
   }
 }

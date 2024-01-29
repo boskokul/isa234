@@ -141,4 +141,8 @@ public class ReservationService {
             equipmentRepository.save(equipment); // promeniti save
         }
     }
+
+    public Reservation update(Reservation updateReservation){
+        return reservationRepository.save(updateReservation);
+    }
 }

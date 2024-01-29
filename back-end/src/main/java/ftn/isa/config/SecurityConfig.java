@@ -38,6 +38,7 @@ public class SecurityConfig {
             "/api/registration/**",
             "/api/companies/all",
             "/api/equipment",
+            "/api/eksterna",
             "/api/positionsimulator/**",
             "/socket/**"
             // other public endpoints of your API may be appended to this array
