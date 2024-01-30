@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -39,12 +40,10 @@ public class EquipmentController {
 	@GetMapping
     public ResponseEntity<List<EquipmentDTO>> getEquipment() {
         List<Equipment> equipment = equipmentService.findAll();
-
         List<EquipmentDTO> equipmentDTOs = new ArrayList<>();
         for (Equipment e : equipment) {
         	equipmentDTOs.add(new EquipmentDTO(e));
         }
-
         return new ResponseEntity<>(equipmentDTOs, HttpStatus.OK);
     }
 	@GetMapping(value = "/{equipmentId}/companies")

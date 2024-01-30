@@ -3,6 +3,7 @@ package ftn.isa.domain;
 
 import javax.persistence.*;
 
+import java.io.Serializable;
 import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -20,7 +21,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="companies", schema = "isa")
-public class Company {
+public class Company implements Serializable {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

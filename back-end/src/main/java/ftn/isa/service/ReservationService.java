@@ -69,7 +69,8 @@ public class ReservationService {
         reservationRepository.save(reservation);
         Appointment appointment = appointmentRepository.getReferenceById(cancelDTO.getAppointmentId());
         RegisteredUser user = registeredUserRepository.getReferenceById(cancelDTO.getUserId());
-        if(calculateHoursDifference(LocalDateTime.now(), LocalDateTime.of(appointment.getDateTime().getYear(), appointment.getDateTime().getMonth(), appointment.getDateTime().getDayOfMonth(), appointment.getDateTime().getHour(), 0)) < 24){
+        long x = calculateHoursDifference(LocalDateTime.of(appointment.getDateTime().getYear(), appointment.getDateTime().getMonth(), appointment.getDateTime().getDayOfMonth(), appointment.getDateTime().getHour(), 0), LocalDateTime.now());
+        if(x < 24){
             user.setPenalPoints(user.getPenalPoints()+2);
         }
         else{

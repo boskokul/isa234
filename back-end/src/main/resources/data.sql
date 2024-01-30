@@ -68,7 +68,7 @@ INSERT INTO isa.user_role(user_id, role_id) VALUES (-6, 3);
 --apointmenti (predefinisani termini)
 INSERT INTO isa.appointments(
 	id, date_time, duration, company_admin_id)
-	VALUES (-1, '2024-2-27T15:18:12', 30, -5);
+	VALUES (-1, '2024-2-27T11:18:12', 30, -5);
 
 INSERT INTO isa.appointments(
     id, date_time, duration, company_admin_id)
@@ -80,7 +80,7 @@ VALUES (-3, '2024-1-28T15:18:12', 30, -5);
 
 INSERT INTO isa.appointments(
     id, date_time, duration, company_admin_id)
-VALUES (-4, '2024-1-29T11:18:12', 30, -2);
+VALUES (-4, '2024-1-31T11:18:12', 30, -2);
 INSERT INTO isa.appointments(
     id, date_time, duration, company_admin_id)
 VALUES (-5, '2024-2-26T15:18:12', 30, -5);
