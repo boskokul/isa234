@@ -105,10 +105,7 @@ public class AppointmentController {
         List<Appointment> appointments = appointmentService.findByUserId(id);
         List<AppointmentResponseDTO> aResponseDTOs = new ArrayList<>();
         for(Appointment a : appointments){
-            if(a.getDateTime().isAfter(LocalDateTime.now())){
-                continue;
-            }
-            if(a.getReservation().getStatus() == ReservationStatus.Cancelled){
+            if(a.getReservation().getStatus() != ReservationStatus.Finalized){
                 continue;
             }
             aResponseDTOs.add(new AppointmentResponseDTO(a));

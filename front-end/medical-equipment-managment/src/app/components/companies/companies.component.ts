@@ -57,7 +57,7 @@ export class CompaniesComponent implements OnInit, OnDestroy {
 
   adminVerify: UserVerify;
 
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort) sort: MatSort = new MatSort();
 
   constructor(
     private companyService: CompanyService,
