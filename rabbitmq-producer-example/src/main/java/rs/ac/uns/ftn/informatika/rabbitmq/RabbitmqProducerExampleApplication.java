@@ -6,15 +6,18 @@ import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 /*
  * 
  * Za pokretanje primera potrebno je instalirati RabbitMQ - https://www.rabbitmq.com/download.html
  */
+@EnableScheduling
 @SpringBootApplication
 public class RabbitmqProducerExampleApplication {
 

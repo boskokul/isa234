@@ -1,11 +1,16 @@
 package ftn.isa;
 
+import ftn.isa.service.ContractService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 @Component
 public class Consumer1 {
+
+    @Autowired
+    private ContractService contractService;
 
     private static final Logger log = LoggerFactory.getLogger(Consumer1.class);
     /*
@@ -16,6 +21,7 @@ public class Consumer1 {
      */
     @RabbitListener(queues="glavna")
     public void handler(String message){
+        contractService.saveFromString(message);
         log.info("Dobio sam ovo> " + message);
     }
 }

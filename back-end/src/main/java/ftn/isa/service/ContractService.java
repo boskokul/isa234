@@ -26,6 +26,9 @@ public class ContractService {
     public List<Contract> getAll(){
         return contractRepository.findAll();
     }
+    public List<Contract> getByDayOfMonth(Integer i){
+        return contractRepository.findByDayOfMonth(i);
+    }
 
     public void save(ContractDTO contract){
         Contract newContract = new Contract(
@@ -50,7 +53,9 @@ public class ContractService {
             contractEquipmentRepository.save(ce);
         }
     }
-
+    public void update(Contract c){
+        contractRepository.save(c);
+    }
     public void saveFromString(String content){
         Contract newContract = new Contract(content);
         System.out.println(newContract.toString());
