@@ -1,9 +1,6 @@
 package ftn.isa.controller;
 
-import ftn.isa.domain.Appointment;
-import ftn.isa.domain.RegisteredUser;
-import ftn.isa.domain.Reservation;
-import ftn.isa.domain.ReservationStatus;
+import ftn.isa.domain.*;
 import ftn.isa.dto.*;
 import ftn.isa.service.EmailService;
 import ftn.isa.service.ReservationService;
@@ -18,6 +15,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*")
 @RestController
@@ -89,6 +87,22 @@ public class ReservationController {
     }
 
     @PreAuthorize("hasRole('COMPANY_ADMIN')")
+    @GetMapping(value = "/pastReservations/{adminsId}")
+    public ResponseEntity<List<ReservationDTO>> getPastOrCanceledReservationsForAdmin(@PathVariable Integer adminsId) {
+        List<Reservation> reservations = reservationService.getReservationsForAdmin(adminsId);
+        List<ReservationDTO> res = new ArrayList<>();
+        for (Reservation r : reservations) {
+            if(r.getAppointment().getDateTime().isBefore(LocalDateTime.now())){
+                res.add(new ReservationDTO(r));
+            }
+            if(r.getStatus() == ReservationStatus.Cancelled){
+                res.add(new ReservationDTO(r));
+            }
+        }
+        return new ResponseEntity<>(res, HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasRole('COMPANY_ADMIN')")
     @PutMapping(value = "/setReservationDone")
     public ResponseEntity<ReservationResponseDTO> setReservationDone(@RequestBody ReservationDTO resDTO) throws InterruptedException {
         Reservation reservation = reservationService.setReservationDone(resDTO.getId());
@@ -96,6 +110,17 @@ public class ReservationController {
         String data = "Congratulations, your reservation pickup was confirmed by "+reservation.getAppointment().getAdmin().getFirstName()+" "+reservation.getAppointment().getAdmin().getLastName() +"!";
         emailService.sendPickupConfirmationMail(reservation.getRegisteredUser(), data);
         return new ResponseEntity<>(responseDTO, HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasRole('COMPANY_ADMIN')")
+    @GetMapping(value = "/equipment/{resId}")
+    public ResponseEntity<List<ResEquipmentDTO>> getEquipmentForReservation(@PathVariable Integer resId) {
+        Set<ReservationItem> equipment = reservationService.getEquipmentByReservation(resId);
+        List<ResEquipmentDTO> res = new ArrayList<>();
+        for (ReservationItem e : equipment) {
+            res.add(new ResEquipmentDTO(e.getEquipment().getName(), e.getAmount()));
+        }
+        return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
 

@@ -62,6 +62,7 @@ import { DatePipe } from '@angular/common';
 import { PositionSimulatorComponent } from './components/position-simulator/position-simulator.component';
 import { ContractViewComponent } from './components/contract-view/contract-view.component';
 import { ContractService } from './services/contract.service';
+import { ResEquipmentDetailsComponent } from './components/res-equipment-details/res-equipment-details.component';
 
 @NgModule({
   declarations: [
@@ -96,6 +97,7 @@ import { ContractService } from './services/contract.service';
     QRcodeComponent,
     PositionSimulatorComponent,
     ContractViewComponent,
+    ResEquipmentDetailsComponent,
   ],
   imports: [
     BrowserModule,

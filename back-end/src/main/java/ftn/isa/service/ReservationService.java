@@ -1,6 +1,7 @@
 package ftn.isa.service;
 
 import ftn.isa.domain.*;
+import ftn.isa.dto.EquipmentDTO;
 import ftn.isa.dto.ExtraordinaryAppointmentDTO;
 import ftn.isa.dto.ReservationCancelDTO;
 import ftn.isa.dto.ReservationCreateDTO;
@@ -101,6 +102,12 @@ public class ReservationService {
     }
     public List<Reservation> getReservationsByAppointmentId(int id){
         return reservationRepository.findByAppointmentId(id);
+    }
+
+    public Set<ReservationItem> getEquipmentByReservation(int id){
+        Set<ReservationItem> eq = new HashSet<>();
+        Reservation r = reservationRepository.getReferenceById(id);
+        return r.getReservationItems();
     }
 
     public HashSet<RegisteredUser> getUsersWithReservationsInCompany(int id){

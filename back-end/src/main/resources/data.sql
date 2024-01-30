@@ -86,6 +86,6 @@ INSERT INTO isa.appointments(
 VALUES (-5, '2024-2-26T15:18:12', 30, -5);
 INSERT INTO isa.appointments(
     id, date_time, duration, company_admin_id)
-VALUES (-6, '2024-2-27T15:18:12', 30, -2);
+VALUES (-6, '2024-2-27T12:18:12', 30, -2);
 --rezervacije (one koriste te predefinisane termine u sebi)
 	

@@ -34,10 +34,20 @@ export class ReservationService {
       environment.apiHost + 'reservation/futureReservations/' + adminsId
     );
   }
+  getPastOrCanceledReservations(adminsId: number): Observable<any[]> {
+    return this.http.get<any>(
+      environment.apiHost + 'reservation/pastReservations/' + adminsId
+    );
+  }
   SetResDone(reservation: Reservation): Observable<any[]> {
     return this.http.put<any>(
       environment.apiHost + 'reservation/setReservationDone',
       reservation
+    );
+  }
+  getEquipment(resId: number): Observable<any[]> {
+    return this.http.get<any>(
+      environment.apiHost + 'reservation/equipment/' + resId
     );
   }
 }

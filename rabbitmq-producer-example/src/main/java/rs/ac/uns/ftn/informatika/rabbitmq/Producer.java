@@ -47,9 +47,9 @@ public class Producer {
 
 	@PostConstruct
 	public void sendssss() throws InterruptedException {
-		String message1 = "{\"hospitalName\": \"Medi-group\",\"duration\": 24,\"dayOfMonth\": 30,\"hours\": 13,\"minutes\": 25,\"status\": \"NotDelivered\",\"contractEquipment\": [{\"name\": \"oprema1\",\"quantity\": 12}]}";
-		String message2 = "{\"hospitalName\": \"Adzi-Badem\",\"duration\": 5,\"dayOfMonth\": 30,\"hours\": 13,\"minutes\": 23,\"status\": \"NotDelivered\",\"contractEquipment\": [{\"name\": \"oprema2\",\"quantity\": 4}]}";
-		String message3 = "{\"hospitalName\": \"New-hospital\",\"duration\": 10,\"dayOfMonth\": 30,\"hours\": 13,\"minutes\": 29,\"status\": \"NotDelivered\",\"contractEquipment\": [{\"name\": \"oprema1\",\"quantity\": 5}]}";
+		String message1 = "{\"hospitalName\": \"Medi-group\",\"duration\": 24,\"dayOfMonth\": 2,\"hours\": 17,\"minutes\": 25,\"status\": \"NotDelivered\",\"contractEquipment\": [{\"name\": \"oprema1\",\"quantity\": 12}]}";
+		String message2 = "{\"hospitalName\": \"Adzi-Badem\",\"duration\": 5,\"dayOfMonth\": 2,\"hours\": 13,\"minutes\": 23,\"status\": \"NotDelivered\",\"contractEquipment\": [{\"name\": \"oprema2\",\"quantity\": 4}]}";
+		String message3 = "{\"hospitalName\": \"New-hospital\",\"duration\": 10,\"dayOfMonth\": 2,\"hours\": 11,\"minutes\": 29,\"status\": \"NotDelivered\",\"contractEquipment\": [{\"name\": \"oprema1\",\"quantity\": 5}]}";
 		String routingkey = "glavna";
 		sendTo(routingkey, message1);
 		Thread.sleep(500);
