@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
 import { Appointment } from 'src/app/model/appointment.model';
@@ -14,6 +14,7 @@ import { ReservationService } from 'src/app/services/reservation-service';
 import { AppointmentInfo } from 'src/app/model/appointment-info.model';
 import { MatDialog } from '@angular/material/dialog';
 import { QRcodeComponent } from '../qrcode/qrcode.component';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-user-profile',
@@ -37,6 +38,8 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     'reservationQrcode',
   ];
   reservedAppointments: any;
+  @ViewChild(MatSort) appointmentSort = new MatSort();
+
   constructor(
     private service: UserServiceService,
     private authService: AuthService,
@@ -51,6 +54,16 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.loadUser();
     this.LoadUserAppointments();
+  }
+
+  ngAfterViewInit() {
+    this.reservedAppointments.sort = this.appointmentSort;
+    this.reservedAppointments.sortingDataAccessor = (item: any, property: any) => {
+      switch (property) {
+        case 'date': return this.datePipe.transform(item.dateTime, "dd-MM-YYYY HH:mm");
+        default: return item[property];
+      }
+    };
   }
 
   loadUser() {

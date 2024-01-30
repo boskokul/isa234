@@ -1,11 +1,11 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { timeout } from 'rxjs';
 import { Appointment } from 'src/app/model/appointment.model';
 import { CurrentUser } from 'src/app/model/current-user';
-import { User } from 'src/app/model/user.model';
 import { AppointmentService } from 'src/app/services/appointment.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserServiceService } from 'src/app/services/user-service.service';
@@ -32,10 +32,23 @@ export class UserAppointmentHistoryComponent implements OnInit {
     'duration',
     'adminName',
   ];
-  subscription: Subscription;
+  
+  @ViewChild(MatSort) appointmentSorter = new MatSort();
 
   ngOnInit(): void {
     this.LoadPastAppointments(this.authService.currentUser.getValue().id);
+  }
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.pastAppointments.sort = this.appointmentSorter;
+    this.pastAppointments.sortingDataAccessor = (item: any, property: any) => {
+      switch (property) {
+        case 'date': return this.datePipe.transform(item.dateTime, "dd-MM-YYYY HH:mm");
+        default: return item[property];
+      }
+    };
+    }, 250);
   }
   
   LoadPastAppointments(userId: number): void{

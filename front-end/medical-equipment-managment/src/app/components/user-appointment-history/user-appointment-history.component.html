@@ -6,7 +6,7 @@
         [dataSource]="pastAppointments"
         *ngIf="pastAppointments.data.length != 0; else elseBlock"
         class="mat-elevation-z8"
-        matSort
+        matSort #appointmentSorter="matSort"
       >
         <ng-container matColumnDef="date">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
