@@ -140,7 +140,6 @@ public class AppointmentController {
         int numberOfEquipments = reservationDTO.getEquipmentIds().size();
         int totalAmount = 0;
         for(int i=0; i<numberOfEquipments; i++){
-            reservationService.makeReservationItem(reservation.getId(), reservationDTO.getEquipmentIds().get(i), reservationDTO.getAmounts().get(i));
             totalAmount += reservationDTO.getAmounts().get(i);
         }
         appointment.setReservation(reservation);

@@ -38,7 +38,7 @@ public class ReservationService {
             }
         }
         for(int i = 0; i < reservationDTO.getAmounts().size(); i++){
-            Equipment e = equipmentRepository.getReferenceById(reservationDTO.getEquipmentIds().get(i));
+            Equipment e = equipmentRepository.findByIdLocked(reservationDTO.getEquipmentIds().get(i));
             if(e.getFreeAmount() < reservationDTO.getAmounts().get(i)){
                 return null;
             }
@@ -47,15 +47,18 @@ public class ReservationService {
         reservation.setStatus(ReservationStatus.NotFinalized);
         reservation.setRegisteredUser(registeredUserRepository.getReferenceById(reservationDTO.getUserId()));
         reservation.setAppointment(appointmentRepository.getReferenceById(reservationDTO.getAppointmentId()));
-        return reservationRepository.save(reservation);
+        reservation = reservationRepository.save(reservation);
+        int numberOfEquipments = reservationDTO.getEquipmentIds().size();
+        for(int i=0; i<numberOfEquipments; i++){
+            makeReservationItem(reservation.getId(), reservationDTO.getEquipmentIds().get(i), reservationDTO.getAmounts().get(i));
+        }
+        return reservation;
     }
-    @Transactional(readOnly = false)
-    //@Lock(LockModeType.PESSIMISTIC_WRITE) - napraviti poseban save koji ce imati lock na obican save
     public ReservationItem makeReservationItem(int reservationId, int equipmentId, int amount){
         ReservationItem reservationItem = new ReservationItem();
         reservationItem.setAmount(amount);
         reservationItem.setReservation(reservationRepository.getReferenceById(reservationId));
-        Equipment equipment = equipmentRepository.getReferenceById(equipmentId);
+        Equipment equipment = equipmentRepository.findByIdLocked(equipmentId);
         equipment.setFreeAmount(equipment.getFreeAmount() - amount);
         equipment.setReservedAmount(equipment.getReservedAmount() + amount);
         equipmentRepository.save(equipment);
