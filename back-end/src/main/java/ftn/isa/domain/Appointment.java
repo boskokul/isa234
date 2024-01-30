@@ -73,11 +73,11 @@ public class Appointment {
         this.duration = duration;
     }
 
-    public boolean isExtraordinary() {
+    public Boolean isExtraordinary() {
         return isExtraordinary;
     }
 
-    public void setExtraordinary(boolean extraordinary) {
+    public void setExtraordinary(Boolean extraordinary) {
         isExtraordinary = extraordinary;
     }
 

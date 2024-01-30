@@ -34,12 +34,10 @@ public class ContractController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    // urose ovde mozes da odradis otkazivanje isporuke za ovaj mesec,
-    // to je obican update uz obavestenje kroz poruku koju samo otkomentarises kad budes testirao
     @PostMapping
     public ResponseEntity updateContract(@RequestBody ContractDTO contract){
         contractService.save(contract);
-        //producer.sendTo("eksterna", "Otkazuje se isporuka za ovaj mesec bolnici " + contract.getHospitalName());
+        producer.sendTo("eksterna", "Otkazuje se isporuka za ovaj mesec bolnici " + contract.getHospitalName());
         return new ResponseEntity(HttpStatus.OK);
     }
 

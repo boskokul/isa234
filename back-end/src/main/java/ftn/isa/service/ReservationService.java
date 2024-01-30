@@ -77,7 +77,7 @@ public class ReservationService {
         }
         registeredUserRepository.save(user);
         updateEquipmentAmount(reservation.getId());
-        if(appointment.isExtraordinary()){
+        if(appointment.isExtraordinary() != null && appointment.isExtraordinary()){
             List<ReservationItem> reservationItems = reservationItemRepository.findByReservationId(reservation.getId());
             reservationItemRepository.deleteAll(reservationItems);
             reservationRepository.delete(reservation);
