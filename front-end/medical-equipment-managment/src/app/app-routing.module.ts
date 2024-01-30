@@ -18,6 +18,7 @@ import { UsersWithReservationsComponent } from './components/users-with-reservat
 import { UserHomepageComponent } from './components/user-homepage/user-homepage.component';
 import { UserAppointmentHistoryComponent } from './components/user-appointment-history/user-appointment-history.component';
 import { PositionSimulatorComponent } from './components/position-simulator/position-simulator.component';
+import { ContractViewComponent } from './components/contract-view/contract-view.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'register', pathMatch: 'full' },
@@ -100,6 +101,11 @@ const routes: Routes = [
   {
     path: 'position-simulator',
     component: PositionSimulatorComponent,
+    canActivate: [AuthGuardService],
+  },
+  {
+    path: 'contracts',
+    component: ContractViewComponent,
     canActivate: [AuthGuardService],
   },
 ];

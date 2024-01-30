@@ -60,6 +60,8 @@ import { QRcodeComponent } from './components/qrcode/qrcode.component';
 import { QRCodeModule } from 'angularx-qrcode';
 import { DatePipe } from '@angular/common';
 import { PositionSimulatorComponent } from './components/position-simulator/position-simulator.component';
+import { ContractViewComponent } from './components/contract-view/contract-view.component';
+import { ContractService } from './services/contract.service';
 
 @NgModule({
   declarations: [
@@ -93,6 +95,7 @@ import { PositionSimulatorComponent } from './components/position-simulator/posi
     UserAppointmentHistoryComponent,
     QRcodeComponent,
     PositionSimulatorComponent,
+    ContractViewComponent,
   ],
   imports: [
     BrowserModule,
@@ -132,6 +135,7 @@ import { PositionSimulatorComponent } from './components/position-simulator/posi
     ReservationService,
     AuthGuardService,
     AppointmentService,
+    ContractService,
     DatePipe,
   ],
   bootstrap: [AppComponent],

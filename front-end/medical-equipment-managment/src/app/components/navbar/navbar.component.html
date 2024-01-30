@@ -13,6 +13,9 @@
   <a *ngIf="user && user.role == 'ROLE_SYSTEM_ADMIN'" mat-button [routerLink]="['/company/create']" class="mat-button"
     >Create Company</a
   >
+  <a *ngIf="user && user.role == 'ROLE_SYSTEM_ADMIN'" mat-button [routerLink]="['/contracts']" class="mat-button"
+  >Contracts</a
+  >
   <a mat-button [routerLink]="['/equipment/list']" class="mat-button"
     >Equipment</a
   >
