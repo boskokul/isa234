@@ -63,6 +63,7 @@ import { PositionSimulatorComponent } from './components/position-simulator/posi
 import { ContractViewComponent } from './components/contract-view/contract-view.component';
 import { ContractService } from './services/contract.service';
 import { ResEquipmentDetailsComponent } from './components/res-equipment-details/res-equipment-details.component';
+import { NgxGoogleAnalyticsModule } from 'ngx-google-analytics';
 
 @NgModule({
   declarations: [
@@ -123,6 +124,7 @@ import { ResEquipmentDetailsComponent } from './components/res-equipment-details
     NgxMaterialTimepickerModule,
     SharedModule,
     QRCodeModule,
+    NgxGoogleAnalyticsModule.forRoot('G-D4716G8R7H')
   ],
   providers: [
     {
