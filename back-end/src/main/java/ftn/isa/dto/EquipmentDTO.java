@@ -3,6 +3,8 @@ package ftn.isa.dto;
 import ftn.isa.domain.Equipment;
 import ftn.isa.domain.EquipmentType;
 
+import java.io.Serializable;
+
 public class EquipmentDTO {
 	private Integer id;
     private String name;

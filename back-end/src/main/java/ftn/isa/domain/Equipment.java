@@ -1,5 +1,6 @@
 package ftn.isa.domain;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -7,7 +8,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="equipments", schema = "isa")
-public class Equipment {
+public class Equipment implements Serializable {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

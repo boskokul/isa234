@@ -3,6 +3,7 @@ package ftn.isa.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import ftn.isa.domain.Equipment;
@@ -13,7 +14,8 @@ import ftn.isa.repository.EquipmentRepository;
 public class EquipmentService {
 	@Autowired
 	EquipmentRepository equipmentRepository;
-	
+
+	@Cacheable(value = "equipments")
 	public List<Equipment> findAll(){
 		return equipmentRepository.findAll();
 	}

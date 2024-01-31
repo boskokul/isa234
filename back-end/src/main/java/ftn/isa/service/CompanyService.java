@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import antlr.debug.Event;
@@ -14,7 +15,8 @@ import ftn.isa.repository.CompanyRepository;
 public class CompanyService {
 	@Autowired
 	CompanyRepository companyRepository;
-	
+
+	@Cacheable(value = "companies")
 	public List<Company> findAll(){
 		return companyRepository.findAll();
 	}

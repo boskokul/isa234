@@ -25,7 +25,7 @@ public class Consumer {
     public void listen(String message) throws InterruptedException {
         coordinates.clear();
         coordinates.add("45.26412170665416,19.830374334447974");
-        calculateIntermediaryPositions(6);
+        calculateIntermediaryPositions(12);
         coordinates.add("45.23984389699702,19.843656098804175");
         for(String s: coordinates){
             produce(s);
@@ -33,7 +33,7 @@ public class Consumer {
         }
     }
     private void calculateIntermediaryPositions(double count){
-        for (int i = 1; i <= count; i++) {
+        for (int i = 1; i < count; i++) {
             double t = i / count;
             double latitude = (1 - t) * 45.26412170665416 + t * 45.23984389699702;
             double longitude = (1 - t) * 19.830374334447974 + t * 19.843656098804175;

@@ -20,7 +20,7 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Intege
     @Query("select a from Appointment a join fetch a.reservation r where r.registeredUser.id =?1")
     public List<Appointment> findAppointmentByUserId(Integer userId);
 
-    @Lock(LockModeType.PESSIMISTIC_READ)
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("select a from Appointment a join fetch a.admin ca where ca.company.id=?1 and a.dateTime>?2 and a.dateTime<?3")
     public List<Appointment> findAppointmentByCompanyAndDate(Integer companyId, LocalDateTime start, LocalDateTime end);
 }

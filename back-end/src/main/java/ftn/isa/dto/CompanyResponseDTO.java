@@ -1,5 +1,6 @@
 package ftn.isa.dto;
 
+import java.io.Serializable;
 import java.time.LocalTime;
 
 import javax.persistence.Column;
