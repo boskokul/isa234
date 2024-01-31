@@ -11,7 +11,15 @@
   background-color: #800e13ff;
   z-index: 2;
   font-family: "Rhodium Libre";
+  transition:  transform, 0.3s;
 }
+
+.mat-button:hover{
+  transform: translateY(-2px);
+  background-color: white!important;
+  color:#800e13ff!important;
+}
+
 .mat-button-soft {
   margin-right: 5px;
   margin-left: 5px;
@@ -20,6 +28,13 @@
   background-color: #ad2831ff;
   z-index: 2;
   font-family: "Rhodium Libre";
+  transition:  transform, 0.3s;
+}
+
+.mat-button-soft:hover{
+  transform: translateY(-2px);
+  background-color: white!important;
+  color:#800e13ff!important;
 }
 
 .custom-favicon {

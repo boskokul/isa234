@@ -1,0 +1,22 @@
+<div class="large-container">
+    <div class="upper-div">
+      <br />
+      <label class="pickero" for="timePicker">Select Frequency:</label>
+      <br />
+      <select id="timePicker" class="timePicker" (change)="onTimeSelected($event)">
+        <option value="3">3s</option>
+        <option value="10">10s</option>
+        <option value="15">15s</option>
+        <option value="30">30s</option>
+      </select>
+      <br />
+      <button class="register-button" (click)="activateSimulator()">Start Simulation</button>
+    </div>
+    <div class="lower-div">
+      <b>SIMULATION MAP</b>
+      <div class="map-div">
+        <xp-map></xp-map>
+      </div>
+      <br>
+    </div>
+  </div>

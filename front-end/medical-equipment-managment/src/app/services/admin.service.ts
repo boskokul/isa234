@@ -23,6 +23,11 @@ export class AdminService {
       environment.apiHost + 'companies/all/admins/' + id
     );
   }
+  activateSimulator(frequency: string): Observable<any> {
+    return this.http.post<any>(
+      environment.apiHost + 'positionsimulator/send', frequency
+    );
+  }
   getCompanyForAdmin(id: number): Observable<any> {
     return this.http.get<any>(
       environment.apiHost + 'admins/admin/company/' + id

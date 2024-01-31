@@ -98,6 +98,95 @@ export class MapComponent implements AfterViewInit {
     );
   }
 
+  reverseSearchCar(lat: number, lon: number): Observable<LocationResponse> {
+    this.map.eachLayer((layer: any) => {
+      if (layer instanceof L.Marker) {
+        this.map.removeLayer(layer);
+      }
+    });
+  
+    return this.mapService.reverseSearch(lat, lon).pipe(
+      map((result) => result),
+      tap((location) => {
+        const customIcon = L.icon({
+          iconUrl: 'https://cdn-icons-png.flaticon.com/512/4736/4736213.png',
+          iconSize: [32, 32],
+          iconAnchor: [16, 16], 
+        });
+  
+        L.marker([location.lat, location.lon], { icon: customIcon })
+          .addTo(this.map)
+          .bindPopup(location.display_name)
+          .openPopup();
+      }),
+      catchError((error) => {
+        console.error('Error in reverse search:', error);
+        throw error;
+      })
+    );
+  }
+
+  reverseSearchA(lat: number, lon: number): Observable<LocationResponse> {
+    this.map.eachLayer((layer: any) => {
+      if (layer instanceof L.Marker) {
+        this.map.removeLayer(layer);
+      }
+    });
+  
+    return this.mapService.reverseSearch(lat, lon).pipe(
+      map((result) => result),
+      tap((location) => {
+        console.log('Location:', location);
+  
+        const customIcon = L.icon({
+          iconUrl: 'https://cdn-icons-png.freepik.com/512/495/495468.png',
+          iconSize: [32, 32],
+          iconAnchor: [16, 16], 
+        });
+  
+        L.marker([location.lat, location.lon], { icon: customIcon })
+          .addTo(this.map)
+          .bindPopup(location.display_name)
+          .openPopup();
+      }),
+      catchError((error) => {
+        console.error('Error in reverse search:', error);
+        throw error;
+      })
+    );
+  }
+
+  reverseSearchB(lat: number, lon: number): Observable<LocationResponse> {
+    this.map.eachLayer((layer: any) => {
+      if (layer instanceof L.Marker) {
+        this.map.removeLayer(layer);
+      }
+    });
+  
+    return this.mapService.reverseSearch(lat, lon).pipe(
+      map((result) => result),
+      tap((location) => {
+        console.log('Location:', location);
+  
+        const customIcon = L.icon({
+          iconUrl: 'https://cdn.iconscout.com/icon/free/png-256/free-finish-flag-5946228-4986608.png',
+          iconSize: [32, 32],
+          iconAnchor: [16, 16], 
+        });
+  
+        L.marker([location.lat, location.lon], { icon: customIcon })
+          .addTo(this.map)
+          .bindPopup(location.display_name)
+          .openPopup();
+      }),
+      catchError((error) => {
+        console.error('Error in reverse search:', error);
+        throw error;
+      })
+    );
+  }
+
+
   getElevation(lat: number, lon: number): Observable<number> {
     return this.mapService.getElevation(lat, lon).pipe(
       map((response) => response.results[0].elevation),

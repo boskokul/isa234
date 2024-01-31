@@ -70,4 +70,15 @@ public class UserController {
         return new ResponseEntity<>(new UserResponseDTO(user), HttpStatus.OK);
     }
 
+    @GetMapping(value = "/isUserValidForBuying/{id}")
+    public ResponseEntity<Boolean> isUserValidForBuying(@PathVariable Integer id){
+        RegisteredUser user = userService.findOne(id);
+        if(user != null){
+            if(user.getPenalPoints() < 3){
+                return new ResponseEntity<>(true, HttpStatus.OK);
+            }
+            return new ResponseEntity<>(false, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
 }

@@ -2,8 +2,9 @@
     display: flex;
     justify-content: center;
     align-items: flex-start; /* Align form to the upper border */
-    height: 90vh; /* Adjust the height as needed */
     margin-top: 5vh; /* Move the form more to the upper border */
+    min-height:110vh;
+    
   }
   
   .form-content {
@@ -22,4 +23,11 @@
     color: white;
     font-size: 18px;
     
+    transition:  transform, 0.3s;
+  }
+
+  .register-button:hover{
+    transform: translateY(-5px);
+    background-color: white!important;
+    color:#800e13ff!important;
   }

@@ -51,6 +51,19 @@ import { SharedModule } from "./shared/maps/shared.module";
 import { AppointmentService } from './services/appointment.service';
 import { CompanyMapComponent } from './components/company-map/company-map.component';
 import { SysPassChangeComponent } from './components/sys-pass-change/sys-pass-change.component';
+import { ReservedEquipmentComponent } from './components/reserved-equipment/reserved-equipment.component';
+import { CompanyAdminHomePageComponent } from './components/company-admin-home-page/company-admin-home-page.component';
+import { UsersWithReservationsComponent } from './components/users-with-reservations/users-with-reservations.component';
+import { UserHomepageComponent } from './components/user-homepage/user-homepage.component';
+import { UserAppointmentHistoryComponent } from './components/user-appointment-history/user-appointment-history.component';
+import { QRcodeComponent } from './components/qrcode/qrcode.component';
+import { QRCodeModule } from 'angularx-qrcode';
+import { DatePipe } from '@angular/common';
+import { PositionSimulatorComponent } from './components/position-simulator/position-simulator.component';
+import { ContractViewComponent } from './components/contract-view/contract-view.component';
+import { ContractService } from './services/contract.service';
+import { ResEquipmentDetailsComponent } from './components/res-equipment-details/res-equipment-details.component';
+import { NgxGoogleAnalyticsModule } from 'ngx-google-analytics';
 
 @NgModule({
   declarations: [
@@ -77,7 +90,15 @@ import { SysPassChangeComponent } from './components/sys-pass-change/sys-pass-ch
     SysAdminFormComponent,
     CompanyMapComponent,
     SysPassChangeComponent,
-
+    ReservedEquipmentComponent,
+    CompanyAdminHomePageComponent,
+    UsersWithReservationsComponent,
+    UserHomepageComponent,
+    UserAppointmentHistoryComponent,
+    QRcodeComponent,
+    PositionSimulatorComponent,
+    ContractViewComponent,
+    ResEquipmentDetailsComponent,
   ],
   imports: [
     BrowserModule,
@@ -101,7 +122,9 @@ import { SysPassChangeComponent } from './components/sys-pass-change/sys-pass-ch
     MatSortModule,
     FullCalendarModule,
     NgxMaterialTimepickerModule,
-    SharedModule
+    SharedModule,
+    QRCodeModule,
+    NgxGoogleAnalyticsModule.forRoot('G-D4716G8R7H')
   ],
   providers: [
     {
@@ -115,7 +138,9 @@ import { SysPassChangeComponent } from './components/sys-pass-change/sys-pass-ch
     UserServiceService,
     ReservationService,
     AuthGuardService,
-    AppointmentService
+    AppointmentService,
+    ContractService,
+    DatePipe,
   ],
   bootstrap: [AppComponent],
 })

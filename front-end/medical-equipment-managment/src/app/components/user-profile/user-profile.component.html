@@ -1,10 +1,14 @@
-<h2>{{ user.firstName }} {{ user.lastName }} profile</h2>
+<div class="centerer">
+  <img src="https://cdn-icons-png.flaticon.com/256/2679/2679387.png" alt="City Image" class="icon" />
 <div class="info">
+  <h2 class="lmao">Info: {{ user.firstName }} {{ user.lastName }} </h2>
   <div class="form-row">
     <div class="form-field">
       <input [(ngModel)]="user.firstName" required [readonly]="!editable" />
       <label>First name</label>
     </div>
+  </div>
+  <div class="form-row">
     <div class="form-field">
       <input [(ngModel)]="user.lastName" required [readonly]="!editable" />
       <label>Last name</label>
@@ -21,6 +25,9 @@
       <input [(ngModel)]="user.city" required [readonly]="!editable" />
       <label>City</label>
     </div>
+    
+  </div>
+    <div class="form-row">
     <div class="form-field">
       <input [(ngModel)]="user.country" required [readonly]="!editable" />
       <label>Country</label>
@@ -62,20 +69,20 @@
     </div>
   </div>
   <div>
-    <button class="btn" mat-button (click)="toggleEdit()">Edit</button>
-    <button mat-button (click)="updateUser()" [disabled]="!editable">
+    <button class="mat-button-large" mat-button (click)="toggleEdit()">Edit</button>
+    <button class="mat-button-large" mat-button (click)="updateUser()" [disabled]="!editable">
       Update
     </button>
   </div>
 
   <br />
-  <h1>Reserved appointments</h1>
+  <h1>Reserved appointments:</h1>
   <table
     mat-table
     [dataSource]="reservedAppointments"
     *ngIf="reservedAppointments.data.length != 0; else elseBlock"
     class="mat-elevation-z8"
-    matSort
+    matSort #appointmentSort="matSort"
   >
     <ng-container matColumnDef="date">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
@@ -85,7 +92,7 @@
     </ng-container>
     <ng-container matColumnDef="duration">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>
-        Duration(in minutes)
+        Duration(min)
       </th>
       <td mat-cell *matCellDef="let element">{{ element.duration }}</td>
     </ng-container>
@@ -93,12 +100,29 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Admin Name</th>
       <td mat-cell *matCellDef="let element">{{ element.adminName }}</td>
     </ng-container>
+    <ng-container matColumnDef="reservationStatus">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+      <td mat-cell *matCellDef="let element" [ngClass]="element.reservationStatus">{{ element.reservationStatus }}</td>
+    </ng-container>
+    <ng-container matColumnDef="cancelReservation">
+      <th mat-header-cell *matHeaderCellDef>Cancel reservation</th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-stroked-button color="warn" (click)="cancelAppointment(element.id)" [disabled]="element.reservationStatus != 'NotFinalized'">Cancel <mat-icon>close</mat-icon></button>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="reservationQrcode">
+      <th mat-header-cell *matHeaderCellDef>QR code</th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-stroked-button (click)="showQrcode(element.reservationQrcode)">Show QR code <mat-icon>fingerprint</mat-icon></button>
+      </td>
+    </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
   <ng-template #elseBlock>
     <h2 style="margin-left: 50px; margin-top: 20px">
-      You dont have any appointments
+      You dont have any appointments!
     </h2>
   </ng-template>
+</div>
 </div>

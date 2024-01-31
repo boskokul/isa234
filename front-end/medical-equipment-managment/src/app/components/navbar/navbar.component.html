@@ -3,26 +3,91 @@
     <span class="text-inside">Equipment Management</span>
   </span>
   <div class="spacer"></div>
+  <a
+    *ngIf="user && user.role == 'ROLE_REGISTERED_USER'"
+    mat-button
+    [routerLink]="['/userHomepage']"
+    class="mat-button"
+    >Homepage</a
+  >
+  <a
+    *ngIf="user && user.role == 'ROLE_COMPANY_ADMIN'"
+    mat-button
+    [routerLink]="['/company-admin-homePage']"
+    class="mat-button"
+    >Homepage</a
+  >
   <a mat-button [routerLink]="['/companies']" class="mat-button">Companies</a>
-  <a *ngIf="user && user.role == 'ROLE_SYSTEM_ADMIN'" mat-button [routerLink]="['/sys-register']" class="mat-button">Add Admin</a>
-  <a *ngIf="user && user.role == 'ROLE_SYSTEM_ADMIN'" mat-button [routerLink]="['/company/create']" class="mat-button"
+  <a
+    *ngIf="user && user.role == 'ROLE_COMPANY_ADMIN'"
+    mat-button
+    [routerLink]="['/position-simulator']"
+    class="mat-button"
+    >Simulator</a
+  >
+  <a
+    *ngIf="user && user.role == 'ROLE_SYSTEM_ADMIN'"
+    mat-button
+    [routerLink]="['/sys-register']"
+    class="mat-button"
+    >Add Admin</a
+  >
+  <a
+    *ngIf="user && user.role == 'ROLE_SYSTEM_ADMIN'"
+    mat-button
+    [routerLink]="['/company/create']"
+    class="mat-button"
     >Create Company</a
+  >
+  <a
+    *ngIf="user && user.role == 'ROLE_SYSTEM_ADMIN'"
+    mat-button
+    [routerLink]="['/contracts']"
+    class="mat-button"
+    >Contracts</a
   >
   <a mat-button [routerLink]="['/equipment/list']" class="mat-button"
     >Equipment</a
   >
+
+  <a
+    *ngIf="user && user.role == 'ROLE_COMPANY_ADMIN'"
+    mat-button
+    [routerLink]="['/reserved-equipment']"
+    class="mat-button"
+    >Reservations</a
+  >
   <div *ngIf="user" class="dropdown">
     <button mat-button class="mat-button">Profile</button>
     <div class="dropdown-content">
-      <a *ngIf="user.role == 'ROLE_REGISTERED_USER'" mat-button [routerLink]="['/userProfile']" class="mat-button"
+      <a
+        *ngIf="user.role == 'ROLE_REGISTERED_USER'"
+        mat-button
+        [routerLink]="['/userProfile']"
+        class="mat-button"
         >User profile</a
       >
-      <a *ngIf="user.role == 'ROLE_COMPANY_ADMIN'" mat-button [routerLink]="['/companyAdminProfile']" class="mat-button"
-        >Company admin profile</a
+      <a
+        *ngIf="user.role == 'ROLE_COMPANY_ADMIN'"
+        mat-button
+        [routerLink]="['/companyAdminProfile']"
+        class="mat-button"
+        >C Admin Profile</a
       >
     </div>
   </div>
-  <a *ngIf="!user" mat-button [routerLink]="['/register']" class="mat-button">Register</a>
-  <a *ngIf="!user" mat-button [routerLink]="['/login']" class="mat-button-soft">Log in</a>
-  <a *ngIf="user" mat-button [routerLink]="['/login']" class="mat-button-soft" (click)="logout()">Log out</a>
+  <a *ngIf="!user" mat-button [routerLink]="['/register']" class="mat-button"
+    >Register</a
+  >
+  <a *ngIf="!user" mat-button [routerLink]="['/login']" class="mat-button-soft"
+    >Sign in</a
+  >
+  <a
+    *ngIf="user"
+    mat-button
+    [routerLink]="['/login']"
+    class="mat-button-soft"
+    (click)="logout()"
+    >Log out</a
+  >
 </mat-toolbar>

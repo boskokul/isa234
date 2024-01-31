@@ -1,0 +1,55 @@
+<div class="profile">
+  <div>
+    <div>
+      <h1>Welcome company admin</h1>
+      <br />
+      <div class="basic-container">
+        <p>You can explore your profile</p>
+        <button
+          style="margin-left: 15%"
+          mat-raised-button
+          [routerLink]="['/companyAdminProfile']"
+        >
+          Go to profile
+        </button>
+      </div>
+      <br />
+      <div class="basic-container">
+        <p>Here you can change take over status of the reservations</p>
+        <button
+          style="margin-left: 15%"
+          mat-raised-button
+          [routerLink]="['/reserved-equipment']"
+        >
+          Go to reservations
+        </button>
+      </div>
+      <br />
+      <div class="basic-container">
+        <p>
+          Here you can see the list of users who have/had reservations in your
+          company
+        </p>
+        <button
+          style="margin-left: 15%"
+          mat-raised-button
+          [routerLink]="['/users-with-reservations']"
+        >
+          Go to users with reservations
+        </button>
+      </div>
+      <br />
+      <div class="basic-container">
+        <p>Here you can check the work calendar and enter new appointments</p>
+        <button
+          style="margin-left: 15%"
+          mat-raised-button
+          [routerLink]="['/calendar', company.id]"
+        >
+          Go to work calendar
+        </button>
+      </div>
+      <br />
+    </div>
+  </div>
+</div>

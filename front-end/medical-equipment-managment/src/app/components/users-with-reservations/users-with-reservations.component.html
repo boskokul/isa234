@@ -1,0 +1,27 @@
+<div class="profile">
+  <h1>Users with reservations in your company</h1>
+  <div class="basic-container" fxLayout="row wrap" fxLayoutAlign="start">
+    <mat-card *ngFor="let item of users" class="purple-card">
+      <div fxLayout="column" fxLayoutGap="8px">
+        <div>
+          <p>Fist name: {{ item.firstName }}</p>
+        </div>
+        <div>
+          <p>Last name: {{ item.lastName }}</p>
+        </div>
+        <div>
+          <p>Email: {{ item.email }}</p>
+        </div>
+        <div>
+          <p>Phone number: {{ item.phoneNumber }}</p>
+        </div>
+        <div>
+          <p>City: {{ item.city }}</p>
+        </div>
+        <div>
+          <p>Country: {{ item.country }}</p>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</div>

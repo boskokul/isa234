@@ -10,3 +10,15 @@
     border-color: darkred; /* Change border color on hover */
   }
 
+  :host-context(.app-background) {
+    background-image: none;
+    background-color:white;
+    background-size: cover;
+    background-position: center;
+    padding: 0;
+    margin:0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
